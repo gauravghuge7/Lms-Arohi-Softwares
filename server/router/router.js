@@ -1,14 +1,18 @@
 import express from 'express';
+import studentRouter from '../src/routes/student.routes.js';
+
 
 const allRouter = express.Router();
 
 
 
-// allRouter.use("/admin", )
-
-// allRouter.use("/doctor", )
-
-// allRouter.use("/patient", )
 
 
-// export default allRouter;
+
+allRouter.use('/student', studentRouter)
+
+
+
+
+
+export default allRouter;

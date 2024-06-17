@@ -7,4 +7,4 @@ const asyncHandler = (fn) => {
         .catch((error) => error);
     }
 }
-export default asyncHandler;
+export { asyncHandler };

@@ -2,6 +2,7 @@
 import express from 'express';
 import healthController from './src/controller/health.controller.js';
 import morgan from 'morgan';
+import allRouter from './router/router.js';
 
 
 const app = express();  /// create express app
@@ -18,7 +19,7 @@ app.use(morgan('dev'));
  
 
 
-// app.use("/api", );
+app.use("/api", allRouter);
 
 app.get('/health', healthController);
 
