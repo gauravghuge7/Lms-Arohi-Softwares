@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
 
 const TeacherSchema = new mongoose.Schema({
  
@@ -48,5 +49,26 @@ const TeacherSchema = new mongoose.Schema({
    
    
 }, {timestamps: true});
+
+
+TeacherSchema.methods = {
+    generateTeacherLogin: async function () {
+
+       return jwt.sign(
+        {
+            id: this._id,
+            email: this.teacherEmail,
+            role: 'teacher',
+        },
+        process.env.JWT_SECRET,
+        {
+            expiresIn: "24h"
+        }
+       )
+    },
+
+
+}
+
  
-export default mongoose.model('Teacher', TeacherSchema);
+export const Teacher = mongoose.model('Teacher', TeacherSchema);

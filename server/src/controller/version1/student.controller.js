@@ -3,6 +3,7 @@ import ApiError from '../../utils/apiError.js';
 import ApiResponse from '../../utils/apiResponse.js';
 import {asyncHandler} from '../../utils/asyncHandler.js';
 import uploadOnCloudinary from '../../helpers/cloudinary.js';
+import bcrypt from "bcrypt"
 
 
 const cookieOptions = {
