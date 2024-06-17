@@ -1,13 +1,14 @@
 import express from 'express';
 
-const router = express.Router();
+const allRouter = express.Router();
 
 
-router.use("/admin", )
 
-router.use("/doctor", )
+// allRouter.use("/admin", )
 
-router.use("/patient", )
+// allRouter.use("/doctor", )
+
+// allRouter.use("/patient", )
 
 
-export default router;
+// export default allRouter;

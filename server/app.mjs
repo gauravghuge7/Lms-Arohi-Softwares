@@ -1,24 +1,24 @@
 
 import express from 'express';
 import healthController from './src/controller/health.controller.js';
-import router from './router/router.js';
+import morgan from 'morgan';
 
 
 const app = express();  /// create express app
 
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({extended: true}));  /// accept form data
 app.use(morgan('dev'));
 
 
 
 
 
+ 
 
 
-
-app.use("/api", router);
+// app.use("/api", );
 
 app.get('/health', healthController);
 
