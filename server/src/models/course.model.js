@@ -2,51 +2,115 @@ import mongoose from 'mongoose';
 
 const CourseSchema = new mongoose.Schema({
 
-	courseName: {
-		type: String,
-		required: true,
-	},
+	
 
-    courseDescription: {
-		type: String,
-		required: true,
-	},
+	courseDetails: [{
 
-    coursePrice: {
-		type: Number,
-		required: true,
-	},
+		courseName: {
+			type: String,
+			required: true,
+		},
+	
+		courseDescription: {
+			type: String,
+			required: true,
+		},
 
-    courseCode: {
-		type: String,
-		required: true,
-	},
+		courseImage: {
+			type: String,
+			
+		},
 
-	courseSubject: {
-		type: String,
-		required: true,
-	},
+		videoLink: [{
+			public_id :{
+				type: String,
+			},
 
-	courseTeacher: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Teacher',
-		required: true,
-	},
+			private_url: {
+				type: String,
+			}
+		}],
 
-	courseTeacherName: [{
-		type: String,
-		required: true,
+		coursePdf: [{
+
+			public_id :{
+				type: String,
+			},
+			private_url: {
+
+				type: String,
+
+			}
+
+		}],
+
+		courseTests: [{
+
+			public_id :{
+				type: String,
+			},
+			private_url: {
+
+				type: String,
+
+			}
+
+		}],
+	
+		coursePrice: {
+			type: Number,
+			required: true,
+		},
+	
+		courseCode: {
+			type: String,
+			required: true,
+		},
+	
+		courseSubject: {
+			type: String,
+			required: true,
+		},
+	
+		courseTeacher: [{
+			teacher: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Teacher',
+				required: true,
+			},
+
+			teacherName: {
+				type: String,
+				required: true,
+			},
+
+			teacherSubject:{
+				type: String,
+				required: true,
+			},
+			teacherImage: {
+				type: String,
+				default: '',
+				required: true,
+			}
+
+			
+		}],
+	
+
+		courseStartDate: {
+			type: Date,
+			required: true,
+		},
+	
+		courseDuration: {
+			type: String,
+			required: true,
+		},
+		
 	}],
 
-    courseDate: {
-		type: Date,
-		required: true,
-	},
-
-	courseTime: {
-		type: String,
-		required: true,
-	},
+    
 
 
 }, {timestamps: true});

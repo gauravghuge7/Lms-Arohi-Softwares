@@ -17,6 +17,12 @@ const TeacherSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+
+    teacherCourseCode: { // course code
+
+        type: String
+
+    },
  
     teacherEmail: {
         type: String,

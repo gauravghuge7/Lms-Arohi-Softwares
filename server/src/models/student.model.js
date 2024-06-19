@@ -8,6 +8,12 @@ const StudentSchema = new mongoose.Schema({
         required: true,
     },
 
+    studentCourseCode: {
+
+        type: String
+
+    },
+
     
     studentAge: {
         type: Number,

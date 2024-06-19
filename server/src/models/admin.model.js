@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
 
-const AdminSchema = new mongoose.Schema({
+const adminSchema = new mongoose.Schema({
 
     adminName: {
         type: String,
@@ -12,6 +13,7 @@ const AdminSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
+
     adminPhoneNumber: {
         type: String,
         required: true,
@@ -27,8 +29,35 @@ const AdminSchema = new mongoose.Schema({
         default: true,
     },
 
+    courses: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Course',
+    }]
+
     
 }, {timestamps: true});
 
 
-export default mongoose.model('Admin', AdminSchema);
+adminSchema.methods = {
+
+    generateAdminLogin: function () {
+
+        return jwt.sign(   
+            {
+                id: this._id,
+                adminEmail: this.adminEmail,
+                adminName: this.adminName,
+                adminPhoneNumber: this.adminPhoneNumber,
+
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: '1d' }
+        )
+
+    }
+}
+
+
+
+
+export const Admin = mongoose.model('Admin', adminSchema);

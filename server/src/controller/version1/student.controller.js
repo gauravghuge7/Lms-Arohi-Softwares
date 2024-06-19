@@ -1,5 +1,5 @@
 import Student from '../../models/student.model.js';
-import ApiError from '../../utils/apiError.js';
+import ApiError from '../../utils/ApiError.js';
 import ApiResponse from '../../utils/apiResponse.js';
 import {asyncHandler} from '../../utils/asyncHandler.js';
 import uploadOnCloudinary from '../../helpers/cloudinary.js';
