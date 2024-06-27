@@ -25,11 +25,10 @@ const studentRegister = asyncHandler(async (req, res, next) => {
 
     if(!studentFullName || !studentPhoneNumber || !studentAge || !studentGender || !studentEmail) {
 
-        throw new ApiError(400, 'Student data is missing');
 
-        // return res
-        // .status(400)
-        // .json(new ApiError(400, 'Student data is missing', req.body));
+        return res
+        .status(400)
+        .json(new ApiError(400, 'Student data is missing'));
         
     }
 
@@ -38,9 +37,9 @@ const studentRegister = asyncHandler(async (req, res, next) => {
 
         const user = await Student.findOne({studentEmail: studentEmail});
 
-        if(!user) {
+        if(user) {
 
-            return new ApiError(400, 'Student with this email already exists');
+            throw new ApiError(400, 'Student with this email already exists');
     
             // res.status(400)
             // .json(new ApiError(400, 'Student with this email already exists'));

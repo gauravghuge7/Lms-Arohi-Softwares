@@ -4,7 +4,6 @@ import bcrypt from 'bcrypt';
 import ApiError from '../../utils/ApiError.js';
 import ApiResponse from '../../utils/apiResponse.js';
 
-
 const cookieOptions = {
     maxAge: 1000 * 60 * 60 * 24 * 30,
     httpOnly: true,
@@ -88,6 +87,8 @@ const loginAdmin = asyncHandler(async (req, res) => {
 
         const adminToken = user.generateAdminLogin();
 
+        console.log("admin token => ", adminToken);
+
         return res
         .status(200)
         .cookie("adminToken", adminToken, cookieOptions)
@@ -162,6 +163,38 @@ const updateAdmin = asyncHandler(async (req, res) => {
 });
 
 
+const logoutAdmin = asyncHandler(async (req, res) => {
+
+    const {adminToken} = req.user;
+    
+    console.log(adminToken);
+
+    try {
+
+        if(!adminToken) {
+            return res
+            .status(400)
+            .json(new ApiError(400, 'Admin token not found'));
+        }
+
+
+        return res
+        .status(200)
+        .cookie("adminToken", null, cookieOptions)
+        .json(new ApiResponse(200, 'Admin logout successfully'));
+
+
+    } 
+    catch (error) {
+        
+        return res
+        .status(400)
+        .json(new ApiError(400, error.message));
+    }
+
+})
+
+
 
 
 
@@ -169,4 +202,5 @@ export {
     registerAdmin,
     loginAdmin,
     updateAdmin,
+    logoutAdmin
 }

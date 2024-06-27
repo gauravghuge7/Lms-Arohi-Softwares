@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
+import JWT from 'jsonwebtoken';
 
 const adminSchema = new mongoose.Schema({
 
@@ -32,7 +32,9 @@ const adminSchema = new mongoose.Schema({
     courses: [{
         type: mongoose.Schema.ObjectId,
         ref: 'Course',
-    }]
+    }],
+
+
 
     
 }, {timestamps: true});
@@ -42,7 +44,7 @@ adminSchema.methods = {
 
     generateAdminLogin: function () {
 
-        return jwt.sign(   
+        return JWT.sign(   
             {
                 id: this._id,
                 adminEmail: this.adminEmail,
@@ -50,8 +52,10 @@ adminSchema.methods = {
                 adminPhoneNumber: this.adminPhoneNumber,
 
             },
+
             process.env.JWT_SECRET,
-            { expiresIn: '1d' }
+            
+            { expiresIn: '24h' }
         )
 
     }

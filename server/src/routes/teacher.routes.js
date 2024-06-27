@@ -15,6 +15,7 @@ teacherRouter.route('/login').post(
     teacherLogin
 );
 
+
 teacherRouter.route('/update').put(
 
     upload.none(),
@@ -26,5 +27,9 @@ teacherRouter.route('/delete').delete(
     upload.none(),
     teacherDelete
 );
+
+
+
+
 
 export default teacherRouter;

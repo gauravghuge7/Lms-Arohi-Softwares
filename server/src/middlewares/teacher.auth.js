@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { asyncHandler } from '../utils/asyncHandler';
-import ApiError from '../utils/apiError';
+import ApiError from '../utils/ApiError.js';
 
 const isTeacherLogin = asyncHandler (async (req, res, next) => {
 

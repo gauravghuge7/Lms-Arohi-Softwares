@@ -26,18 +26,18 @@ const TeacherSchema = new mongoose.Schema({
  
     teacherEmail: {
         type: String,
-        required: true,
-        unique: true,
+      
+        
     },
 
     teacherPassword: {
         type: String,
-        required: true,
+       
     },
       	 
     teacherPhoneNumber: {
         type: String,
-        required: true,
+        
      
     },
 
@@ -47,30 +47,31 @@ const TeacherSchema = new mongoose.Schema({
     }],
 
      
-    course: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Course',
+    // course: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Course',
 
-    }],
+    // }],
    
    
 }, {timestamps: true});
 
 
 TeacherSchema.methods = {
+    
     generateTeacherLogin: async function () {
 
-       return jwt.sign(
-        {
-            id: this._id,
-            email: this.teacherEmail,
-            role: 'teacher',
-        },
-        process.env.JWT_SECRET,
-        {
-            expiresIn: "24h"
-        }
-       )
+        return jwt.sign(
+            {
+                id: this._id,
+                email: this.teacherEmail,
+                role: 'teacher',
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "24h"
+            }
+        )
     },
 
 
