@@ -1,6 +1,6 @@
 import {Teacher} from "../../models/teacher.model.js";
 import ApiError from "../../utils/ApiError.js";
-import ApiResponse from "../../utils/ApiResponse.js";
+import ApiResponse from "../../utils/apiResponse.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import bcrypt from "bcrypt";
 
@@ -15,22 +15,28 @@ const teacherRegister = asyncHandler(async (req, res) => {
 
     const {teacherFullName, teacherAge, teacherGender, teacherEmail, teacherPassword, teacherPhoneNumber, teacherSubjects} = req.body;
 
-    if(!teacherFullName || !teacherAge || !teacherGender || !teacherEmail || !teacherPassword || !teacherPhoneNumber || !teacherSubjects) {
-
-        return res
-        .status(400)
-        .json(new ApiError(400, 'Missing required fields'));
-    }
-
+    console.log(req.body);
     try {
-        const user = await Teacher.findOne({teacherEmail: teacherEmail});
-    
-        if(user) {
+
+        if(!teacherFullName || !teacherAge || !teacherGender || !teacherEmail || !teacherPassword || !teacherPhoneNumber || !teacherSubjects) {
+
             return res
             .status(400)
-            .json(new ApiError(400, 'Email already exists'));
+            .json(new ApiError(400, 'Missing required fields'));
         }
+
+        console.log("After checking");
     
+        // const user = await Teacher.findOne({teacherEmail});
+    
+        // if(user) {
+        //     return res
+        //     .status(400)
+        //     .json(new ApiError(400, 'Email already exists'));
+        // }
+    
+        console.log("After User check");
+
         const hashedPassword = await bcrypt.hash(teacherPassword, 10);
     
         const newUser = new Teacher({
@@ -53,6 +59,8 @@ const teacherRegister = asyncHandler(async (req, res) => {
     } 
     
     catch (error) {
+
+        console.log(error);
         
         return res 
         .status(500)
@@ -73,7 +81,7 @@ const teacherLogin = asyncHandler(async (req, res) => {
     }
 
     try {
-        const user = await Teacher.findOne({teacherEmail: teacherEmail});
+        const user = await Teacher.findOne({teacherEmail});
 
         if(!user) {
             return res
@@ -93,7 +101,8 @@ const teacherLogin = asyncHandler(async (req, res) => {
 
         return res
         .status(200)
-        .json(new ApiResponse(200, 'Teacher logged in successfully', token));
+        .cookie('teacherToken', teacherToken, cookieOptions)
+        .json(new ApiResponse(200, 'Teacher logged in successfully', user));
 
        
     }   

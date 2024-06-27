@@ -1,8 +1,9 @@
 import Course from '../../models/course.model.js';
-import ApiError from '../../utils/ApiError.js';
 import { asyncHandler } from '../../utils/asyncHandler.js';
 import ApiResponse from '../../utils/apiResponse.js';
 import { Admin } from '../../models/admin.model.js';
+import ApiError from '../../utils/ApiError.js';
+
 
 
 
@@ -11,6 +12,8 @@ import { Admin } from '../../models/admin.model.js';
 const createCourse = asyncHandler(async (req, res) => {
 
     const {adminEmail} = req.user;
+
+    console.log(req.body);
 
     const { courseName, courseDescription, coursePrice, courseCode, courseSubject, courseTeacher, courseStartDate, courseDuration } = req.body;
 
@@ -24,28 +27,39 @@ const createCourse = asyncHandler(async (req, res) => {
     
         const corName = await Course.findOne({ courseName });
 
-        if(corName) {
+        console.log("corName");
 
-            return res.status(400).json(new ApiError(405, 'Course name already exists'));
+        // if(corName) {
+
+        //     return res.status(400).json(new ApiError(405, 'Course name already exists'));
             
-        }
+        // }
+
+        console.log("After corName");
 
        
 
-
-        const course = new Course({
+        const course = await Course.create({
+            
             courseName,
             courseDescription,
             coursePrice,
             courseCode,
-            courseSubject,
-            courseTeacher,
             courseStartDate,
+            adminEmail,
             courseDuration,
-            adminEmail
+            courseTeacher : [
+                {
+                    teacherName: courseTeacher,
+
+                }
+            ]
+            
         });
 
-        await course.save();
+
+        console.log("After course", course);
+        
 
         return res
         .status(201)
@@ -68,22 +82,21 @@ const createCourse = asyncHandler(async (req, res) => {
 
 const updateCourse = asyncHandler(async (req, res) => {
 
+    
+
     const {courseName, courseDescription, coursePrice, courseSubject, courseTeacher, courseStartDate, courseDuration } = req.body;
 
-    if(!courseDescription || !coursePrice || !courseSubject || !courseTeacher || !courseStartDate || !courseDuration) {
-
-        return res.status(400).json(new ApiError(405, 'Missing required fields'));
-    }
 
     try {
 
-        const course = await Course.findById({courseDetails: courseName});
+        const course = await Course.findById({courseName});
 
-        if(!course) {
+        // if(!course) {
 
-            return res.status(404).json(new ApiError(404, 'Course not found'));
+        //     return res.status(404).json(new ApiError(404, 'Course not found'));
             
-        }
+        // }
+
 
         if(courseDescription) {
             course.courseDescription = courseDescription;

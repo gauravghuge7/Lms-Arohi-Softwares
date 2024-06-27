@@ -4,16 +4,24 @@ const CourseSchema = new mongoose.Schema({
 
 	
 
-	courseDetails: [{
+	// courseDetails: [{
 
+	// }],
+
+	    adminEmail : {
+
+			type: String
+		},
+
+    
 		courseName: {
 			type: String,
-			required: true,
+
 		},
 	
 		courseDescription: {
 			type: String,
-			required: true,
+
 		},
 
 		courseImage: {
@@ -59,39 +67,39 @@ const CourseSchema = new mongoose.Schema({
 	
 		coursePrice: {
 			type: Number,
-			required: true,
+
 		},
 	
 		courseCode: {
 			type: String,
-			required: true,
+
 		},
 	
 		courseSubject: {
 			type: String,
-			required: true,
+
 		},
 	
 		courseTeacher: [{
 			teacher: {
 				type: mongoose.Schema.Types.ObjectId,
 				ref: 'Teacher',
-				required: true,
+	
 			},
 
 			teacherName: {
 				type: String,
-				required: true,
+	
 			},
 
 			teacherSubject:{
 				type: String,
-				required: true,
+		
 			},
 			teacherImage: {
 				type: String,
 				default: '',
-				required: true,
+	
 			}
 
 			
@@ -100,17 +108,14 @@ const CourseSchema = new mongoose.Schema({
 
 		courseStartDate: {
 			type: Date,
-			required: true,
+	
 		},
 	
 		courseDuration: {
 			type: String,
-			required: true,
+	
 		},
 		
-	}],
-
-    
 
 
 }, {timestamps: true});

@@ -14,7 +14,7 @@ const StudentSchema = new mongoose.Schema({
 
     },
 
-    
+        
     studentAge: {
         type: Number,
         required: true,
