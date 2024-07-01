@@ -170,9 +170,9 @@ const activeLinkClasses = 'flex items-center p-4 text-green-500 bg-gray-100 roun
 const menu = [
   { name: "Dashboard", path: "/admin", icon: <FaTachometerAlt /> },
   { name: "Courses", path: "/admin/products", icon: <FaBoxOpen /> },
-  { name: "Tutor Booking", path: "/admin/product/create", icon: <FaTags /> },
-  { name: "Enrollement", path: "/admin/customers", icon: <FaUser /> },
-  { name: "Address", path: "/admin/orders", icon: <FaShoppingCart /> },
+  { name: "Tutor Booking", path: "/admin/product/createProduct", icon: <FaTags /> },
+  { name: "Enrollment", path: "/admin/orders", icon: <FaUser /> },
+  { name: "Address", path: "/admin/customers", icon: <FaShoppingCart /> },
   { name: "Manage Profile", path: "/admin/settings", icon: <FaCog /> },
 ];
 
@@ -192,8 +192,8 @@ function AdminPanel() {
           {isSidebarOpen && (
             <div className={sidebarClasses}>
               <div className="p-4 flex justify-between items-center w-[280px]">
-                <h1 className="text-2xl font-bold text-green-500">Admin</h1>
-                <button className="text-gray-600 hover:text-green-500 lg:hidden" onClick={toggleSidebar}>
+                <h1 className="text-2xl font-bold text-red-500">Admin</h1>
+                <button className="text-gray-400 hover:text-green-500 lg:hidden" onClick={toggleSidebar}>
                   <FaTimes />
                 </button>
               </div>
@@ -210,10 +210,10 @@ function AdminPanel() {
           <div className='flex-grow '>
             <Routes>
               <Route path="/" element={<AdminDashboard />} />
-              <Route path="/product/create" element={<CreateProductForm />} />
+              <Route path="/product/createProduct" element={<CreateProductForm />} />  
               <Route path="/products" element={<ProductsTable />} />
-              <Route path="/orders" element={<OrdersTable />} />
-              <Route path="/customers" element={<Customers />} />
+              <Route path="/customers" element={<OrdersTable />} />
+              <Route path="/orders" element={<Customers />} />
             </Routes>
           </div>
         </div>

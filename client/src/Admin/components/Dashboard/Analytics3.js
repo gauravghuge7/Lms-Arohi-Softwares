@@ -7,7 +7,7 @@ const textClasses = 'text-muted-foreground';
 const valueClasses = 'text-2xl font-bold text-card-foreground';
 
 const Analytics3 = () => {
-  const [orders, setOrders] = useState([]);
+  
   const [comments, setComments] = useState([]);
   const [earningsData, setEarningsData] = useState({
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
@@ -32,14 +32,7 @@ const Analytics3 = () => {
   useEffect(() => {
     // Fetch data from the backend in future
     // For now, we use dummy data
-    setOrders([
-      { product: 'Prodotti per il tuo cane...', price: '20 Nov 2023', deliveryDate: '20 Nov 2023', imageSrc: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSMgDfLC7IUaSpSahcTId7yQxQ0eL7sC17bvgUiG8vlYfmQ22VU' },
-      { product: 'Wholesome Pride...', price: '20 Nov 2023', deliveryDate: '20 Nov 2023', imageSrc: 'https://cdn.dmart.in/images/products/JUN140000803xx26JUN23_5_P.jpg' },
-      { product: 'Beneful Baked Delights...', price: '20 Nov 2023', deliveryDate: '20 Nov 2023', imageSrc: 'https://cdn.dmart.in/images/products/AUG120004098xx25AUG21_5_B.jpg' },
-      { product: 'Taste of the Wild...', price: '20 Nov 2023', deliveryDate: '20 Nov 2023', imageSrc: 'https://cdn.dmart.in/images/products/APR150003266xx13APR23_5_P.jpg' },
-      { product: "Canagan - Britain's...", price: '20 Nov 2023', deliveryDate: '20 Nov 2023', imageSrc: 'https://www.itcstore.in/_next/image?url=https%3A%2F%2Fadmin.itcstore.in%2Fmedia%2Fcatalog%2Fproduct%2F1%2F_%2F1_28.png%3Foptimize%3Dmedium%26fit%3Dbounds%26height%3D%26width%3D%26height%3D200%26width%3D200&w=1920&q=75' },
-    ]);
-    
+   
     setComments([
       { name: 'Kathryn Murphy', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec dolor vel est interdum', rating: 4, avatarSrc: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
       { name: 'Leslie Alexander', text: 'Cras nec viverra justo, a mattis lacus. Vestibulum eleifend, leo sit amet aliquam laoreet, turpis leo vulputate orci', rating: 4, avatarSrc: 'https://images.unsplash.com/photo-1463453091185-61582044d556?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
@@ -50,23 +43,7 @@ const Analytics3 = () => {
 
   return (
     <div className="flex flex-wrap space-y-4 md:space-y-0 md:space-x-4 p-4 bg-transparent">
-      <div className={cardClasses}>
-        <h2 className="text-lg font-semibold">Orders</h2>
-        <ul>
-          {orders.map((order, index) => (
-            <li key={index} className="flex items-center justify-between mb-2">
-              <div className="flex items-center">
-                <img src={order.imageSrc} alt="Product" className="w-10 h-10 rounded-full mr-3" />
-                <div>
-                  <p className={textClasses}>{order.product}</p>
-                  <p className="text-muted-foreground text-sm">Delivery Date: {order.deliveryDate}</p>
-                </div>
-              </div>
-              <p className={textClasses}>{order.price}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
+      
 
       <div className={cardClasses}>
         <h2 className="text-lg font-semibold">Earnings</h2>

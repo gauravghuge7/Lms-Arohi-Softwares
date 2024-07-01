@@ -9,7 +9,7 @@ import AdminDashboard from '../Admin/components/Dashboard/Dashboard';
 import Customer from '../Admin/components/Customer/Customer';
 import Orders from '../Admin/components/Orders/OrdersTable';
 import Products from '../Admin/components/Products/ProductsTable';
-
+import createProduct from "../Admin/components/createProduct/CreateProductForm";
 
 function NewRoute() {
   return (
@@ -24,7 +24,7 @@ function NewRoute() {
         <Route path="/admin/customers" element={<Customer />} />
         <Route path="/admin/orders" element={<Orders />} />
         <Route path="/admin/products" element={<Products />} />
-       
+        <Route path="/admin/createProduct" element={<createProduct />} />
       </Routes>
     </div>
   );

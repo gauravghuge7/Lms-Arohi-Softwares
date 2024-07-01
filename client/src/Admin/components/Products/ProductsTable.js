@@ -1,3 +1,5 @@
+//Here is course section
+
 import React from 'react';
 
 const inputClasses = "border border-input rounded p-1";
@@ -13,23 +15,53 @@ const ProductTable = () => {
   const products = [
     {
       id: 1,
-      name: 'DogFood, Chicken & Cheese Liver Recipe',
-      productId: '#778392',
-      price: '$1,629.50',
-      quantity: 20,
-      sale: 20,
-      stock: 'Out of Stock',
-      startDate: '01/01/2023'
+      name: "Arificial Intelligence and Machine Learning",
+      productId: "#778392",
+      price: "$200",
+      quantity: 900,
+      
+      stock: "Out of Stock",
+      startDate: "24/02/2024",
     },
     {
       id: 2,
-      name: 'CatFood, Salmon & Tuna Recipe',
-      productId: '#778393',
-      price: '$1,329.00',
-      quantity: 15,
-      sale: 10,
-      stock: 'In Stock',
-      startDate: '02/15/2023'
+      name: "Full Stack Development",
+      productId: "#778393",
+      price: "$250",
+      quantity: 1050,
+      
+      stock: "In Stock",
+      startDate: "02/02/2024",
+    },
+    {
+      id: 3,
+      name: "Data Science",
+      productId: "#778393",
+      price: "$250",
+      quantity: 1050,
+      
+      stock: "In Stock",
+      startDate: "02/02/2024",
+    },
+    {
+      id: 4,
+      name: "Android Development",
+      productId: "#778393",
+      price: "$250",
+      quantity: 1050,
+      
+      stock: "In Stock",
+      startDate: "02/02/2024",
+    },
+    {
+      id: 5,
+      name: "Full Stack Development",
+      productId: "#778393",
+      price: "$250",
+      quantity: 1050,
+      
+      stock: "In Stock",
+      startDate: "02/02/2024",
     },
     // Add more dummy data as needed
   ];
@@ -40,12 +72,12 @@ const ProductTable = () => {
       <div className="flex justify-between items-center mb-12">
         <div className="flex items-center space-x-2">
           <span className={textClasses}>Showing</span>
-          <input type="text" className={inputClasses} placeholder="10" />
+          <input type="text" className={inputClasses} placeholder="19" />
           <span className={textClasses}>entries</span>
         </div>
         <div className="flex items-center space-x-2">
-          <input type="text" className={inputClasses} placeholder="Search here..." />
-          <button className={buttonClasses + " " + primaryClasses}>Search</button>
+          <input type="text" className={inputClasses} placeholder="Browse here..." />
+          <button className={buttonClasses + " " + primaryClasses}>Browse</button>
         </div>
       </div>
       <div className="overflow-x-auto">
@@ -56,7 +88,7 @@ const ProductTable = () => {
               <th className="p-2 border-b border-border">Product ID</th>
               <th className="p-2 border-b border-border">Price</th>
               <th className="p-2 border-b border-border">Quantity</th>
-              <th className="p-2 border-b border-border">Sale</th>
+        
               <th className="p-2 border-b border-border">Stock</th>
               <th className="p-2 border-b border-border">Start Date</th>
               <th className="p-2 border-b border-border">Action</th>
@@ -69,7 +101,7 @@ const ProductTable = () => {
                 <td className="p-2 border-b border-border">{product.productId}</td>
                 <td className="p-2 border-b border-border">{product.price}</td>
                 <td className="p-2 border-b border-border">{product.quantity}</td>
-                <td className="p-2 border-b border-border">{product.sale}</td>
+                
                 <td className={"p-2 border-b border-border " + (product.stock === 'Out of Stock' ? destructiveClasses : '')}>{product.stock}</td>
                 <td className="p-2 border-b border-border">{product.startDate}</td>
                 <td className="p-2 border-b border-border">

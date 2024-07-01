@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 
 const ChartGallery = () => {
   const charts = [
@@ -26,4 +26,4 @@ const ChartGallery = () => {
   );
 };
 
-export default ChartGallery;
+export default ChartGallery;*/

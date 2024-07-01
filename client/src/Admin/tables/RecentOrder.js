@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 
 const recentOrders = [
   { id: '#00745', status: 'Pending', country: 'GB', customer: 'Giordano Bruno', date: '2020-11-02', total: '$2,742.00' },
@@ -43,4 +43,4 @@ const RecentOrders = () => {
   );
 };
 
-export default RecentOrders;
+export default RecentOrders;*/
