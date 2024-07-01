@@ -20,7 +20,7 @@ function Achivement() {
       <Card className="bg-white" sx={{ position: "relative", color: "black" }}>
         <CardContent>
           <Typography variant="h5" sx={{ letterSpacing: ".25px", fontWeight: "bold", fontFamily: "sans-serif", mb:3 }}>
-            Shop with Apana Bazar
+            Learn from the best
           </Typography>
           <TrophyImg src="https://png.pngtree.com/png-vector/20190130/ourmid/pngtree-c4d-hd-enterprise-golden-trophy-enterprise-honor-gold-cup-cupenterprise-honorqualificationgolden-png-image_621239.jpg"></TrophyImg>
 
