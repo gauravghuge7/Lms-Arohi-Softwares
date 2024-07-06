@@ -73,7 +73,7 @@ const loginAdmin = asyncHandler(async (req, res) => {
 
     try {
     
-        const user = await Admin.findOne({adminEmail});
+        const user = await Admin.findOne({adminEmail}).select('+adminPassword');
 
         if(!user) {
             return new ApiError(400, 'Admin with this email already exists');
@@ -106,14 +106,15 @@ const loginAdmin = asyncHandler(async (req, res) => {
 
 });
 
+
 const updateAdmin = asyncHandler(async (req, res) => {
 
     const {adminEmail} = req.user;
 
-    const { adminName, adminPhoneNumber, adminCources} = req.body;
+    const { adminName, adminPhoneNumber} = req.body;
 
     try {    
-        const user = await Admin.findOne({adminEmail: adminEmail});
+        const user = await Admin.findOne({ adminEmail});
     
         if(adminName) {
     
@@ -127,11 +128,7 @@ const updateAdmin = asyncHandler(async (req, res) => {
             
         }
     
-        if(adminCources) {
-    
-            user.adminCources = adminCources;
-            
-        }
+ 
 
         if(req.file) {
 
@@ -165,9 +162,9 @@ const updateAdmin = asyncHandler(async (req, res) => {
 
 const logoutAdmin = asyncHandler(async (req, res) => {
 
-    const {adminToken} = req.user;
+    const adminToken = req.cookies?.adminToken;
     
-    console.log(adminToken);
+    console.log("admin token => ", adminToken);
 
     try {
 
@@ -187,6 +184,7 @@ const logoutAdmin = asyncHandler(async (req, res) => {
     } 
     catch (error) {
         
+        console.log(error);
         return res
         .status(400)
         .json(new ApiError(400, error.message));

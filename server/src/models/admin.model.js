@@ -22,6 +22,7 @@ const adminSchema = new mongoose.Schema({
     adminPassword: {
        type: String,
        required: true,
+       select: false,
     },
 
     isActive: {
@@ -55,7 +56,7 @@ adminSchema.methods = {
 
             process.env.JWT_SECRET,
             
-            { expiresIn: '24h' }
+            { expiresIn: '2h' }
         )
 
     }

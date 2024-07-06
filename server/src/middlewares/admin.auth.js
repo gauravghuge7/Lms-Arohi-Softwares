@@ -12,7 +12,7 @@ const isAdminLogin = (req, res, next) => {
         // const adminToken = req.cookies?.adminToken || req.header("Authorization")?.replace("Bearer ", "")
 
 
-        const adminToken = req.cookies ? req.cookies.adminToken : undefined;
+        const adminToken = req.cookies ? req.cookies.adminToken : req.header("Authorization")?.replace("Bearer ");
 
 
 

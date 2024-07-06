@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { ApiError } from '../utils/apiError.js';
+import ApiError from '../utils/ApiError.js';
 
 const isStudentLoggedIn = (req, res, next) => {
 

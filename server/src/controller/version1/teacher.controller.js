@@ -178,7 +178,7 @@ const teacherDelete = asyncHandler(async (req, res) => {
 
     try {
    
-        const user = await Teacher.findOne({teacherEmail: teacherEmail});
+        const teacher = await Teacher.findOneAndDelete({teacherEmail});
 
         if(!user) {
             return res
@@ -186,7 +186,6 @@ const teacherDelete = asyncHandler(async (req, res) => {
             .json(new ApiError(400, 'Invalid email or password'));
         }
 
-        await user.delete();
 
         return res
         .status(200)

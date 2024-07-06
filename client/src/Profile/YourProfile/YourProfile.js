@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import './YourProfile.css';
-import Navbar from '../../../components/Navbar/Navbar';
+import Navbar from '../../components/Navbar/Navbar';
 
 const YourProfile = () => {
     const [profile, setProfile] = useState({

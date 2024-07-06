@@ -4,6 +4,7 @@ import ApiResponse from '../../utils/apiResponse.js';
 import {asyncHandler} from '../../utils/asyncHandler.js';
 import uploadOnCloudinary from '../../helpers/cloudinary.js';
 import bcrypt from "bcrypt"
+import { Lecture } from '../../models/lecture.model.js';
 
 
 const cookieOptions = {
@@ -77,8 +78,6 @@ const studentRegister = asyncHandler(async (req, res, next) => {
 });
 
 
-
-
 const studentLogin = asyncHandler(async (req, res, next) => {
 
     const {studentEmail, studentPassword} = req.body;
@@ -126,13 +125,11 @@ const studentLogin = asyncHandler(async (req, res, next) => {
 });
 
 
-
-
 const studentUpdate = asyncHandler(async (req, res, next) => {
 
     const {studentEmail} = req.user;
 
-    const { studentFullName, studentAge, studentGender, studentCources} = req.body;
+    const { studentFullName, studentAge, studentGender} = req.body;
 
     try {
         const user = await Student.findOne({studentEmail: studentEmail});
@@ -155,11 +152,7 @@ const studentUpdate = asyncHandler(async (req, res, next) => {
             
         }
     
-        if(studentCources) {
-    
-            user.studentCources = studentCources;
-            
-        }
+       
 
         if(req.file) {
 
@@ -191,14 +184,14 @@ const studentUpdate = asyncHandler(async (req, res, next) => {
 });
 
 
-
 const studentDelete = asyncHandler(async (req, res, next) => {
 
     const {studentEmail} = req.user;
 
     try {
     
-        const student = await Student.findOneAndDelete({studentEmail: studentEmail});
+       
+        const student = await Student.findOneAndDelete({studentEmail});
 
         if (!student) {
             res.status(404).json({message: 'Student not found'});
@@ -222,6 +215,57 @@ const studentDelete = asyncHandler(async (req, res, next) => {
 
 
 
+const getMyCourses = asyncHandler(async (req, res, next) => {    
+    
+    const {studentEmail} = req.user;
+    
+    try {
+        const user = await Student.findOne({studentEmail});
+        
+        if(!user) {
+            return res
+            .status(400)
+            .json(new ApiError(400, 'Invalid email or password'));
+        }
+        
+        const courses = await Course.find({studentEmail});
+        
+        return res
+        .status(200)
+        .json(new ApiResponse(200, 'Student courses fetched successfully' , courses));
+        
+       
+    }   
+    catch (error) {
+        
+        return res
+        .status(400)
+        .json(new ApiError(400, error.message));
+    }
+});
+
+
+const getLecturesByCourse = asyncHandler(async (req, res, next) => {    
+    
+    const {courseCode} = req.body;
+    
+    try {
+        const lectures = await Lecture.find({courseCode});
+        
+        return res
+        .status(200)
+        .json(new ApiResponse(200, 'Lectures fetched successfully' , lectures));
+        
+       
+    }   
+    catch (error) {
+        
+        return res
+        .status(400)
+        .json(new ApiError(400, error.message));
+    }
+}); 
+
 
 
 
@@ -229,5 +273,12 @@ export {
     studentRegister,
     studentLogin,
     studentUpdate,
-    studentDelete
+    studentDelete,
+
+
+
+
+    /// course lectures
+    getLecturesByCourse,
+    getMyCourses
 }
