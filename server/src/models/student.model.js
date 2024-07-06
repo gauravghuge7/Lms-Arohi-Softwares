@@ -23,18 +23,18 @@ const StudentSchema = new mongoose.Schema({
     studentAvatar: {
         public_id: {
             type: String,
-            required: true,
+            
         },
         public_url: {
             type: String,
-            required: true,
+            
         }
 
     },
 
     studentAddress: {
         type: String,
-        required: true,
+        
     },
 
     studentPhoneNumber: {
@@ -44,7 +44,7 @@ const StudentSchema = new mongoose.Schema({
 
     studentGender: {
         type: String,
-        required: true,
+       
     },
 
     studentPassword: {
@@ -63,7 +63,7 @@ const StudentSchema = new mongoose.Schema({
         default: true,
     },
 
-    studentCources: [{
+    studentCourses: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Course',
     }],
@@ -83,7 +83,7 @@ StudentSchema.methods = {
         return jwt.sign(
             {
                 studentEmail: this.studentEmail,
-                studentPassword: this.studentPassword,
+                id: this._id,
             },
             process.env.JWT_SECRET,
             {

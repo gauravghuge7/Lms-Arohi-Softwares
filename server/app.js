@@ -1,4 +1,3 @@
-
 import express from 'express';
 import healthController from './src/controller/health.controller.js';
 import morgan from 'morgan';

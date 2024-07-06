@@ -38,6 +38,7 @@ const CourseSchema = new mongoose.Schema({
 				type: String,
 			}
 		}],
+		
 
 		coursePdf: [{
 
@@ -81,26 +82,29 @@ const CourseSchema = new mongoose.Schema({
 		},
 	
 		courseTeacher: [{
-			teacher: {
-				type: mongoose.Schema.Types.ObjectId,
-				ref: 'Teacher',
-	
-			},
 
-			teacherName: {
-				type: String,
-	
-			},
+			type: String,
 
-			teacherSubject:{
-				type: String,
+			// teacher: {
+			// 	type: mongoose.Schema.Types.ObjectId,
+			// 	ref: 'Teacher',
+	
+			// },
+
+			// teacherName: {
+			// 	type: String,
+	
+			// },
+
+			// teacherSubject:{
+			// 	type: String,
 		
-			},
-			teacherImage: {
-				type: String,
-				default: '',
+			// },
+			// teacherImage: {
+			// 	type: String,
+			// 	default: '',
 	
-			}
+			// }
 
 			
 		}],

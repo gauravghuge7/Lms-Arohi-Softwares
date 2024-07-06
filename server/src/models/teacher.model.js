@@ -27,7 +27,6 @@ const TeacherSchema = new mongoose.Schema({
     teacherEmail: {
         type: String,
       
-        
     },
 
     teacherPassword: {
@@ -64,7 +63,7 @@ TeacherSchema.methods = {
         return jwt.sign(
             {
                 id: this._id,
-                email: this.teacherEmail,
+                teacherEmail: this.teacherEmail,
                 role: 'teacher',
             },
             process.env.JWT_SECRET,

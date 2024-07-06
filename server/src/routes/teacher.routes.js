@@ -4,7 +4,7 @@ import { teacherDelete, teacherLogin, teacherRegister, teacherUpdate } from '../
 
 const teacherRouter = express.Router();
 
-teacherRouter.route('/register').post(
+teacherRouter.route('/registerTeacher').post(
     upload.none(),
     teacherRegister
 );
@@ -16,15 +16,15 @@ teacherRouter.route('/login').post(
 );
 
 
-teacherRouter.route('/update').put(
+teacherRouter.route('/update').patch(
 
     upload.none(),
     teacherUpdate
 );
 
-teacherRouter.route('/delete').delete(
+teacherRouter.route('/delete').post(
     
-    upload.none(),
+    
     teacherDelete
 );
 
