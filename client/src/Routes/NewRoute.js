@@ -10,7 +10,6 @@ import Customer from '../Admin/components/Customer/Customer';
 import Orders from '../Admin/components/Orders/OrdersTable';
 import Products from '../Admin/components/Products/ProductsTable';
 import createProduct from "../Admin/components/createProduct/CreateProductForm";
-// import YourProfile from '../Profile/Components/YourProfile/YourProfile';
 import Usercources from "../components/userComponent/MyCources/MyCources";
 import Teachercources from "../components/userComponent/MyCources/MyCources";
 
@@ -28,7 +27,6 @@ function NewRoute() {
         <Route path="/admin/orders" element={<Orders />} />
         <Route path="/admin/products" element={<Products />} />
         <Route path="/admin/createProduct" element={<createProduct />} />
-        {/* <Route path="/profile" element={<YourProfile />} /> */}
         <Route path="/user/courses" element={<Usercources />} />
         <Route path="/teacher/courses" element={<Teachercources />} />
       </Routes>
