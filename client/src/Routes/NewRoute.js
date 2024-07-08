@@ -13,6 +13,7 @@ import createProduct from "../Admin/components/createProduct/CreateProductForm";
 // import YourProfile from '../Profile/Components/YourProfile/YourProfile';
 import Usercources from "../components/userComponent/MyCources/MyCources";
 import Teachercources from "../components/userComponent/MyCources/MyCources";
+import ViewLecture from '../views/Students/ViewLecture';
 
 function NewRoute() {
   return (
@@ -31,6 +32,7 @@ function NewRoute() {
         {/* <Route path="/profile" element={<YourProfile />} /> */}
         <Route path="/user/courses" element={<Usercources />} />
         <Route path="/teacher/courses" element={<Teachercources />} />
+        <Route path='/students' element={<ViewLecture/>} />
       </Routes>
     </div>
   );
