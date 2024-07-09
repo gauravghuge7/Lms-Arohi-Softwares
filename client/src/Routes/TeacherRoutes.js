@@ -6,7 +6,7 @@ function TeacherRoutes() {
   return (
     <div>
       <Routes>
-      <Route path="/upload" element={<UploadVideo/>} />
+      <Route path="/uploadvideo" element={<UploadVideo/>} />
       </Routes>
     </div>
   )
