@@ -12,6 +12,7 @@ import Products from '../Admin/components/Products/ProductsTable';
 import CreateProduct from "../Admin/components/createProduct/CreateProductForm";
 import Usercources from "../components/userComponent/MyCources/MyCources";
 import Teachercources from "../components/userComponent/MyCources/MyCources";
+import ViewLecture from '../views/Students/ViewLecture';
 
 function NewRoute() {
   return (
@@ -28,7 +29,11 @@ function NewRoute() {
         <Route path="/admin/products" element={<Products />} />
         <Route path="/user/courses" element={<Usercources />} />
         <Route path="/teacher/courses" element={<Teachercources />} />
+
         <Route path="/admin/createProduct" element={<CreateProduct />} />
+
+
+        <Route path='/students' element={<ViewLecture/>} />
 
       </Routes>
     </div>
