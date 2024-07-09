@@ -1,6 +1,4 @@
-//Enrollment Section
-
-import React from 'react';
+import React, { useState } from 'react';
 
 const sharedClasses = {
   primaryButton: 'bg-primary border-[2px] border-gray-300 text-primary-foreground px-4 py-2 rounded-lg flex items-center',
@@ -8,9 +6,72 @@ const sharedClasses = {
   actionButton: 'text-purple-500 px-2',
   editButton: 'text-red-500',
   deleteButton: 'text-brown-500 px-2',
+  searchInput: 'w-full p-2 border rounded-lg bg-input text-foreground',
 };
 
 const OrdersTable = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const orders = [
+    {
+      enrolledStudent: "Arun Sinha",
+      enrollmentId: "1",
+      courseTaken: "AI and ML",
+      paymentStatus: "Yes",
+      teacherAppointed: "Mr. Ram Swaroop",
+      status: "Enrolled and studying",
+    },
+    {
+      enrolledStudent: "Tara Sighole",
+      enrollmentId: "2",
+      courseTaken: "Python with Django",
+      paymentStatus: "No",
+      teacherAppointed: "Mr. Arun Shukla",
+      status: "Not enrolled",
+    },
+    {
+      enrolledStudent: "David Marcue",
+      enrollmentId: "3",
+      courseTaken: "Full Stack Development",
+      paymentStatus: "Yes",
+      teacherAppointed: "Mr. Anup Kasol",
+      status: "Enrolled and studying",
+    },
+    {
+      enrolledStudent: "Anima Bhail",
+      enrollmentId: "4",
+      courseTaken: "Backend with NodeJs and ExpressJs",
+      paymentStatus: "No",
+      teacherAppointed: "Mrs. Amy Sinha",
+      status: "Not enrolled",
+    },
+    {
+      enrolledStudent: "Sherlyn Joshua",
+      enrollmentId: "5",
+      courseTaken: "Deep Learning",
+      paymentStatus: "Yes",
+      teacherAppointed: "Mr. Vivan Singh",
+      status: "Enrolled and studying",
+    },
+    {
+      enrolledStudent: "John Doe",
+      enrollmentId: "6",
+      courseTaken: "Machine Learning",
+      paymentStatus: "No",
+      teacherAppointed: "Mrs. Vimla Roop",
+      status: "Not enrolled",
+    },
+  ];
+
+  const filteredOrders = orders.filter(order =>
+    order.enrolledStudent.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    order.enrollmentId.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    order.courseTaken.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    order.paymentStatus.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    order.teacherAppointed.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    order.status.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="p-4 bg-beige mx-5 my-8 rounded-lg text-card-foreground">
       <div className="flex justify-between items-center mb-4">
@@ -30,103 +91,43 @@ const OrdersTable = () => {
               d="M8 17l4 4 4-4m-4-5v9"
             />
           </svg>
-          Export all orders
+          Enrolled Student
         </button>
       </div>
-      <div className="mb-16">
+      <div className="mb-4">
         <input
           type="text"
           placeholder="Search here..."
-          className="w-full p-2 border rounded-lg bg-input text-foreground"
+          className={sharedClasses.searchInput}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border  rounded-lg">
+        <table className="min-w-full bg-white border rounded-lg">
           <thead>
-            <tr className="bg-gray-300  text-secondary-foreground">
-              <th className={sharedClasses.tableCell}>Enrollment</th>
+            <tr className="bg-blue-300 text-secondary-foreground">
+              <th className={sharedClasses.tableCell}>Enrolled Student</th>
               <th className={sharedClasses.tableCell}>Enrollment ID</th>
-              <th className={sharedClasses.tableCell}>Price</th>
-              <th className={sharedClasses.tableCell}>Quantity</th>
-              <th className={sharedClasses.tableCell}>Payment</th>
+              <th className={sharedClasses.tableCell}>Course Taken</th>
+              <th className={sharedClasses.tableCell}>Payment Status</th>
+              <th className={sharedClasses.tableCell}>Teacher Appointed</th>
               <th className={sharedClasses.tableCell}>Status</th>
-              <th className={sharedClasses.tableCell}>Tracking</th>
               <th className={sharedClasses.tableCell}>Action</th>
             </tr>
           </thead>
           <tbody>
-            {[
-              {
-                enrollment: "Arun Sinha",
-                enrollmentId: "#112345",
-                price: "$200",
-                quantity: "29",
-                payment: "$8000",
-                status: "Success",
-                image: "https://placehold.co/40x40",
-              },
-              {
-                enrollment: "Tara Sighole",
-                enrollmentId: "#7700000",
-                price: "$250",
-                quantity: "30",
-                payment: "$9000",
-                status: "Pending",
-                image: "https://placehold.co/40x40",
-              },
-              {
-                enrollment: "David Marcue",
-                enrollmentId: "#7712311",
-                price: "$600.00",
-                quantity: "100",
-                payment: "$10",
-                status: "Failed",
-                image: "https://placehold.co/40x40",
-              },
-              {
-                enrollment: "Anima Bhail",
-                enrollmentId: "#7712311",
-                price: "$250",
-                quantity: "2",
-                payment: "$500",
-                status: "Failed",
-                image: "https://placehold.co/40x40",
-              },
-              {
-                enrollment: "Sherlyn Joshua",
-                enrollmentId: "#7712311",
-                price: "$200",
-                quantity: "100",
-                payment: "$20,000",
-                status: "Success",
-                image: "https://placehold.co/40x40",
-              },
-            ].map((order, index) => (
+            {filteredOrders.map((order, index) => (
               <tr
                 key={index}
                 className="border-t hover:bg-gray-100 transition duration-200"
               >
-                <td className={sharedClasses.tableCell}>
-                  <div className="flex items-center space-x-2">
-                    <img
-                      src={order.image}
-                      alt="product"
-                      className="w-10 h-10 rounded-full"
-                    />
-                    <span>{order.enrollment}</span>
-                  </div>
-                </td>
-                <td className={sharedClasses.tableCell}>{order.enrollment}</td>
+                <td className={sharedClasses.tableCell}>{order.enrolledStudent}</td>
                 <td className={sharedClasses.tableCell}>{order.enrollmentId}</td>
-                <td className={sharedClasses.tableCell}>{order.price}</td>
-                <td className={sharedClasses.tableCell}>{order.quantity}</td>
-                <td className={sharedClasses.tableCell}>{order.payment}</td>
+                <td className={sharedClasses.tableCell}>{order.courseTaken}</td>
+                <td className={sharedClasses.tableCell}>{order.paymentStatus}</td>
+                <td className={sharedClasses.tableCell}>{order.teacherAppointed}</td>
                 <td className={sharedClasses.tableCell}>{order.status}</td>
-                <td className={sharedClasses.tableCell}>
-                  <button className="bg-accent text-accent-foreground px-2 py-1 rounded">
-                    Track
-                  </button>
-                </td>
                 <td className={sharedClasses.tableCell}>
                   <button className={sharedClasses.actionButton}>
                     <svg
@@ -183,7 +184,7 @@ const OrdersTable = () => {
         </table>
       </div>
       <div className="flex justify-between items-center mt-12">
-        <span className="text-xs">Showing 5 entries</span>
+        <span className="text-xs">Showing {filteredOrders.length} Entries</span>
         <div className="flex space-x-2">
           <button className="px-3 py-1 border rounded-lg">1</button>
           <button className="px-3 py-1 border rounded-lg bg-primary text-primary-foreground">
@@ -194,6 +195,5 @@ const OrdersTable = () => {
       </div>
     </div>
   );
-};
-
-export default OrdersTable;
+}
+export default OrdersTable
