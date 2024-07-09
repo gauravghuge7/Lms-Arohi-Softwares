@@ -3,6 +3,7 @@ import { asyncHandler } from '../../utils/asyncHandler.js';
 import bcrypt from 'bcrypt';
 import ApiError from '../../utils/ApiError.js';
 import ApiResponse from '../../utils/apiResponse.js';
+import { Teacher } from '../../models/teacher.model.js';
 
 const cookieOptions = {
     maxAge: 1000 * 60 * 60 * 24 * 30,
@@ -12,99 +13,117 @@ const cookieOptions = {
 
 
 
-const registerAdmin = asyncHandler(async (req, res) => {
 
-    
-    const {adminName, adminEmail, adminPhoneNumber, adminPassword} = req.body;
-
-    if(!(adminName, adminEmail, adminPhoneNumber, adminPassword )) {
-
-        return res
-        .status(400)
-        .json(new ApiResponse(405, 'Please provide all the required fields'));
-    }
+const createAdmin = asyncHandler(async (req, res) => {
 
     try {
-        const user = await Admin.findOne({adminEmail});
-    
-        if(user) {
-            return res
-            .status(400)
-            .json(new ApiError(405, 'Admin with this email already exists'));
-        }
-    
-        const encryptedPassword = await bcrypt.hash(adminPassword, 10);
-    
-        const savedAdmin = await Admin.create({
-            adminName,
-            adminEmail,
-            adminPhoneNumber,
-            adminPassword: encryptedPassword,
-            isActive: true,
-        });
-    
-        return res
-            .status(201)
-            .json(new ApiResponse(201, 'Admin created successfully', savedAdmin));
-    
-    } 
-    catch (error) {
-        
-        console.log(error);
-        return res
-        .status(400)
-        .json(new ApiError(400, error.message));
-        
-    }
 
-});
+        const {studentEmail, studentPassword} = req.body;
 
-
-const loginAdmin = asyncHandler(async (req, res) => {
-
-    console.log();
-    const {adminEmail, adminPassword} = req.body;
-
-    if(!adminEmail || !adminPassword) {
-        return res
-        .status(400)
-        .json(new ApiError(400, 'Admin data is missing', req.body));
-    }
-
-    try {
-    
-        const user = await Admin.findOne({adminEmail}).select('+adminPassword');
+        const user = await Student.findOne({studentEmail}).select('+studentPassword');
 
         if(!user) {
-            return new ApiError(400, 'Admin with this email already exists');
+            return new ApiError(400, 'Student with this email already exists');
         }
 
-        const isMatch = await bcrypt.compare(adminPassword, user.adminPassword);
+        const comparePassword = await bcrypt.compare(studentPassword, user.studentPassword);
 
-        if (!isMatch) {
-            return new ApiError(401, 'Invalid password for this admin');
+        if(!comparePassword) {
+            return new ApiError(400, 'Invalid password for this student');
         }
 
-        const adminToken = user.generateAdminLogin();
+        /// create a entry in admin collection
 
-        console.log("admin token => ", adminToken);
+        const admin = await Admin.create({
+
+            adminName: user.studentName,
+            adminEmail: user.studentEmail,
+            adminPhoneNumber: user.studentPhoneNumber,
+            adminPassword: user.studentPassword,
+            isActive: true,
+
+        });
+
+
+        /// delete a entry in the student collection 
+        const deleteStudent = await Student.findByIdAndDelete(user._id);
+
+
 
         return res
         .status(200)
-        .cookie("adminToken", adminToken, cookieOptions)
-        .json(new ApiResponse(200, 'Admin login successfully', user));
+        .json(new ApiResponse(200, 'Admin create successfully', user));
 
         
-    } 
-    catch (error) {
+    } catch (error) {
         
-        console.log(error);
-        return res
+        console.log("error => ", error);
+
+        return res 
         .status(400)
         .json(new ApiError(400, error.message));
+
+
+    }
+})
+
+
+const createTeacher = asyncHandler(async (req, res) => {
+
+    try {
+
+        const {studentEmail, studentPassword} = req.body;
+
+        const user = await Student.findOne({studentEmail}).select('+studentPassword');
+
+        if(!user) {
+            return new ApiError(400, 'Student with this email already exists');
+        }
+
+        const comparePassword = await bcrypt.compare(studentPassword, user.studentPassword);
+
+        if(!comparePassword) {
+            return new ApiError(400, 'Invalid password for this student');
+        }
+
+        /// create a entry in admin collection
+
+        const teacher = await Teacher.create({
+
+            teacherName: user.studentName,
+            teacherEmail: user.studentEmail,
+            teacherPhoneNumber: user.studentPhoneNumber,
+            teacherPassword: user.studentPassword,
+            isActive: true,
+
+        });
+
+
+        /// delete a entry in the student collection 
+        const deleteStudent = await Student.findByIdAndDelete(user._id);
+
+
+
+        return res
+        .status(200)
+        .json(new ApiResponse(200, 'Admin create successfully', teacher));
+
+        
+    } catch (error) {
+        
+        console.log("error => ", error);
+
+        return res 
+        .status(400)
+        .json(new ApiError(400, error.message));
+
+
     }
 
-});
+})
+
+
+
 
 
 const updateAdmin = asyncHandler(async (req, res) => {
@@ -160,6 +179,8 @@ const updateAdmin = asyncHandler(async (req, res) => {
 });
 
 
+
+
 const logoutAdmin = asyncHandler(async (req, res) => {
 
     const adminToken = req.cookies?.adminToken;
@@ -197,8 +218,12 @@ const logoutAdmin = asyncHandler(async (req, res) => {
 
 
 export {
-    registerAdmin,
-    loginAdmin,
+
+    createAdmin,  /// create admin
+    createTeacher,  //// create teacher 
+
+
+
     updateAdmin,
     logoutAdmin
 }

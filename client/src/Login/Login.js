@@ -2,18 +2,29 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Login() {
+
+  
+
+
+
   return (
     <div className="relative h-screen w-full bg-cover bg-center" style={{ backgroundImage: 'url(https://plus.unsplash.com/premium_photo-1661687561711-6357ab1d1f75?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)' }}>
       <div className="flex items-center justify-center h-full">
+
         <div className="flex flex-col items-start justify-center pl-16 w-1/2 text-white">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR92EbNg_Z7rBlIoENCzgQDZSADsXPwYQz83w&s" alt="Logo" className="mb-96 w-28 h-28 " />
+
           <h1 className="text-4xl text-cyan-400 font-bold mb-4 animate-slide-in-left">Unlock Your Potential with Our Online Courses</h1>
           <p className="text-xl animate-fade-in">Discover a world of knowledge and skills to elevate your career and personal growth. Join our community today!</p>
         </div>
         <div className="flex items-center justify-end w-1/2">
           <div className="bg-white bg-opacity-75 p-8 rounded-lg shadow-lg w-full max-w-md mr-16 transform transition-all duration-500 hover:scale-105">
             <h2 className="text-2xl font-bold mb-6 text-center animate-fade-in">Login</h2>
+            
+            {/**  login form */}
+            
             <form>
+
               <div className="mb-4">
                 <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="email">
                   Email
@@ -25,6 +36,7 @@ function Login() {
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
               </div>
+
               <div className="mb-6">
                 <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="password">
                   Password
@@ -35,13 +47,18 @@ function Login() {
                   placeholder="Enter your password"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                 />
-                 <a
-                  href="#"
-                  className="font-bold text-lg text-blue-500 ml-56 hover:text-blue-800 mb-4"
-                >
-                  Forgot Password?
-                </a>
+
+                  <a
+                    href="/forgot-password"
+                    className="font-bold text-lg text-blue-500 ml-56 hover:text-blue-800 mb-4"
+                  >
+                    Forgot Password?
+                  </a>
+
               </div>
+
+
+
               <div className="flex flex-col items-center">
                 <button
                   type="submit"
@@ -54,6 +71,9 @@ function Login() {
                 <Link to="/signup"><p className="mt-2 text-red-500 font-semibold"> Already Login? Please Signup.</p></Link>
               </div>
             </form>
+
+
+            {/*** google login button */}
             <div className="my-4 text-center">
               <button
                 type="button"
@@ -63,6 +83,8 @@ function Login() {
                 Login with Google
               </button>
             </div>
+
+
           </div>
         </div>
       </div>

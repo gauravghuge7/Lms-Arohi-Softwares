@@ -14,6 +14,9 @@ import createProduct from "../Admin/components/createProduct/CreateProductForm";
 import Usercources from "../components/userComponent/MyCources/MyCources";
 import Teachercources from "../components/userComponent/MyCources/MyCources";
 
+import YourProfile from "../Profile/YourProfile/YourProfile";
+import VideoSection from '../components/VideoSection/VideoSection';
+
 function NewRoute() {
   return (
     <div>
@@ -28,7 +31,12 @@ function NewRoute() {
         <Route path="/admin/orders" element={<Orders />} />
         <Route path="/admin/products" element={<Products />} />
         <Route path="/admin/createProduct" element={<createProduct />} />
-        {/* <Route path="/profile" element={<YourProfile />} /> */}
+
+        <Route path="/admin/videoSection" element={<VideoSection />} />
+
+
+
+         <Route path="/profile" element={<YourProfile />} /> 
         <Route path="/user/courses" element={<Usercources />} />
         <Route path="/teacher/courses" element={<Teachercources />} />
       </Routes>

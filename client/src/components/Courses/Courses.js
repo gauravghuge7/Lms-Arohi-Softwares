@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom"
 
+
 const courses = [
   {
     id: 1,
@@ -46,6 +47,9 @@ const courses = [
 function Courses() {
   return (
     <div className="min-h-screen  p-10">
+
+    
+
       <h1 className="text-white text-6xl ml-20 font-bold mb-10">
         Courses Offered.
       </h1>

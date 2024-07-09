@@ -3,6 +3,10 @@ import  "./Signup.css"
 import { Link } from 'react-router-dom';
 
 function Signup() {
+
+  
+
+
   return (
     <div className="relative h-screen w-full bg-cover bg-center" style={{ backgroundImage: 'url(https://plus.unsplash.com/premium_photo-1661687561711-6357ab1d1f75?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)' }}>
       <div className="flex h-full bg-black bg-opacity-50">
@@ -14,7 +18,10 @@ function Signup() {
         <div className="flex items-center justify-end w-1/2">
           <div className="bg-white bg-opacity-75 p-8 rounded-lg shadow-lg w-full max-w-md mr-16 transform transition-all duration-500 hover:scale-105">
             <h2 className="text-2xl font-bold mb-6 text-center animate-fade-in">Sign Up</h2>
+            
+            
             <form>
+
               <div className="mb-4">
                 <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="username">
                   Username
@@ -26,6 +33,8 @@ function Signup() {
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
               </div>
+
+
               <div className="mb-4">
                 <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="email">
                   Email
@@ -37,6 +46,8 @@ function Signup() {
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
               </div>
+
+
               <div className="mb-6">
                 <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="password">
                   Password
@@ -54,6 +65,8 @@ function Signup() {
                   Forgot Password?
                 </a>
               </div>
+
+
               <div className="flex flex-col items-center">
                 <button
                   type="submit"
@@ -63,8 +76,11 @@ function Signup() {
                 </button>
                
 
+
                <Link to="/login"> <p className="mt-2 text-red-500  font-semibold"> already signed up? please login.</p></Link>
               </div>
+
+
             </form>
             <div className="my-4 text-center">
               <button

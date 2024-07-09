@@ -7,6 +7,12 @@ const TeacherSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+
+    teacherUserName: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     
     teacherAge: {
         type: Number,
@@ -16,6 +22,12 @@ const TeacherSchema = new mongoose.Schema({
     teacherGender: {
         type: String,
         required: true,
+    },
+
+    type: {
+        type: String,
+        enum: ["teacher"],
+        default: "teacher",
     },
 
     teacherCourseCode: { // course code
@@ -31,7 +43,7 @@ const TeacherSchema = new mongoose.Schema({
 
     teacherPassword: {
         type: String,
-       
+        select: false,
     },
       	 
     teacherPhoneNumber: {

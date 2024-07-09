@@ -1,4 +1,4 @@
-import Student from '../../models/student.model.js';
+import {Student} from '../../models/student.model.js';
 import ApiError from '../../utils/ApiError.js';
 import ApiResponse from '../../utils/apiResponse.js';
 import {asyncHandler} from '../../utils/asyncHandler.js';
@@ -18,13 +18,13 @@ const cookieOptions = {
 
 const studentRegister = asyncHandler(async (req, res, next) => {
 
-    const {studentFullName, studentPassword, studentPhoneNumber, studentAge, studentGender, studentEmail,} = req.body;
+    const {studentPassword, studentUserName, studentPhoneNumber, studentEmail,} = req.body;
 
     if(!req.body) {
         throw new ApiError(400, 'Student data is missing');
     }
 
-    if(!studentFullName || !studentPhoneNumber || !studentAge || !studentGender || !studentEmail) {
+    if(!studentPassword || !studentUserName || !studentEmail) {
 
 
         return res
@@ -51,12 +51,11 @@ const studentRegister = asyncHandler(async (req, res, next) => {
 
 
         const savedStudent = await Student.create({
-            studentFullName,
+            
             studentPhoneNumber,
-            studentAge,
             studentPassword: encryptedPassword,
-            studentGender,
             studentEmail,
+            studentUserName,
         });
         
 
@@ -271,7 +270,8 @@ const getLecturesByCourse = asyncHandler(async (req, res, next) => {
 
 export {
     studentRegister,
-    studentLogin,
+ 
+    
     studentUpdate,
     studentDelete,
 

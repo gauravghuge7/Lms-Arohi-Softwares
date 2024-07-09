@@ -8,6 +8,12 @@ const adminSchema = new mongoose.Schema({
         required: true,
     },
 
+    adminUserName: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+
     adminEmail: {
         type: String,
         required: true,
@@ -23,6 +29,12 @@ const adminSchema = new mongoose.Schema({
        type: String,
        required: true,
        select: false,
+    },
+    
+    adminType: {
+        type: String,
+        enum: ["admin"],
+        default: "admin",
     },
 
     isActive: {
