@@ -12,7 +12,7 @@ const StudentSchema = new mongoose.Schema({
     studentUserName: {
         type: String,
         required: true,
-        unique: true,
+  
     },
 
 
@@ -70,8 +70,8 @@ const StudentSchema = new mongoose.Schema({
 
     studentEmail: {
         type: String,
-        required: true,
-        unique: true,
+        // required: true,
+        // unique: true,
     },
 
     isActive: {
@@ -99,6 +99,7 @@ StudentSchema.methods = {
         return jwt.sign(
             {
                 studentEmail: this.studentEmail,
+                studentPhoneNumber: this.studentPhoneNumber,
                 id: this._id,
             },
             process.env.JWT_SECRET,

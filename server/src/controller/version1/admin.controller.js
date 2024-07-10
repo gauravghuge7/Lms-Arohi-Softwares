@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import ApiError from '../../utils/ApiError.js';
 import ApiResponse from '../../utils/apiResponse.js';
 import { Teacher } from '../../models/teacher.model.js';
+import { Student } from '../../models/student.model.js';
 
 const cookieOptions = {
     maxAge: 1000 * 60 * 60 * 24 * 30,
@@ -23,7 +24,7 @@ const createAdmin = asyncHandler(async (req, res) => {
         const user = await Student.findOne({studentEmail}).select('+studentPassword');
 
         if(!user) {
-            return new ApiError(400, 'Student with this email already exists');
+            return new ApiError(400, 'Student with this email are not exists');
         }
 
         const comparePassword = await bcrypt.compare(studentPassword, user.studentPassword);
@@ -39,6 +40,7 @@ const createAdmin = asyncHandler(async (req, res) => {
             adminName: user.studentName,
             adminEmail: user.studentEmail,
             adminPhoneNumber: user.studentPhoneNumber,
+            adminUserName: user.studentUserName,
             adminPassword: user.studentPassword,
             isActive: true,
 

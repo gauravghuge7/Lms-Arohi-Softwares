@@ -90,7 +90,7 @@ const studentLogin = asyncHandler(async (req, res, next) => {
 
     try {
     
-        const user = await Student.findOne({studentEmail: studentEmail});
+        const user = await Student.findOne({studentEmail: studentEmail}).select('+studentPassword');
 
 
         if(!user) {
@@ -293,7 +293,7 @@ const getLecturesByCourse = asyncHandler(async (req, res, next) => {
 
 export {
     studentRegister,
- 
+    studentLogin,
     getStudentProfile,
     studentUpdate,
     studentDelete,

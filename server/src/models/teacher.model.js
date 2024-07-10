@@ -11,7 +11,7 @@ const TeacherSchema = new mongoose.Schema({
     teacherUserName: {
         type: String,
         required: true,
-        unique: true,
+   
     },
     
     teacherAge: {
