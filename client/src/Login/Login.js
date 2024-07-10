@@ -13,6 +13,11 @@ function Login() {
         <div className="flex items-center justify-end w-1/2">
           <div className="bg-white bg-opacity-75 p-8 rounded-lg shadow-lg w-full max-w-md mr-16 transform transition-all duration-500 hover:scale-105">
             <h2 className="text-2xl font-bold mb-6 text-center animate-fade-in">Login</h2>
+            
+            {/**  */}
+            
+            
+            
             <form>
               <div className="mb-4">
                 <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="email">
