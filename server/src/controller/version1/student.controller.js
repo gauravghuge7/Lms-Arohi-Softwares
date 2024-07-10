@@ -214,6 +214,29 @@ const studentDelete = asyncHandler(async (req, res, next) => {
 
 
 
+const getStudentProfile = asyncHandler(async (req, res) => {
+
+    const {studentEmail } = req.user;
+
+    try {
+        
+        const student = await Student.findOne({studentEmail})
+
+        return res 
+        .json(new ApiResponse(200, "student profile fetched successfully", student))
+
+    } catch (error) {
+        console.log(error);
+        return res
+        .json(new ApiError(400, error.message))
+    }
+})
+
+
+
+
+
+
 const getMyCourses = asyncHandler(async (req, res, next) => {    
     
     const {studentEmail} = req.user;
@@ -271,7 +294,7 @@ const getLecturesByCourse = asyncHandler(async (req, res, next) => {
 export {
     studentRegister,
  
-    
+    getStudentProfile,
     studentUpdate,
     studentDelete,
 

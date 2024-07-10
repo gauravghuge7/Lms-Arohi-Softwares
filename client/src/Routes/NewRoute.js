@@ -9,13 +9,10 @@ import AdminDashboard from '../Admin/components/Dashboard/Dashboard';
 import Customer from '../Admin/components/Customer/Customer';
 import Orders from '../Admin/components/Orders/OrdersTable';
 import Products from '../Admin/components/Products/ProductsTable';
-import createProduct from "../Admin/components/createProduct/CreateProductForm";
-// import YourProfile from '../Profile/Components/YourProfile/YourProfile';
+import CreateProduct from "../Admin/components/createProduct/CreateProductForm";
 import Usercources from "../components/userComponent/MyCources/MyCources";
 import Teachercources from "../components/userComponent/MyCources/MyCources";
-
-import YourProfile from "../Profile/YourProfile/YourProfile";
-import VideoSection from '../components/VideoSection/VideoSection';
+import ViewLecture from '../views/Students/ViewLecture';
 
 function NewRoute() {
   return (
@@ -30,15 +27,14 @@ function NewRoute() {
         <Route path="/admin/customers" element={<Customer />} />
         <Route path="/admin/orders" element={<Orders />} />
         <Route path="/admin/products" element={<Products />} />
-        <Route path="/admin/createProduct" element={<createProduct />} />
-
-        <Route path="/admin/videoSection" element={<VideoSection />} />
-
-
-
-         <Route path="/profile" element={<YourProfile />} /> 
         <Route path="/user/courses" element={<Usercources />} />
         <Route path="/teacher/courses" element={<Teachercources />} />
+
+        <Route path="/admin/createProduct" element={<CreateProduct />} />
+
+
+        <Route path='/students' element={<ViewLecture/>} />
+
       </Routes>
     </div>
   );

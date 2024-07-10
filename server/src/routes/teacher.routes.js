@@ -13,6 +13,13 @@ teacherRouter.route('/update').patch(
     teacherUpdate
 );
 
+
+teacherRouter.route('/getProfile').get(
+    
+)
+
+
+
 teacherRouter.route('/delete').post(
     
     

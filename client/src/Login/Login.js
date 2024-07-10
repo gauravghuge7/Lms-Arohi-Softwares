@@ -1,9 +1,61 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {toast} from 'react-toastify';
 
 function Login() {
 
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   
+  
+  // submit the login form to the backend
+
+  const handleLogin = async(e) => {
+    e.preventDefault();
+
+    /// body configuration for the login request
+    const body = {
+      studentEmail : email,
+      studentPassword: password
+    }
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    try {
+      
+      // api call to login the user
+      const response = await axios.post('/api/type/login', body);
+      console.log(response.data);
+      const result = response.data;
+
+
+      toast.success(result.message);
+      // console.log(result.success);
+
+      /// if the login is successful, redirect the user to the home page
+      if (result.success) {
+        navigate('/');
+      }
+      else {
+        toast.error(result.message);
+      }
+
+
+    } 
+    catch (error) {
+      console.log(error);
+    }
+
+  }
+
 
 
 
@@ -21,10 +73,13 @@ function Login() {
           <div className="bg-white bg-opacity-75 p-8 rounded-lg shadow-lg w-full max-w-md mr-16 transform transition-all duration-500 hover:scale-105">
             <h2 className="text-2xl font-bold mb-6 text-center animate-fade-in">Login</h2>
             
-            {/**  login form */}
+            {/**  */}
             
-            <form>
+            
+            
+            <form onSubmit={handleLogin}>
 
+              {/***  email input field */}
               <div className="mb-4">
                 <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="email">
                   Email
@@ -33,10 +88,12 @@ function Login() {
                   type="email"
                   id="email"
                   placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
               </div>
-
+              {/*** password input field */}
               <div className="mb-6">
                 <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="password">
                   Password
@@ -45,6 +102,8 @@ function Login() {
                   type="password"
                   id="password"
                   placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                 />
 
@@ -70,6 +129,7 @@ function Login() {
 
                 <Link to="/signup"><p className="mt-2 text-red-500 font-semibold"> Already Login? Please Signup.</p></Link>
               </div>
+              
             </form>
 
 

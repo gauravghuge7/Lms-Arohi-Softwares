@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import './YourProfile.css';
 import Navbar from '../../components/Navbar/Navbar';
+import axios from 'axios';
 
 const YourProfile = () => {
+
+    const loginUser = 'student';
+
     const [profile, setProfile] = useState({
         fullName: 'Anuruddh Singh',
         email: 'anuruddh7234@gmail.com',
@@ -16,15 +20,21 @@ const YourProfile = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+
+
         setProfile((prevProfile) => ({
             ...prevProfile,
             [name]: value,
         }));
+
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = async() => {
+       
+        const response = await axios.post(``)
+
         console.log('Profile Updated:', profile);
+
     };
 
     const handleAvatarChange = (e) => {
@@ -40,6 +50,12 @@ const YourProfile = () => {
             reader.readAsDataURL(file);
         }
     };
+
+
+    useEffect(() => {
+        handleSubmit()
+    })
+
 
     return (
         <div className='maincontainer'>
@@ -65,8 +81,10 @@ const YourProfile = () => {
                             </div>
                             <h2>My Profile</h2>
                         </div>
-                        <form className="profile-form" onSubmit={handleSubmit}>
+                        <form className="profile-form" onSubmit={ handleSubmit}>
+
                             <div className="form-row">
+
                                 <div className="form-group">
                                     <label>Full Name *</label>
                                     <input
@@ -76,6 +94,7 @@ const YourProfile = () => {
                                         onChange={handleChange}
                                     />
                                 </div>
+
                                 <div className="form-group">
                                     <label>Email *</label>
                                     <input
@@ -85,8 +104,11 @@ const YourProfile = () => {
                                         onChange={handleChange}
                                     />
                                 </div>
+
                             </div>
+
                             <div className="form-row">
+
                                 <div className="form-group">
                                     <label>Mobile No *</label>
                                     <input
@@ -96,6 +118,7 @@ const YourProfile = () => {
                                         disabled
                                     />
                                 </div>
+
                                 <div className="form-group">
                                     <label>Gender</label>
                                     <select
@@ -108,7 +131,9 @@ const YourProfile = () => {
                                         <option value="Other">Other</option>
                                     </select>
                                 </div>
+
                             </div>
+
                             <div className="form-row">
                                 <div className="form-group">
                                     <label>Age</label>
@@ -129,6 +154,7 @@ const YourProfile = () => {
                                     />
                                 </div>
                             </div>
+
                             <button type="submit" className="save-changes">Save changes</button>
                         </form>
                     </div>

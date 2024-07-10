@@ -19,6 +19,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const { studentEmail, studentPassword } = req.body;
 
+    
+
     if(!studentEmail || !studentPassword ) {
         return res
             .status(400)

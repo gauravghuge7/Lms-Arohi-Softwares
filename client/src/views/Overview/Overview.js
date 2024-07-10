@@ -4,6 +4,7 @@ import Footer from "../../components/Footer/Footer";
 import "./Overview.css";
 import Companies from "../../components/Companies/Companies"
 import Faq from "../../components/Faq/Faq"
+import axios from "axios";
 
 function Overview() {
   const [activeCourse, setActiveCourse] = useState(null);
@@ -77,11 +78,57 @@ function Overview() {
     },
   ];
 
+
+  const checkoutHandler = async(amount) => {
+
+    const {data:{key}} = await axios.get('http://localhost:5000/api/getkey')
+
+    const data = {
+        amount: amount || 2000,
+    }
+    
+    const {data:{order}} = await axios.post('http://localhost:5000/user/payment', data)
+   
+
+    console.log(window);
+
+    const options = {
+        key, 
+        amount: order.amount, 
+        currency: "INR",
+        name: "gaurav ghuge",
+        description: "Test Transaction of softwares",
+        image: "https://example.com/your_logo",
+        order_id: order.id,
+        callback_url: `http://localhost:3000/overview`,
+        prefill: {
+            name: "Gaurav ghuge",
+            email: "gauravghuge@microsoft.com",
+            contact: "8767482793"
+        },
+        notes: {
+            address: "Razorpay Corporate Office"
+        },
+        theme: {
+            color: "#83E633"
+        }
+    };
+
+    let razor = new window.Razorpay(options);
+    
+    razor.open();
+      
+  
+  }
+
+
+
   return (
     <div>
       <Navbar />
 
-      {category.map((category) => (
+      { category.map((category) => (
+
         <div key={category.id}>
           <div className="text-center my-3">
             <h1 className="text-5xl font-bold text-cyan-500">
@@ -109,7 +156,10 @@ function Overview() {
                   Only:{" "}
                   <span className=" text-cyan-400">${category.price}</span>
                 </p>
-                <button className="mt-8 p-4 bg-cyan-500 rounded hover:bg-cyan-850 font-bold text-2xl mb-5">
+
+                <button 
+                  onClick={() => checkoutHandler()}
+                  className="mt-8 p-4 bg-cyan-500 rounded hover:bg-cyan-850 font-bold text-2xl mb-5">
                   Buy Now - Start Learning
                 </button>
                 <p className="text-base sm:text-2xl font-semibold mt-2">
@@ -160,7 +210,7 @@ function Overview() {
 
           <div className="flex flex-col items-center mt-20 mb-10">
             <h2 className="text-4xl text-cyan-500 mt-20 font-bold">
-              What You'll Learn
+              What You ll Learn
             </h2>
             <h2 className="text-4xl text-white mt-2 font-bold">
               From Start to Victory
@@ -248,7 +298,9 @@ function Overview() {
             </div>
           </div>
         </div>
-      ))}
+
+
+       ))}
       <Companies/>
       {/* <Faq/> */}
       <Footer />

@@ -5,7 +5,7 @@ const StudentSchema = new mongoose.Schema({
  
     studentFullName: {
         type: String,
-        required: true,
+   
     },
 
 
@@ -25,7 +25,7 @@ const StudentSchema = new mongoose.Schema({
         
     studentAge: {
         type: Number,
-        required: true,
+      
     },
 
     studentAvatar: {
@@ -47,7 +47,7 @@ const StudentSchema = new mongoose.Schema({
 
     studentPhoneNumber: {
         type: Number,
-        required: true,
+       
     },
 
     studentGender: {
