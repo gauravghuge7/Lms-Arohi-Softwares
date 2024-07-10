@@ -7,6 +7,7 @@ import TeacherRoutes from './Routes/TeacherRoutes';
 function App() {
   return (
     <div>
+      
       <NewRoute/>
       <AdminRoute/>
       <StudentRoute/>
