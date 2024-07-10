@@ -6,8 +6,29 @@ const textClasses = "text-xs text-gray-600";
 const hoverClasses = "hover:bg-gray-100 ";
 const primaryClasses = "bg-primary text-primary-foreground";
 
+// Define the CourseCard component
+const CourseCard = ({ product, onClick }) => (
+  <div className="border rounded shadow p-4 m-2 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 flex flex-col items-start min-h-[400px]">
+    <img src="https://images.unsplash.com/photo-1516802273409-68526ee1bdd6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Course" className="w-full mb-4 h-40 object-cover" />
+    <h3 className="text-xl font-semibold mb-2">{product.course}</h3>
+    <p><strong>Course Code:</strong> {product.coursecode}</p>
+    <p><strong>Price:</strong> {product.courseprice}</p>
+    <p><strong>Duration:</strong> {product.courseduration}</p>
+    <div className="flex justify-between w-full">
+      <p><strong>Start Date:</strong> {product.startdate}</p>
+      <p><strong>End Date:</strong> {product.enddate}</p>
+    </div>
+    <p><strong>Teacher:</strong> {product.courseteacher}</p>
+    <button
+      className="mt-auto p-2 bg-blue-500 text-white rounded"
+      onClick={() => onClick(product.description)}
+    >
+      View Description
+    </button>
+  </div>
+);
+
 const ProductTable = () => {
-  // Dummy data for products
   const products = [
     {
       id: 1,
@@ -55,47 +76,25 @@ const ProductTable = () => {
     },
     {
       id: 5,
-      course: "Backend with NodeJs and ExpressJs",
+      course: "JavaScript for Beginners",
       coursecode: "105",
       courseprice: "$150",
-      courseduration: "28 Hours",
-      startdate: "2-Aug-24",
-      enddate: "29-Sept-24",
-      courseteacher: "Mr Vivan Singh",
-      description: "Learn backend development with Node.js and Express.js.",
+      courseduration: "20 Hours",
+      startdate: "10-Jul-24",
+      enddate: "30-Jul-24",
+      courseteacher: "Mr John Doe",
+      description: "Learn JavaScript from scratch.",
     },
     {
       id: 6,
-      course: "Deep Learning",
+      course: "React and Redux",
       coursecode: "106",
-      courseprice: "$180",
-      courseduration: "25 Hours",
-      startdate: "10-July-24",
-      enddate: "5-Aug-24",
-      courseteacher: "Mr Vikas Kashyap",
-      description: "Deep dive into deep learning concepts.",
-    },
-    {
-      id: 7,
-      course: "Machine Learning",
-      coursecode: "107",
       courseprice: "$250",
-      courseduration: "35 Hours",
-      startdate: "24-May-2024",
-      enddate: "26-July-2024",
-      courseteacher: "Mrs Vimla Roop",
-      description: "Comprehensive course on machine learning.",
-    },
-    {
-      id: 8,
-      course: "Front-End Development",
-      coursecode: "108",
-      courseprice: "$250",
-      courseduration: "35 Hours",
-      startdate: "24-May-2024",
-      enddate: "26-July-2024",
-      courseteacher: "Mrs Vimla Roop",
-      description: "Learn front-end development skills.",
+      courseduration: "30 Hours",
+      startdate: "1-Aug-24",
+      enddate: "20-Aug-24",
+      courseteacher: "Ms Jane Smith",
+      description: "Master React and Redux for front-end development.",
     },
   ];
 
@@ -116,10 +115,10 @@ const ProductTable = () => {
   };
 
   return (
-    <div className='my-8 mx-4 h-screen'>
+    <div className="my-8 mx-4 h-screen">
       <div className="p-4 bg-white rounded-lg">
-        <div className="flex justify-between items-center mb-12">
-          <div className="flex items-center space-x-2">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-12">
+          <div className="flex items-center space-x-2 mb-4 sm:mb-0">
             <input
               type="text"
               className={inputClasses}
@@ -132,40 +131,10 @@ const ProductTable = () => {
             <button className={buttonClasses + " " + primaryClasses}>Add Course</button>
           </div>
         </div>
-        {/** Heading for the section */}
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white border border-border">
-            <thead className={textClasses + " bg-blue-400 text-white"}>
-              <tr>
-                <th className="p-2 border-b border-border">Course</th>
-                <th className="p-2 border-b border-border">Course Code</th>
-                <th className="p-2 border-b border-border">Course Price</th>
-                <th className="p-2 border-b border-border">Course Duration</th>
-                <th className="p-2 border-b border-border">Start Date</th>
-                <th className="p-2 border-b border-border">End Date</th>
-                <th className="p-2 border-b border-border">Course Teacher</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/** Action  */}
-              {filteredProducts.map(product => (
-                <tr key={product.id} className={hoverClasses}>
-                  <td
-                    className="p-4 border-b border-border cursor-pointer"
-                    onClick={() => handleCourseClick(product.description)}
-                  >
-                    {product.course}
-                  </td>
-                  <td className="p-2 border-b border-border">{product.coursecode}</td>
-                  <td className="p-2 border-b border-border">{product.courseprice}</td>
-                  <td className="p-2 border-b border-border">{product.courseduration}</td>
-                  <td className="p-2 border-b border-border">{product.startdate}</td>
-                  <td className="p-2 border-b border-border">{product.enddate}</td>
-                  <td className="p-2 border-b border-border">{product.courseteacher}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="flex flex-wrap">
+          {filteredProducts.map(product => (
+            <CourseCard key={product.id} product={product} onClick={handleCourseClick} />
+          ))}
         </div>
         {selectedDescription && (
           <div className="mt-4 p-4 border border-gray-200 rounded bg-gray-50">
