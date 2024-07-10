@@ -31,9 +31,11 @@ const YourProfile = () => {
 
     const handleSubmit = async() => {
        
-        const response = await axios.post(``)
+        const response = await axios.get(`/api/${loginUser}/getProfile`)
 
-        console.log('Profile Updated:', profile);
+        console.log('Profile Updated:', response.data.data);
+
+        setProfile(response.data.data);
 
     };
 
@@ -54,7 +56,7 @@ const YourProfile = () => {
 
     useEffect(() => {
         handleSubmit()
-    })
+    },[])
 
 
     return (
