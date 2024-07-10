@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import YourProfile from '../Profile/YourProfile/YourProfile';
+import YourProfile from '../Student/YourProfile/YourProfile';
+
+
 
 function StudentRoute() {
   return (
