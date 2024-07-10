@@ -2,8 +2,6 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import UploadVideo from '../Teacher/UploadVideo/UploadVideo';
 
-
-
 function TeacherRoutes() {
   return (
     <div>

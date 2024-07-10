@@ -5,23 +5,23 @@ const TeacherSchema = new mongoose.Schema({
  
     teacherFullName: {
         type: String,
-        required: true,
+        // required: true,
     },
 
     teacherUserName: {
         type: String,
-        required: true,
-   
+        // required: true,
+        // unique: true,
     },
     
     teacherAge: {
         type: Number,
-        required: true,
+        // required: true,
     },
  
     teacherGender: {
         type: String,
-        required: true,
+        // required: true,
     },
 
     type: {

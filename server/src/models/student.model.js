@@ -11,8 +11,8 @@ const StudentSchema = new mongoose.Schema({
 
     studentUserName: {
         type: String,
-        required: true,
-  
+        // required: true,
+        // unique: true,
     },
 
 

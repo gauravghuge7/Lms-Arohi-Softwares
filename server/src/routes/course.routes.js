@@ -20,8 +20,6 @@ courseRouter.route('/createCourse').post(
 
 
 courseRouter.route('/updateCourse').post(
-
-    
     upload.none(),
     updateCourse
 )
