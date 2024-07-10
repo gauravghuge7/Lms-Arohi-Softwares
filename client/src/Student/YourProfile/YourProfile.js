@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import './YourProfile.css';
-import Navbar from '../../components/Navbar/Navbar';
+
 import axios from 'axios';
+import Navbar from '../../components/Navbar/Navbar';
 
 const YourProfile = () => {
 
@@ -31,9 +32,7 @@ const YourProfile = () => {
 
     const handleSubmit = async() => {
        
-        const response = await axios.post(``)
-
-        console.log('Profile Updated:', profile);
+       
 
     };
 
@@ -54,7 +53,7 @@ const YourProfile = () => {
 
     useEffect(() => {
         handleSubmit()
-    })
+    },[])
 
 
     return (
@@ -65,12 +64,14 @@ const YourProfile = () => {
                     <div className="profile-card">
                         <div className="profile-header">
                             <div className="avatar-container">
+
                                 <Avatar
                                     src={profile.profilePicture}
                                     alt="Profile"
                                     className="avatar"
                                     onClick={() => document.getElementById('avatarInput').click()}
                                 />
+                                
                                 <input
                                     type="file"
                                     id="avatarInput"

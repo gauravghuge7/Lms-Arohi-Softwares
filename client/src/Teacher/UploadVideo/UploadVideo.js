@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './UploadVideo.css';
-import Navbar from '../components/Navbar/Navbar';
+import Navbar from '../../components/Navbar/Navbar';
 
 const initialVideos = [
   {

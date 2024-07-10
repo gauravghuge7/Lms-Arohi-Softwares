@@ -5,6 +5,9 @@ import {toast} from 'react-toastify';
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../store/User/userSlice';
+import { useSelector } from 'react-redux';
 
 function Signup() {
 
@@ -13,6 +16,8 @@ function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const loginUser = "null";
 
   const handleSignup = async(e) => {
     e.preventDefault();
@@ -30,12 +35,15 @@ function Signup() {
     }
 
     try {
+
       const response = await axios.post('/api/student/register', body);
       console.log(response.data);
       const result = response.data;
       toast.success(result.message);
       if (result.success) {
         alert('student registered successfully');
+
+
         navigate('/login');
       }
       else {
@@ -57,7 +65,7 @@ function Signup() {
           <h1 className="text-4xl font-bold mb-4 text-cyan-400 animate-slide-in-left">Unlock Your Potential with Our Online Courses</h1>
           <p className="text-xl animate-fade-in">Discover a world of knowledge and skills to elevate your career and personal growth. Join our community today!</p>
         </div>
-        
+
         <div className="flex items-center justify-end w-1/2">
 
 

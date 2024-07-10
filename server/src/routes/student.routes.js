@@ -16,6 +16,7 @@ studentRouter.route('/register').post(
 
 
 studentRouter.route('/getProfile').get(
+    isStudentLoggedIn,
     getStudentProfile
 )
 

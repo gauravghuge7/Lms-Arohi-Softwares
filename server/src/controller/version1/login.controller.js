@@ -50,7 +50,7 @@ const loginUser = asyncHandler(async (req, res) => {
                 .status(200)
                 .cookie("studentToken", studentToken, cookieOptions)
                 // .redirect('/studentDashboard')
-                .json(new ApiResponse(201, "Student login successfully"));
+                .json(new ApiResponse(201, "Student login successfully", student));
         }
 
 
@@ -75,7 +75,7 @@ const loginUser = asyncHandler(async (req, res) => {
                 .status(400)
                 .cookie("teacherToken", teacherToken, cookieOptions)
                 .redirect('/teacherDashboard')
-                .json(new ApiResponse(400, "Teacher login successfully"));
+                .json(new ApiResponse(400, "Teacher login successfully", teacher));
         }
 
 
@@ -97,7 +97,7 @@ const loginUser = asyncHandler(async (req, res) => {
                 .status(400)
                 .cookie("adminToken", adminToken, cookieOptions)
                 .redirect('/admin')
-                .json(new ApiResponse(400, "Admin login successfully"));
+                .json(new ApiResponse(400, "Admin login successfully", admin));
         }
 
 
