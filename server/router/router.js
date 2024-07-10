@@ -3,6 +3,7 @@ import studentRouter from '../src/routes/student.routes.js';
 import teacherRouter from '../src/routes/teacher.routes.js';
 import adminRouter from '../src/routes/admin.routes.js';
 import courseRouter from '../src/routes/course.routes.js';
+import loginRouter from '../src/routes/login.routes.js';
 
 
 const allRouter = express.Router();
@@ -20,6 +21,7 @@ allRouter.use('/admin', adminRouter)  /// admin routes
 
 allRouter.use('/course', courseRouter)  /// course routes
 
+allRouter.use('/type', loginRouter)  /// login routes
 
 
 export default allRouter;

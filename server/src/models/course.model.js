@@ -24,9 +24,9 @@ const CourseSchema = new mongoose.Schema({
 
 		},
 
-		courseImage: {
+		courseThumbnail: {
 			type: String,
-			
+					
 		},
 
 		videoLink: [{
@@ -111,6 +111,11 @@ const CourseSchema = new mongoose.Schema({
 	
 
 		courseStartDate: {
+			type: Date,
+	
+		},
+
+		courseEndDate: {
 			type: Date,
 	
 		},

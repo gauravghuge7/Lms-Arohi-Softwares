@@ -1,4 +1,4 @@
-import Student from '../../models/student.model.js';
+import {Student} from '../../models/student.model.js';
 import ApiError from '../../utils/ApiError.js';
 import ApiResponse from '../../utils/apiResponse.js';
 import {asyncHandler} from '../../utils/asyncHandler.js';
@@ -18,13 +18,13 @@ const cookieOptions = {
 
 const studentRegister = asyncHandler(async (req, res, next) => {
 
-    const {studentFullName, studentPassword, studentPhoneNumber, studentAge, studentGender, studentEmail,} = req.body;
+    const {studentPassword, studentUserName, studentPhoneNumber, studentEmail,} = req.body;
 
     if(!req.body) {
         throw new ApiError(400, 'Student data is missing');
     }
 
-    if(!studentFullName || !studentPhoneNumber || !studentAge || !studentGender || !studentEmail) {
+    if(!studentPassword || !studentUserName || !studentEmail) {
 
 
         return res
@@ -51,12 +51,11 @@ const studentRegister = asyncHandler(async (req, res, next) => {
 
 
         const savedStudent = await Student.create({
-            studentFullName,
+            
             studentPhoneNumber,
-            studentAge,
             studentPassword: encryptedPassword,
-            studentGender,
             studentEmail,
+            studentUserName,
         });
         
 
@@ -215,6 +214,29 @@ const studentDelete = asyncHandler(async (req, res, next) => {
 
 
 
+const getStudentProfile = asyncHandler(async (req, res) => {
+
+    const {studentEmail } = req.user;
+
+    try {
+        
+        const student = await Student.findOne({studentEmail})
+
+        return res 
+        .json(new ApiResponse(200, "student profile fetched successfully", student))
+
+    } catch (error) {
+        console.log(error);
+        return res
+        .json(new ApiError(400, error.message))
+    }
+})
+
+
+
+
+
+
 const getMyCourses = asyncHandler(async (req, res, next) => {    
     
     const {studentEmail} = req.user;
@@ -271,7 +293,8 @@ const getLecturesByCourse = asyncHandler(async (req, res, next) => {
 
 export {
     studentRegister,
-    studentLogin,
+ 
+    getStudentProfile,
     studentUpdate,
     studentDelete,
 

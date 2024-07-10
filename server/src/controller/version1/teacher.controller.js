@@ -11,111 +11,6 @@ const cookieOptions = {
 };
 
 
-const teacherRegister = asyncHandler(async (req, res) => {
-
-    const {teacherFullName, teacherAge, teacherGender, teacherEmail, teacherPassword, teacherPhoneNumber, teacherSubjects} = req.body;
-
-    console.log(req.body);
-    try {
-
-        if(!teacherFullName || !teacherAge || !teacherGender || !teacherEmail || !teacherPassword || !teacherPhoneNumber || !teacherSubjects) {
-
-            return res
-            .status(400)
-            .json(new ApiError(400, 'Missing required fields'));
-        }
-
-        console.log("After checking");
-    
-        // const user = await Teacher.findOne({teacherEmail});
-    
-        // if(user) {
-        //     return res
-        //     .status(400)
-        //     .json(new ApiError(400, 'Email already exists'));
-        // }
-    
-        console.log("After User check");
-
-        const hashedPassword = await bcrypt.hash(teacherPassword, 10);
-    
-        const newUser = new Teacher({
-            teacherFullName,
-            teacherAge,
-            teacherGender,
-            teacherEmail,
-            teacherPassword: hashedPassword,
-            teacherPhoneNumber,
-            teacherSubjects,
-        });
-    
-        await newUser.save();
-    
-        return res
-        .status(200)
-        .json(new ApiResponse(200, 'Teacher registered successfully', newUser));
-    
-       
-    } 
-    
-    catch (error) {
-
-        console.log(error);
-        
-        return res 
-        .status(500)
-        .json(new ApiError(500, error.message));
-    }
-});
-
-
-const teacherLogin = asyncHandler(async (req, res) => {
-
-    const {teacherEmail, teacherPassword} = req.body;
-
-    if(!teacherEmail || !teacherPassword) {
-
-        return res
-        .status(400)
-        .json(new ApiError(400, 'Missing required fields'));
-    }
-
-    try {
-        const user = await Teacher.findOne({teacherEmail});
-
-        if(!user) {
-            return res
-            .status(400)
-            .json(new ApiError(400, 'Invalid email or password'));
-        }
-
-        const isValidPassword = await bcrypt.compare(teacherPassword, user.teacherPassword);
-
-        if(!isValidPassword) {
-            return res
-            .status(400)
-            .json(new ApiError(400, 'Invalid email or password'));
-        }
-
-        const teacherToken = await user.generateTeacherLogin();
-
-        return res
-        .status(200)
-        .cookie('teacherToken', teacherToken, cookieOptions)
-        .json(new ApiResponse(200, 'Teacher logged in successfully', user));
-
-       
-    }   
-
-    catch (error) {
-        
-        return res 
-        .status(500)
-        .json(new ApiError(500, error.message));
-    }
-
-});
-
 
 const teacherUpdate = asyncHandler(async (req, res) => {
 
@@ -204,8 +99,7 @@ const teacherDelete = asyncHandler(async (req, res) => {
 });
 
 export {
-    teacherRegister,
-    teacherLogin,
+   
     teacherUpdate,
     teacherDelete,
 }

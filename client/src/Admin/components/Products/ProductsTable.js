@@ -102,6 +102,7 @@ const ProductTable = () => {
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [selectedDescription, setSelectedDescription] = useState('');
 
+
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
     setFilteredProducts(products.filter(product =>

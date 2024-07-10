@@ -5,8 +5,16 @@ const StudentSchema = new mongoose.Schema({
  
     studentFullName: {
         type: String,
-        required: true,
+   
     },
+
+
+    studentUserName: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+
 
     studentCourseCode: {
 
@@ -17,7 +25,7 @@ const StudentSchema = new mongoose.Schema({
         
     studentAge: {
         type: Number,
-        required: true,
+      
     },
 
     studentAvatar: {
@@ -39,7 +47,7 @@ const StudentSchema = new mongoose.Schema({
 
     studentPhoneNumber: {
         type: Number,
-        required: true,
+       
     },
 
     studentGender: {
@@ -47,9 +55,17 @@ const StudentSchema = new mongoose.Schema({
        
     },
 
+    userType: {
+        type: String,
+        enum: ["student", "teacher", "admin"],
+        default: "student",
+
+    },
+
     studentPassword: {
         type: String,
         required: true,
+        select: false,  
     },
 
     studentEmail: {
@@ -95,4 +111,4 @@ StudentSchema.methods = {
 
 
 
-export default mongoose.model('Student', StudentSchema);
+export const Student =  mongoose.model('Student', StudentSchema);
