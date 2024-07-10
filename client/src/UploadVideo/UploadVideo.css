@@ -1,27 +1,121 @@
-.upload-video-page {
+.upload-video-container {
   padding: 20px;
-  height: auto;
   font-family: 'Roboto', sans-serif;
-  background-color: #0d3b66; 
+  background-color: #0d3b66;
   color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.navbar {
-  background: linear-gradient(to bottom, #0d3b66, #00213a); 
-  padding: 10px 0;
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  color: #fff; 
+.upload-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
-.filters {
+.upload-btn {
+  background-color: #00aaff;
+  color: #ffffff;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.upload-btn:hover {
+  background-color: #0088cc;
+  transform: translateY(-2px);
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  overflow: auto;
+}
+
+.modal-content {
+  background-color: #00213a;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  margin: auto;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #ffffff;
+  font-size: 24px;
+  cursor: pointer;
+  background-color: #ff0000;
+  border-radius: 50%;
+  padding: 5px 10px;
+}
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.upload-form input,
+.upload-form select,
+.upload-form button {
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #00aaff;
+  background-color: #0d3b66;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.upload-form input[type="file"] {
+  background-color: #00213a;
+}
+
+.upload-form input::placeholder,
+.upload-form select::placeholder {
+  color: #bbbbbb;
+}
+
+.upload-form button {
+  background-color: #00aaff;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.upload-form button:hover {
+  background-color: #0088cc;
+  transform: translateY(-2px);
+}
+
+.filters-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .sort-by, .filter-by {
@@ -39,10 +133,10 @@
 .sort-by select, .filter-by input {
   padding: 8px 12px;
   border-radius: 4px;
-  border: 1px solid #00aaff; 
+  border: 1px solid #00aaff;
   font-size: 14px;
-  background-color: #0d3b66; 
-  color: #fff; 
+  background-color: #0d3b66;
+  color: #fff;
 }
 
 .filter-by div {
@@ -76,16 +170,18 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .video-card {
   border: 1px solid #00aaff;
   border-radius: 10px;
   padding: 20px;
-  background-color: #00213a; 
+  background-color: #00213a;
   transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
-  color: #fff; 
+  color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -93,12 +189,12 @@
 
 .video-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 170, 255, 0.3); 
+  box-shadow: 0 8px 16px rgba(0, 170, 255, 0.3);
 }
 
 .video-thumbnail {
   position: relative;
-  padding-top: 56.25%; 
+  padding-top: 56.25%;
   border-radius: 8px;
   overflow: hidden;
   margin-bottom: 15px;
@@ -118,12 +214,12 @@
   font-size: 20px;
   margin: 10px 0;
   font-weight: bold;
-  color: #00aaff; 
+  color: #00aaff;
 }
 
 .video-details p {
   font-size: 14px;
-  color: #ffffff; 
+  color: #ffffff;
   margin: 5px 0;
 }
 
@@ -142,14 +238,39 @@
 .video-player button {
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: #00aaff; 
+  background-color: #00aaff;
   border: none;
   border-radius: 4px;
   color: #ffffff;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .video-player button:hover {
-  background-color: #0088cc; 
+  background-color: #0088cc;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .filters-container, .upload-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .video-gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .video-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (min-width: 1025px) {
+  .video-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
 }
