@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+//Course Sidebar Data panel
 
 const inputClasses = "border border-input rounded p-1";
 const buttonClasses = "p-2 border border-border rounded";
@@ -7,7 +8,7 @@ const hoverClasses = "hover:bg-gray-100 ";
 const primaryClasses = "bg-primary text-primary-foreground";
 
 // Define the CourseCard component
-const CourseCard = ({ product, onViewDescription, onModify }) => (
+const CourseCard = ({ product }) => (
   <div className="border rounded shadow p-4 m-2 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 flex flex-col items-start min-h-[400px]">
     <img src="https://images.unsplash.com/photo-1516802273409-68526ee1bdd6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Course" className="w-full mb-4 h-40 object-cover" />
     <h3 className="text-xl font-semibold mb-2">{product.course}</h3>
@@ -19,20 +20,6 @@ const CourseCard = ({ product, onViewDescription, onModify }) => (
       <p><strong>End Date:</strong> {product.enddate}</p>
     </div>
     <p><strong>Teacher:</strong> {product.courseteacher}</p>
-    <div className="flex justify-between w-full mt-auto">
-      <button
-        className="p-2 bg-blue-500 text-white rounded mr-2"
-        onClick={() => onViewDescription(product.description)}
-      >
-        View Description
-      </button>
-      <button
-        className="p-2 bg-green-500 text-white rounded"
-        onClick={() => onModify(product.id)}
-      >
-        Modify
-      </button>
-    </div>
   </div>
 );
 
@@ -108,21 +95,12 @@ const ProductTable = () => {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProducts, setFilteredProducts] = useState(products);
-  const [selectedDescription, setSelectedDescription] = useState('');
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
     setFilteredProducts(products.filter(product =>
       product.course.toLowerCase().includes(event.target.value.toLowerCase())
     ));
-  };
-
-  const handleCourseClick = (description) => {
-    setSelectedDescription(description);
-  };
-
-  const handleModifyClick = (id) => {
-    alert(`Modify course with ID: ${id}`);
   };
 
   return (
@@ -147,17 +125,15 @@ const ProductTable = () => {
             <CourseCard 
               key={product.id} 
               product={product} 
-              onViewDescription={handleCourseClick} 
-              onModify={handleModifyClick} 
             />
           ))}
         </div>
-        {selectedDescription && (
-          <div className="mt-4 p-4 border border-gray-200 rounded bg-gray-50">
-            <h3 className="text-lg font-semibold">Course Description</h3>
-            <p>{selectedDescription}</p>
-          </div>
-        )}
+        <div className="mt-4 p-4 border border-gray-200 rounded bg-gray-50">
+          <h3 className="text-lg font-semibold">Course Descriptions</h3>
+          {filteredProducts.map(product => (
+            <p key={product.id}><strong>{product.course}:</strong> {product.description}</p>
+          ))}
+        </div>
       </div>
     </div>
   );
