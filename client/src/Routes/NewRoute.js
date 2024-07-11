@@ -27,7 +27,7 @@ function NewRoute() {
 
        
      
-        <Route path='/students' element={<ViewLecture/>} />
+        <Route path='/viewLecture' element={<ViewLecture/>} />
 
 
 
