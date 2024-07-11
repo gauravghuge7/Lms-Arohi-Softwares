@@ -1,81 +1,68 @@
 import React, { useState } from 'react';
 
 const sharedClasses = {
-  primaryButton: 'bg-primary border-[2px] border-gray-300 text-primary-foreground px-4 py-2 rounded-lg flex items-center',
+  primaryButton: 'bg-white-100 border-[2px] border-gray-300 text-white-foreground px-4 py-2 rounded-lg flex items-center',
   tableCell: 'p-4 text-left',
   actionButton: 'text-purple-500 px-2',
   editButton: 'text-red-500',
   deleteButton: 'text-brown-500 px-2',
   searchInput: 'w-full p-2 border rounded-lg bg-input text-foreground',
+  tooltip: 'absolute z-10 p-2 bg-gray-200 text-gray-800 rounded-lg shadow-lg whitespace-pre-wrap',
 };
 
 const OrdersTable = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [tooltipContent, setTooltipContent] = useState('');
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
 
   const orders = [
     {
       enrolledStudent: "Arun Sinha",
-      enrollmentId: "1",
-      courseTaken: "AI and ML",
-      paymentStatus: "Yes",
-      teacherAppointed: "Mr. Ram Swaroop",
-      status: "Enrolled and studying",
+      studentId: "1",
+      paymentDate: "2024-01-01",
+      paymentMethod: "Credit Card",
+      courseEndDate: "2024-12-31",
+      courseName: "Full Stack Development",
     },
     {
       enrolledStudent: "Tara Sighole",
-      enrollmentId: "2",
-      courseTaken: "Python with Django",
-      paymentStatus: "No",
-      teacherAppointed: "Mr. Arun Shukla",
-      status: "Not enrolled",
-    },
-    {
-      enrolledStudent: "David Marcue",
-      enrollmentId: "3",
-      courseTaken: "Full Stack Development",
-      paymentStatus: "Yes",
-      teacherAppointed: "Mr. Anup Kasol",
-      status: "Enrolled and studying",
-    },
-    {
-      enrolledStudent: "Anima Bhail",
-      enrollmentId: "4",
-      courseTaken: "Backend with NodeJs and ExpressJs",
-      paymentStatus: "No",
-      teacherAppointed: "Mrs. Amy Sinha",
-      status: "Not enrolled",
-    },
-    {
-      enrolledStudent: "Sherlyn Joshua",
-      enrollmentId: "5",
-      courseTaken: "Deep Learning",
-      paymentStatus: "Yes",
-      teacherAppointed: "Mr. Vivan Singh",
-      status: "Enrolled and studying",
-    },
-    {
-      enrolledStudent: "John Doe",
-      enrollmentId: "6",
-      courseTaken: "Machine Learning",
-      paymentStatus: "No",
-      teacherAppointed: "Mrs. Vimla Roop",
-      status: "Not enrolled",
+      studentId: "2",
+      paymentDate: "2024-02-15",
+      paymentMethod: "PayPal",
+      courseEndDate: "2025-02-14",
+      courseName: "Python with Django",
     },
   ];
 
   const filteredOrders = orders.filter(order =>
     order.enrolledStudent.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    order.enrollmentId.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    order.courseTaken.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    order.paymentStatus.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    order.teacherAppointed.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    order.status.toLowerCase().includes(searchTerm.toLowerCase())
+    order.studentId.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const showTooltip = (content, event) => {
+    const { clientX: left, clientY: top } = event;
+    setTooltipContent(content);
+    setTooltipPosition({ top, left });
+    setTooltipVisible(true);
+  };
+
+  const hideTooltip = () => {
+    setTooltipVisible(false);
+  };
+
   return (
-    <div className="p-4 bg-aqua-100 mx-5 my-8 rounded-lg text-card-foreground">
+    <div className="relative p-4 bg-white mx-5 my-8 rounded-lg text-card-foreground">
+      {tooltipVisible && (
+        <div
+          className={sharedClasses.tooltip}
+          style={{ top: tooltipPosition.top + 10, left: tooltipPosition.left + 10 }}
+        >
+          {tooltipContent}
+        </div>
+      )}
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-semibold">Order List</h1>
+        <h1 className="text-2xl font-semibold">Enrollment List</h1>
         <button className={sharedClasses.primaryButton}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -108,11 +95,8 @@ const OrdersTable = () => {
           <thead>
             <tr className="bg-blue-300 text-secondary-foreground">
               <th className={`${sharedClasses.tableCell} hidden sm:table-cell`}>Enrolled Student</th>
-              <th className={`${sharedClasses.tableCell} hidden sm:table-cell`}>Enrollment ID</th>
-              <th className={`${sharedClasses.tableCell} hidden sm:table-cell`}>Course Taken</th>
-              <th className={`${sharedClasses.tableCell} hidden sm:table-cell`}>Payment Status</th>
-              <th className={`${sharedClasses.tableCell} hidden sm:table-cell`}>Teacher Appointed</th>
-              <th className={`${sharedClasses.tableCell} hidden sm:table-cell`}>Status</th>
+              <th className={`${sharedClasses.tableCell} hidden sm:table-cell`}>Student ID</th>
+              <th className={sharedClasses.tableCell}>Payment</th>
               <th className={sharedClasses.tableCell}>Action</th>
             </tr>
           </thead>
@@ -123,11 +107,19 @@ const OrdersTable = () => {
                 className="border-t hover:bg-gray-100 transition duration-200"
               >
                 <td className={`${sharedClasses.tableCell} hidden sm:table-cell`}>{order.enrolledStudent}</td>
-                <td className={`${sharedClasses.tableCell} hidden sm:table-cell`}>{order.enrollmentId}</td>
-                <td className={`${sharedClasses.tableCell} hidden sm:table-cell`}>{order.courseTaken}</td>
-                <td className={`${sharedClasses.tableCell} hidden sm:table-cell`}>{order.paymentStatus}</td>
-                <td className={`${sharedClasses.tableCell} hidden sm:table-cell`}>{order.teacherAppointed}</td>
-                <td className={`${sharedClasses.tableCell} hidden sm:table-cell`}>{order.status}</td>
+                <td className={`${sharedClasses.tableCell} hidden sm:table-cell`}>{order.studentId}</td>
+                <td className={sharedClasses.tableCell}>
+                  <button
+                    className={sharedClasses.actionButton}
+                    onMouseEnter={(e) => showTooltip(
+                      `Course: ${order.courseName}\nPayment Date: ${order.paymentDate}\nPayment Method: ${order.paymentMethod}\nCourse End Date: ${order.courseEndDate}`,
+                      e
+                    )}
+                    onMouseLeave={hideTooltip}
+                  >
+                    View
+                  </button>
+                </td>
                 <td className={sharedClasses.tableCell}>
                   <button className={sharedClasses.actionButton}>
                     <svg
