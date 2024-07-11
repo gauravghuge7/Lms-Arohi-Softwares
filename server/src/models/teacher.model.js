@@ -24,7 +24,7 @@ const TeacherSchema = new mongoose.Schema({
         // required: true,
     },
 
-    type: {
+    teacherType: {
         type: String,
         enum: ["teacher"],
         default: "teacher",

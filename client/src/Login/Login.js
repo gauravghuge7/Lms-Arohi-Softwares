@@ -37,13 +37,21 @@ function Login() {
       const result = response.data;
 
       toast.success(result.message);
-      // console.log(result.success);
+      
+      console.log(result);
+
 
       /// if the login is successful, redirect the user to the home page
       if (result.success) {
+
         dispatch(setUser(result.data));
+
+        if(result.data.adminType === 'admin'){
+          navigate("/admin");
+        }
+
         
-        navigate("/");
+        // navigate("/");
       } else {
         toast.error(result.message);
       }

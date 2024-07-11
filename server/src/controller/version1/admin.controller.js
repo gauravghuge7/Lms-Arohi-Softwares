@@ -38,6 +38,14 @@ const createAdmin = asyncHandler(async (req, res) => {
             return new ApiError(400, 'Invalid password for this student');
         }
 
+
+        const verifyAdmin = await Admin.findOne({studentEmail});
+        
+        if(verifyAdmin) {
+            return res
+            .json(new ApiResponse(400, "admin already created by you "))
+        }
+
         /// create a entry in admin collection
         console.log(user);
         const admin = await Admin.create({
@@ -53,7 +61,7 @@ const createAdmin = asyncHandler(async (req, res) => {
         /// delete a entry in the student collection
         const deleteStudent = await Student.findByIdAndDelete(user._id);
 
-        return res.status(200).json(new ApiResponse(200, 'Admin create successfully', admin));
+        return res.status(200).json(new ApiResponse(200, 'Admin create successfully', admin, deleteStudent));
     } catch (error) {
         console.log('error => ', error);
 
@@ -69,13 +77,15 @@ const createTeacher = asyncHandler(async (req, res) => {
         const user = await Student.findOne({ studentEmail }).select('+studentPassword');
 
         if (!user) {
-            return new ApiError(400, 'Student with this email already exists');
+            return res 
+            .json(new ApiError(400, 'Student with this email already exists'));
         }
 
         const comparePassword = await bcrypt.compare(studentPassword, user.studentPassword);
 
         if (!comparePassword) {
-            return new ApiError(400, 'Invalid password for this student');
+            return res
+            .json(new ApiError(400, 'Invalid password for this student'));
         }
 
         /// create a entry in admin collection
@@ -92,7 +102,9 @@ const createTeacher = asyncHandler(async (req, res) => {
         const deleteStudent = await Student.findByIdAndDelete(user._id);
 
         return res.status(200).json(new ApiResponse(200, 'Teacher create successfully', teacher));
-    } catch (error) {
+    } 
+    
+    catch (error) {
         console.log('error => ', error);
 
         return res.status(400).json(new ApiError(400, error.message));

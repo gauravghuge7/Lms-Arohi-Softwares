@@ -57,11 +57,11 @@ const loginUser = asyncHandler(async (req, res) => {
 
         /// find this teacher or not 
 
-        const teacher = await Teacher.findOne({ teacherEmail:studentEmail }).select("-teacherPassword");
+        const teacher = await Teacher.findOne({ teacherEmail:studentEmail }).select("+teacherPassword");
 
         if(teacher) {
           
-            const comparePassword = await bcrypt.compare(teacherPassword, teacher.teacherPassword);
+            const comparePassword = await bcrypt.compare(studentPassword, teacher.teacherPassword);
 
             if(!comparePassword) {
                 return res
@@ -72,18 +72,17 @@ const loginUser = asyncHandler(async (req, res) => {
             const teacherToken = teacher.generateTeacherLogin();
 
             return res 
-                .status(400)
+                .status(200)
                 .cookie("teacherToken", teacherToken, cookieOptions)
-                .redirect('/teacherDashboard')
-                .json(new ApiResponse(400, "Teacher login successfully", teacher));
+                .json(new ApiResponse(200, "Teacher login successfully", teacher));
         }
 
 
-        const admin = await Admin.findOne({ adminEmail : studentEmail }).select("-adminPassword");
+        const admin = await Admin.findOne({ adminEmail : studentEmail }).select("+adminPassword");
 
         if(admin) {
             
-            const comparePassword = await bcrypt.compare(adminPassword, admin.adminPassword);
+            const comparePassword = await bcrypt.compare(studentPassword, admin.adminPassword);
 
             if(!comparePassword) {
                 return res
@@ -94,10 +93,9 @@ const loginUser = asyncHandler(async (req, res) => {
             const adminToken = admin.generateAdminLogin();
 
             return res 
-                .status(400)
+                .status(200)
                 .cookie("adminToken", adminToken, cookieOptions)
-                .redirect('/admin')
-                .json(new ApiResponse(400, "Admin login successfully", admin));
+                .json(new ApiResponse(200, "Admin login successfully", admin));
         }
 
 

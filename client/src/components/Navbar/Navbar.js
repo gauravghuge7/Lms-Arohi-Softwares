@@ -33,6 +33,7 @@ function Navbar() {
     dispatch(logout());
   };
   return (
+    
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
         <>
