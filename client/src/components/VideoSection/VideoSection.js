@@ -8,7 +8,7 @@ function VideoSection() {
       <div className="text-center text-5xl">
         <p className="text-white"> We do whatever it takes to help you</p>
         <span className=" text-cyan-400 ">understand the concepts.</span>
-        <div className="flex align-middle justify-center mt-11 shadow-emerald-600">
+        <div className="flex  w-[760px] h-[480px] mx-auto  mt-11 shadow-emerald-600">
           <iframe
             width="760"
             height="480"

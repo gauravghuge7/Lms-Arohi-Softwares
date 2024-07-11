@@ -1,26 +1,42 @@
-import React from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Link } from 'react-router-dom'; 
-
-const navigation = [
-  { name: 'Dashboard', href: 'dashboard', current: true },
-  { name: 'Home', href: '/', current: false },
-  { name: 'Courses', href: 'courses', current: false },
-  { name: 'Notes', href: '#', current: false },
-  { name: 'Blog', href: '#', current: false },
-]
+import React from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../store/User/userSlice";
+import axios from "axios";
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 function Navbar() {
+  const dispatch = useDispatch();
+  const isAuth = useSelector((state) => state.user.isAuthenticated);
+  const user = useSelector((state) => state.user.user);
+  const isAdmin = user?.userType === "admin" ? true : false;
+
+
+  const navigation = [
+    { name: "Dashboard", href: "/dashboard", current: true, isAuth: isAdmin },
+    { name: "Home", href: "/", current: false, isAuth: true },
+    { name: "Courses", href: "/courses", current: false, isAuth: true },
+    { name: "My Courses", href: "/mycourses", current: false, isAuth: isAuth },
+    { name: "Notes", href: "#", current: false, isAuth: isAuth },
+    { name: "Blog", href: "#", current: false, isAuth: true },
+    { name: "Login", href: "/login", current: false, isAuth: !isAuth },
+    { name: "Signup", href: "/signup", current: false, isAuth: !isAuth },
+  ];
+  const logouthandler = async () => {
+    // const res = await axios.get('/api/student/logout')
+    // console.log(res.data);
+    dispatch(logout());
+  };
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
             <div className="relative flex h-24 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
@@ -39,24 +55,32 @@ function Navbar() {
                     src="https://media.licdn.com/dms/image/D560BAQFtWM46bCiJfQ/company-logo_200_200/0/1695197175289?e=2147483647&v=beta&t=46cYmda122C_egnedarsDunJhoZgjhMYaeUJixhrbXM"
                     alt="Arohi Software"
                   /> */}
-                  <p className="text-4xl font-bold text-white">Arohi Software</p>
+                  <p className="text-4xl font-bold text-white">
+                    Arohi Software
+                  </p>
                 </div>
-                <div className="hidden sm:ml-6 sm:block">
+                <div className="hidden flex  sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'rounded-md px-3 py-2 text-2xl font-medium'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
-                        {item.name}
-                      </a>
+                      <>
+                        <Link
+                          key={item.name}
+                          to={item.href}
+                          className={classNames(
+                            item.current
+                              ? "bg-gray-900 text-white"
+                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            "rounded-md px-3 py-2 text-2xl font-medium ",
+                            item.isAuth ? "block" : "hidden"
+                          )}
+                          aria-current={item.current ? "page" : undefined}
+                        >
+                          {item.name}
+                        </Link>
+                      </>
                     ))}
                   </div>
+                  <div></div>
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -67,7 +91,10 @@ function Navbar() {
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
-                <Menu as="div" className="relative ml-3">
+                <Menu
+                  as="div"
+                  className={`relative ml-3 ${isAuth ? "block" : "hidden"}`}
+                >
                   <div>
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
@@ -79,7 +106,6 @@ function Navbar() {
                     </Menu.Button>
                   </div>
                   <Transition
-                  
                     enter="transition ease-out duration-100"
                     enterFrom="transform opacity-0 scale-95"
                     enterTo="transform opacity-100 scale-100"
@@ -89,20 +115,39 @@ function Navbar() {
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
-                      {({ active }) => (
+                        {({ active }) => (
                           <Link
                             to="/profile"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-lg text-gray-700"
+                            )}
                           >
                             Your Profile
                           </Link>
                         )}
                       </Menu.Item>
+
+                      <Menu.Item>
+                      {({ active }) => (
+                          <Link
+                            to="/teacher/Mycourses"
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
+                          >
+                            My Courses
+                          </Link>
+                        )}
+                      </Menu.Item>
+
+
                       <Menu.Item>
                         {({ active }) => (
                           <a
                             href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-lg text-gray-700"
+                            )}
                           >
                             Settings
                           </a>
@@ -111,8 +156,12 @@ function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <a
+                            onClick={logouthandler}
                             href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-lg text-gray-700"
+                            )}
                           >
                             Sign out
                           </a>
@@ -132,10 +181,12 @@ function Navbar() {
                   as="a"
                   href={item.href}
                   className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'block rounded-md px-3 py-2 text-xl font-medium'
+                    item.current
+                      ? "bg-gray-900 text-white"
+                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                    "block rounded-md px-3 py-2 text-xl font-medium"
                   )}
-                  aria-current={item.current ? 'page' : undefined}
+                  aria-current={item.current ? "page" : undefined}
                 >
                   {item.name}
                 </Disclosure.Button>
@@ -145,8 +196,7 @@ function Navbar() {
         </>
       )}
     </Disclosure>
-  )
+  );
 }
 
-export default Navbar
-  
+export default Navbar;

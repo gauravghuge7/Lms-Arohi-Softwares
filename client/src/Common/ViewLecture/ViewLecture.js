@@ -9,7 +9,7 @@ function ViewLecture() {
       description: "this is a very useful video",
       channel: "sushant01",
       thumbnail: "./logo192.png",
-      url: "https://youtu.be/YDH7f9dTXAs?si=a76QL1swf1dLRYmv" // Sample video URL
+      url: "https://youtu.be/YDH7f9dTXAs?si=a76QL1swf1dLRYmv" 
     },
     {
       title: "video2",
