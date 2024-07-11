@@ -24,6 +24,17 @@ function NewRoute() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
 
+
+
+       
+     
+        <Route path='/viewLecture' element={<ViewLecture/>} />
+
+
+
+
+
+
         <Route element={<ProtectedRoutes/>} >
           <Route path="/students" element={<ViewLecture />} />
           <Route path="/mycourses" element={<MyCourses/>} />
