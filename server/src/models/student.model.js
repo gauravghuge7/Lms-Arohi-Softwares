@@ -55,9 +55,9 @@ const StudentSchema = new mongoose.Schema({
        
     },
 
-    userType: {
+    studentType: {
         type: String,
-        enum: ["student", "teacher", "admin"],
+        enum: ["student"],
         default: "student",
 
     },
