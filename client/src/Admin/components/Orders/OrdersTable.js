@@ -73,7 +73,7 @@ const OrdersTable = () => {
   );
 
   return (
-    <div className="p-4 bg-beige mx-5 my-8 rounded-lg text-card-foreground">
+    <div className="p-4 bg-aqua-100 mx-5 my-8 rounded-lg text-card-foreground">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-semibold">Order List</h1>
         <button className={sharedClasses.primaryButton}>
@@ -107,12 +107,12 @@ const OrdersTable = () => {
         <table className="min-w-full bg-white border rounded-lg">
           <thead>
             <tr className="bg-blue-300 text-secondary-foreground">
-              <th className={sharedClasses.tableCell}>Enrolled Student</th>
-              <th className={sharedClasses.tableCell}>Enrollment ID</th>
-              <th className={sharedClasses.tableCell}>Course Taken</th>
-              <th className={sharedClasses.tableCell}>Payment Status</th>
-              <th className={sharedClasses.tableCell}>Teacher Appointed</th>
-              <th className={sharedClasses.tableCell}>Status</th>
+              <th className={`${sharedClasses.tableCell} hidden sm:table-cell`}>Enrolled Student</th>
+              <th className={`${sharedClasses.tableCell} hidden sm:table-cell`}>Enrollment ID</th>
+              <th className={`${sharedClasses.tableCell} hidden sm:table-cell`}>Course Taken</th>
+              <th className={`${sharedClasses.tableCell} hidden sm:table-cell`}>Payment Status</th>
+              <th className={`${sharedClasses.tableCell} hidden sm:table-cell`}>Teacher Appointed</th>
+              <th className={`${sharedClasses.tableCell} hidden sm:table-cell`}>Status</th>
               <th className={sharedClasses.tableCell}>Action</th>
             </tr>
           </thead>
@@ -122,12 +122,12 @@ const OrdersTable = () => {
                 key={index}
                 className="border-t hover:bg-gray-100 transition duration-200"
               >
-                <td className={sharedClasses.tableCell}>{order.enrolledStudent}</td>
-                <td className={sharedClasses.tableCell}>{order.enrollmentId}</td>
-                <td className={sharedClasses.tableCell}>{order.courseTaken}</td>
-                <td className={sharedClasses.tableCell}>{order.paymentStatus}</td>
-                <td className={sharedClasses.tableCell}>{order.teacherAppointed}</td>
-                <td className={sharedClasses.tableCell}>{order.status}</td>
+                <td className={`${sharedClasses.tableCell} hidden sm:table-cell`}>{order.enrolledStudent}</td>
+                <td className={`${sharedClasses.tableCell} hidden sm:table-cell`}>{order.enrollmentId}</td>
+                <td className={`${sharedClasses.tableCell} hidden sm:table-cell`}>{order.courseTaken}</td>
+                <td className={`${sharedClasses.tableCell} hidden sm:table-cell`}>{order.paymentStatus}</td>
+                <td className={`${sharedClasses.tableCell} hidden sm:table-cell`}>{order.teacherAppointed}</td>
+                <td className={`${sharedClasses.tableCell} hidden sm:table-cell`}>{order.status}</td>
                 <td className={sharedClasses.tableCell}>
                   <button className={sharedClasses.actionButton}>
                     <svg
@@ -196,4 +196,5 @@ const OrdersTable = () => {
     </div>
   );
 }
-export default OrdersTable
+
+export default OrdersTable;
