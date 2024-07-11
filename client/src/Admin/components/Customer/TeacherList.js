@@ -4,7 +4,7 @@ const inputClass = "w-full px-4 py-2 border border-zinc-300 rounded-md focus:out
 const buttonClass = "px-3 py-1 border rounded-md";
 const iconButtonClass = "text-blue-500 hover:text-blue-700";
 
-const Customer = () => {
+const TeacherList = () => {
   return (
     <div className="min-h-screen bg-zinc-100 p-4">
       <div className="container mx-auto bg-white rounded-lg shadow-md p-6">
@@ -101,4 +101,4 @@ const Customer = () => {
   );
 };
 
-export default Customer;
+export default TeacherList;
