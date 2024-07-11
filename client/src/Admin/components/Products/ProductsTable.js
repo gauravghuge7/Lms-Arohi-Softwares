@@ -58,39 +58,8 @@ const ProductTable = () => {
       courseteacher: "Mr Anup Kasol",
       description: "Learn Python with Django framework.",
     },
-    {
-      id: 4,
-      course: "Full Stack Development",
-      coursecode: "104",
-      courseprice: "$200",
-      courseduration: "34 Hours",
-      startdate: "22-Jun-24",
-      enddate: "23-Aug-24",
-      courseteacher: "Mrs Amy Sinha",
-      description: "Comprehensive full stack development course.",
-    },
-    {
-      id: 5,
-      course: "JavaScript for Beginners",
-      coursecode: "105",
-      courseprice: "$150",
-      courseduration: "20 Hours",
-      startdate: "10-Jul-24",
-      enddate: "30-Jul-24",
-      courseteacher: "Mr John Doe",
-      description: "Learn JavaScript from scratch.",
-    },
-    {
-      id: 6,
-      course: "React and Redux",
-      coursecode: "106",
-      courseprice: "$250",
-      courseduration: "30 Hours",
-      startdate: "1-Aug-24",
-      enddate: "20-Aug-24",
-      courseteacher: "Ms Jane Smith",
-      description: "Master React and Redux for front-end development.",
-    },
+   
+    
   ];
 
   const [searchTerm, setSearchTerm] = useState('');
