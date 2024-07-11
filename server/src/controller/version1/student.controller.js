@@ -127,9 +127,7 @@ const studentLogin = asyncHandler(async (req, res, next) => {
 const studentUpdate = asyncHandler(async (req, res, next) => {
 
     const {studentEmail} = req.user;
-
     const { studentFullName, studentAge, studentGender} = req.body;
-
     try {
         const user = await Student.findOne({studentEmail: studentEmail});
     
@@ -154,7 +152,7 @@ const studentUpdate = asyncHandler(async (req, res, next) => {
        
 
         if(req.file) {
-
+            console.log(req.file)
             const uploadedFile = await uploadOnCloudinary(req.file.path);
 
             user.studentAvatar.public_id = uploadedFile.public_id;

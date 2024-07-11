@@ -11,8 +11,8 @@ const StudentSchema = new mongoose.Schema({
 
     studentUserName: {
         type: String,
-        required: true,
-        unique: true,
+        // required: true,
+        // unique: true,
     },
 
 
@@ -70,8 +70,8 @@ const StudentSchema = new mongoose.Schema({
 
     studentEmail: {
         type: String,
-        required: true,
-        unique: true,
+        // required: true,
+        // unique: true,
     },
 
     isActive: {

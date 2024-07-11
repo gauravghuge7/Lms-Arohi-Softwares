@@ -32,11 +32,11 @@ const loginUser = asyncHandler(async (req, res) => {
         /// find this is student or not
 
         const student = await Student.findOne({ studentEmail }).select("+studentPassword");
-
+        console.log(student)
         if(student) {
 
             const comparePassword = await bcrypt.compare(studentPassword, student.studentPassword);
-
+            console.log(comparePassword)
             if(!comparePassword) {
                 return res
                     .status(400)
