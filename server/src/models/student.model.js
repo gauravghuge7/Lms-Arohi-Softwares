@@ -64,7 +64,7 @@ const StudentSchema = new mongoose.Schema({
 
     studentPassword: {
         type: String,
-        required: true,
+        // required: true,
         select: false,  
     },
 
@@ -99,6 +99,7 @@ StudentSchema.methods = {
         return jwt.sign(
             {
                 studentEmail: this.studentEmail,
+                studentPhoneNumber: this.studentPhoneNumber,
                 id: this._id,
             },
             process.env.JWT_SECRET,

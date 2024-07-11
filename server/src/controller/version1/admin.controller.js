@@ -16,10 +16,21 @@ const createAdmin = asyncHandler(async (req, res) => {
     try {
         const { studentEmail, studentPassword } = req.body;
         console.log(studentEmail, studentPassword);
-        const user = await Student.findOne({ studentEmail }).select('+studentPassword');
-        // if(!user) {
-        //     return new ApiError(400, 'Student with this email already exists');
-        // }
+
+        if(!studentEmail || !studentPassword) {
+
+            return res
+            .json(new ApiError(400, 'Please provide student email and password'));
+        }
+
+        console.log("");
+        const user = await Student.findOne({ studentEmail }).select('+studentPassword').populate('studentCourses')
+
+        if(!user) {
+            return res
+            .json( new ApiError(400, 'Student with this email is not exist'));
+        }
+
 
         const comparePassword = await bcrypt.compare(studentPassword, user.studentPassword);
 
@@ -34,6 +45,7 @@ const createAdmin = asyncHandler(async (req, res) => {
             adminUserName: user.studentUserName,
             adminEmail: user.studentEmail,
             adminPhoneNumber: user.studentPhoneNumber,
+            adminUserName: user.studentUserName,
             adminPassword: user.studentPassword,
             isActive: true
         });
@@ -41,13 +53,14 @@ const createAdmin = asyncHandler(async (req, res) => {
         /// delete a entry in the student collection
         const deleteStudent = await Student.findByIdAndDelete(user._id);
 
-        return res.status(200).json(new ApiResponse(200, 'Admin create successfully', user));
+        return res.status(200).json(new ApiResponse(200, 'Admin create successfully', admin));
     } catch (error) {
         console.log('error => ', error);
 
         return res.status(400).json(new ApiError(400, error.message));
     }
 });
+
 
 const createTeacher = asyncHandler(async (req, res) => {
     try {
