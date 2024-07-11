@@ -49,6 +49,9 @@ function Login() {
         if(result.data.adminType === 'admin'){
           navigate("/admin");
         }
+        else if(result.data.teacherType === 'teacher'){
+          navigate("/");
+        }
 
         
         // navigate("/");
