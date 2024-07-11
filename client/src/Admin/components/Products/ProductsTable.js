@@ -34,7 +34,7 @@ const ProductTable = () => {
       startdate: "29-Sept-24",
       enddate: "21-Oct-24",
       courseteacher: "Mr Ram Swaroop",
-      description: "This course covers the fundamentals of AI and ML.",
+      description: "This course covers the fundamentals of AI and ML.You will get the best course as it has the live doubt solving always available.Feel the best by getting the best.",
     },
     {
       id: 2,
@@ -45,7 +45,7 @@ const ProductTable = () => {
       startdate: "29-May-24",
       enddate: "28-Jul-24",
       courseteacher: "Mr Arun Shukla",
-      description: "Advanced concepts in AI and ML.",
+      description: "Advanced concepts in AI and ML.You will get the best course as it has the live doubt solving always available.Feel the best by getting the best.",
     },
     {
       id: 3,
@@ -56,7 +56,7 @@ const ProductTable = () => {
       startdate: "6-Aug-24",
       enddate: "15-Sept-24",
       courseteacher: "Mr Anup Kasol",
-      description: "Learn Python with Django framework.",
+      description: "Learn Python with Django framework.You will get the best course as it has the live doubt solving always available.Feel the best by getting the best.",
     },
    
     
