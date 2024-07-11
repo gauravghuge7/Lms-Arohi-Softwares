@@ -120,6 +120,7 @@ const OrdersTable = () => {
                     View
                   </button>
                 </td>
+
                 <td className={sharedClasses.tableCell}>
                   <button className={sharedClasses.actionButton}>
                     <svg
@@ -137,6 +138,7 @@ const OrdersTable = () => {
                       />
                     </svg>
                   </button>
+
                   <button className={sharedClasses.editButton}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -153,6 +155,7 @@ const OrdersTable = () => {
                       />
                     </svg>
                   </button>
+
                   <button className={sharedClasses.deleteButton}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -169,7 +172,9 @@ const OrdersTable = () => {
                       />
                     </svg>
                   </button>
+
                 </td>
+                
               </tr>
             ))}
           </tbody>

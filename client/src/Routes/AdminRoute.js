@@ -3,11 +3,11 @@ import { Route, Routes } from 'react-router-dom';
 import Admin from '../Admin/Admin';
 
 import AdminDashboard from '../Admin/components/Dashboard/Dashboard';
-import Customer from '../Admin/components/Customer/Customer';
-import Orders from '../Admin/components/Orders/OrdersTable';
-import Products from '../Admin/components/Products/ProductsTable';
-import OrdersTable from '../Admin/components/Orders/OrdersTable';
+import ViewLecture from '../Common/ViewLecture/ViewLecture';
+
 import CreateCourse from '../Admin/CreateCourse/CreateCourse';
+import TeacherList from '../Admin/components/Customer/TeacherList';
+import CourseTable from '../Admin/components/CourseTable/CourseTable';
 
 function AdminRoute() {
 
@@ -16,18 +16,19 @@ function AdminRoute() {
       <Routes>
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/customers" element={<Customer />} />
-        <Route path="/admin/orders" element={<Orders />} />
-        <Route path="/admin/courses" element={<Products />} />
+        <Route path="/admin/teachers" element={<TeacherList />} />
+   
+
+        <Route path="/admin/courses" element={<CourseTable />} />
+
+
+        <Route path="/admin/viewLectures" element={<ViewLecture />} />
 
 
           
-              
-        <Route path="/customers" element={<OrdersTable />} />
-
-        
 
         <Route path="/createCourse" element={<CreateCourse />} />
+        <Route path="/admin/updateCourse" element={<CreateCourse />} />
 
       </Routes>
     </div>
