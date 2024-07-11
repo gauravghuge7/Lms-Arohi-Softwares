@@ -1,6 +1,6 @@
 import express from 'express';
 import { Admin } from '../models/admin.model.js';
-import { createAdmin, logoutAdmin, updateAdmin } from '../controller/version1/admin.controller.js';
+import { createAdmin, createTeacher, logoutAdmin, updateAdmin } from '../controller/version1/admin.controller.js';
 import { upload } from '../middlewares/multer.middleware.js';
 import isAdminLogin from '../middlewares/admin.auth.js';
 import { createCourse } from '../controller/version1/course.controller.js';
@@ -21,8 +21,9 @@ adminRouter.route('/createAdmin').post(
 adminRouter.route('/createTeacher').post(
 
     upload.none(),
-    createAdmin
+    createTeacher
 )
+
 
 
 adminRouter.route('/updateAdmin').post(

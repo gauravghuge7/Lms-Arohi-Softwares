@@ -64,7 +64,7 @@ const StudentSchema = new mongoose.Schema({
 
     studentPassword: {
         type: String,
-        required: true,
+        // required: true,
         select: false,  
     },
 

@@ -36,11 +36,11 @@ const studentRegister = asyncHandler(async (req, res, next) => {
 
     try {
 
-        const user = await Student.findOne({studentEmail: studentEmail});
+        const user = await Student.findOne({ studentEmail, studentUserName })
 
         if(user) {
 
-            throw new ApiError(400, 'Student with this email already exists');
+            throw new ApiError(400, 'Student with this email or username already exists');
     
             // res.status(400)
             // .json(new ApiError(400, 'Student with this email already exists'));
