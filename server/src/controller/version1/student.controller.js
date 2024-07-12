@@ -95,13 +95,15 @@ const studentLogin = asyncHandler(async (req, res, next) => {
 
         if(!user) {
 
-            return new ApiError(400, 'Student with this email already exists');
+            return res 
+            .json(new ApiError(400, 'Student with this email is not found'));
         }
 
         const isMatch = await bcrypt.compare(studentPassword, user.studentPassword);
 
         if (!isMatch) {
-            return new ApiError(401, 'Invalid password for this student');
+            return res 
+            .json(new ApiError(401, 'Invalid password for this student'));
         }
 
         const studentToken = user.generateStudentLogin();
