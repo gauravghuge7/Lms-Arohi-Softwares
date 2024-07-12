@@ -37,20 +37,25 @@ const lectureUploadOnCloudinary = async(path) => {
         
         const response = await cloudinary.uploader.upload(path, {
             
-            path: '/uploads/lectures',
+            path: './uploads/lectures',
             resource_type: 'video',
-            transformation: {
-                quality: 'auto',
-                fetch_format: 'auto',
-                crop: 'limit',
-                width: 1280,
-                height: 720,
-                aspect_ratio: '16:9',
-                gravity: 'auto',
-                radius: 0,
-                background: 'transparent',
+            upload_preset: 'default',
+
+
+            // transformation: {
+            //     quality: 'auto',
+            //     fetch_format: 'auto',
+            //     crop: 'limit',
+            //     width: 1280,
+            //     height: 720,
+            //     aspect_ratio: '16:9',
+            //     gravity: 'auto',
+            //     radius: 0,
+            //     background: 'transparent',
      
-            }
+            // }
+
+
         })
 
         console.log(response);

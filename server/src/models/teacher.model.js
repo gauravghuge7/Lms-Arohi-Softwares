@@ -70,7 +70,7 @@ const TeacherSchema = new mongoose.Schema({
 
 TeacherSchema.methods = {
     
-    generateTeacherLogin: async function () {
+    generateTeacherLogin: function () {
 
         return jwt.sign(
             {
