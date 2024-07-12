@@ -35,8 +35,18 @@ const CourseSchema = new mongoose.Schema({
 			type: String,
 		}
 	}],
-	
+	courseThumbnail:{
+		public_id :{
+			type: String,
+		},
+		private_url: {
 
+			type: String,
+
+		}
+	}
+	
+,
 	coursePdf: [{
 
 		public_id :{

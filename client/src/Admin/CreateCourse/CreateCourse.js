@@ -1,24 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from "axios"
+
+// 
+
 
 function CreateCourse() {
+
+        // courseThumnail
+    const [courseData,setCourseData] =useState({
+        courseName:"",
+        courseCode:"",
+        courseDescription:"",
+        coursePrice:"",
+        courseDuration:"",
+        courseStartDate:"",
+        courseEndDate:"",
+        courseTeacher:"",
+        courseThumbnail:null,
+    })
+
+    const handleOnSubmit = async(e) => {
+        e.preventDefault();
+        const res = await axios.post('/api/course/createCourse',courseData);
+        console.log(res);
+    }
+
+
+    
+
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="w-full max-w-2xl p-6 bg-white border border-black-300 rounded-md shadow-md">
                 <h2 className="text-2xl font-bold text-center mb-4">Create New Course</h2>
                 <p className="text-center mb-6">Kindly fill this form to create a new course</p>
-                <form>
+                <form onSubmit={handleOnSubmit}  method="POST" enctype="multipart/form-data">
                     {/* Course Name */}
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-700" htmlFor="courseName">Course Name</label>
                         <select 
                             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                            id="courseName"
+                            id="courseName" onClick={(e) => setCourseData({...courseData,courseName:e.target.value})}
                         >
                             <option value="">Select Course</option>
-                            <option value="course1">Artificial Intelligence and Machine Learning</option>
-                            <option value="course2"Python with Django></option>
-                            <option value="course3">Full Stack Development</option>
+                            <option value="Artificial Intelligence and Machine Learning">Artificial Intelligence and Machine Learning</option>
+                            <option value="Python with Django">Python with Django</option>
+                            <option value="Full Stack Development">Full Stack Development</option>
                         </select>
+                    </div>
+
+                    {/* Course Code */}
+
+                    <div className="mb-4">
+                        <label className="block mb-2 text-sm font-medium text-gray-700" htmlFor="courseCode">Course Code</label>
+                        <input 
+                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            type="text"
+                            id="courseCode"
+                            placeholder="Enter course price"
+                            onChange={(e) => setCourseData({...courseData,courseCode:e.target.value})}
+                        />
                     </div>
 
                     {/* Course Description */}
@@ -29,6 +69,7 @@ function CreateCourse() {
                             id="courseDescription"
                             placeholder="Enter course description"
                             rows="4"
+                            onChange={(e) => setCourseData({...courseData,courseDescription:e.target.value})}
                         ></textarea>
                     </div>
 
@@ -40,6 +81,7 @@ function CreateCourse() {
                             type="number"
                             id="coursePrice"
                             placeholder="Enter course price"
+                            onChange={(e) => setCourseData({...courseData,coursePrice:e.target.value})}
                         />
                     </div>
 
@@ -51,6 +93,7 @@ function CreateCourse() {
                             type="number"
                             id="courseDuration"
                             placeholder="Enter course duration in minutes"
+                            onChange={(e) => setCourseData({...courseData,courseDuration:e.target.value})}
                         />
                     </div>
 
@@ -61,6 +104,7 @@ function CreateCourse() {
                             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             type="date"
                             id="startDate"
+                            onChange={(e) => setCourseData({...courseData,courseStartDate:e.target.value})}
                         />
                     </div>
 
@@ -71,6 +115,7 @@ function CreateCourse() {
                             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             type="date"
                             id="endDate"
+                            onChange={(e) => setCourseData({...courseData,courseEndDate:e.target.value})}
                         />
                     </div>
 
@@ -80,26 +125,21 @@ function CreateCourse() {
                         <select 
                             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
                             id="courseTeacher"
+                            onChange={(e) => setCourseData({...courseData,courseTeacher:e.target.value})}
                         >
                             <option value="">Select Teacher</option>
-                            <option value="teacher1">Mrs Amy Sinha</option>
-                            <option value="teacher2">Mr Anup Kasol</option>
-                            <option value="teacher3">Ms Jane Smith</option>
+                            <option value="Mrs Amy Sinha">Mrs Amy Sinha</option>
+                            <option value="Mr Anup Kasol">Mr Anup Kasol</option>
+                            <option value="Ms Jane Smith">Ms Jane Smith</option>
                         </select>
                     </div>
 
                     {/* Course Thumbnail */}
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-700" htmlFor="courseThumbnail">Course Thumbnail</label>
-                        <select 
-                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                            id="courseThumbnail"
-                        >
-                            <option value="">Select Thumbnail</option>
-                            <option value="thumbnail1">Thumbnail 1</option>
-                            <option value="thumbnail2">Thumbnail 2</option>
-                            <option value="thumbnail3">Thumbnail 3</option>
-                        </select>
+                        <input type='file'   accept='image/png, image/jpeg' onClick={(e) => setCourseData({...courseData,courseThumbnail:e.target.files[0]  })}/>
+                       
+
                     </div>
 
                     {/* Submit Button */}

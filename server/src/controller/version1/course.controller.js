@@ -4,6 +4,7 @@ import ApiResponse from '../../utils/apiResponse.js';
 import ApiError from '../../utils/ApiError.js';
 import { Lecture } from '../../models/lecture.model.js';
 import { lectureUploadOnCloudinary } from '../../helpers/lecture.cloudinary.js';
+import { Admin } from '../../models/admin.model.js';
 
 
 
@@ -14,23 +15,21 @@ const createCourse = asyncHandler(async (req, res) => {
 
     const {adminEmail} = req.user;
 
+    console.log(adminEmail);
+
+    const { courseName,courseThumbnail, courseDescription, coursePrice, courseCode,courseTeacher,courseEndDate, courseStartDate, courseDuration } = req.body;
+    // if(!courseName || !courseDescription || !coursePrice || !courseCode || !courseTeacher || !courseStartDate ||!courseEndDate|| !courseDuration) {
+
+    //     return res
+    //     .status(400)
+    //     .json(new ApiError(405, 'Missing required fields'));
+    // }
+
     console.log(req.body);
-
-    const { courseName, courseDescription, coursePrice, courseCode, courseSubject, courseTeacher, courseStartDate, courseDuration } = req.body;
-
-    if(!courseName || !courseDescription || !coursePrice || !courseCode || !courseSubject || !courseTeacher || !courseStartDate || !courseDuration) {
-
-        return res
-        .status(400)
-        .json(new ApiError(405, 'Missing required fields'));
-    }
-
-
     try {
     
         const corName = await Course.findOne({ courseName });
 
-   
         // if(corName) {
 
         //     return res
@@ -50,7 +49,8 @@ const createCourse = asyncHandler(async (req, res) => {
             coursePrice,
             courseCode,
             courseStartDate,
-            adminEmail,
+            courseEndDate,
+            adminEmail:adminEmail,
             courseDuration,
             courseTeacher : courseTeacher,
             

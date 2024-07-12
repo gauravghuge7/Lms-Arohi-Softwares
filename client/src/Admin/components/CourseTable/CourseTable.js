@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import OrdersTable from '../Orders/OrdersTable';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 //Course Sidebar Data panel
 
 const inputClasses = "border border-input rounded p-1";
@@ -14,9 +15,16 @@ const primaryClasses = "bg-primary text-primary-foreground";
 const CourseTable = () => {
 
   const [showOverview, setShowOverview] = useState(false);
+  const [getCourse,setgetCourse] = useState([])
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
-
-    
+  useEffect(() => {
+  axios.get('/api/course/getCourses').then((res) => {
+      setgetCourse(res.data.data);
+      // setFilteredProducts(res.data.data);
+    })
+  },[])
+  
   const CourseCard = ({ product }) => (
     <div className="border rounded shadow p-4 m-2 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 flex flex-col items-start min-h-[400px]">
       <img 
@@ -24,16 +32,16 @@ const CourseTable = () => {
         alt="Course" 
         className="w-full mb-4 h-40 object-cover" 
       />
-      
-      <h3 className="text-xl font-semibold mb-2">{product.course}</h3>
-      <p><strong>Course Code:</strong> {product.coursecode}</p>
-      <p><strong>Price:</strong> {product.courseprice}</p>
-      <p><strong>Duration:</strong> {product.courseduration}</p>
+      {console.log(product)}
+      <h3 className="text-xl font-semibold mb-2">{product.courseName}</h3>
+      <p><strong>Course Code:</strong> {product.courseCode}</p>
+      <p><strong>Price:</strong> {product.coursePrice}</p>
+      <p><strong>Duration:</strong> {product.courseDuration}</p>
       <div className="flex justify-between w-full">
-        <p><strong>Start Date:</strong> {product.startdate}</p>
-        <p><strong>End Date:</strong> {product.enddate}</p>
+        <p><strong>Start Date:</strong> {product.courseStartDate}</p>
+        <p><strong>End Date:</strong> {product.courseEndDate}</p>
       </div>
-      <p><strong>Teacher:</strong> {product.courseteacher}</p>
+      <p><strong>Teacher:</strong> {product.courseTeacher.map((data) => data)}</p>
       
       <section className='flex justify-around gap-12 items-center'>
 
@@ -62,41 +70,15 @@ const CourseTable = () => {
 
 
 
-  const products = [
-    {
-      id: 1,
-      course: "Artificial Intelligence and Machine Learning",
-      coursecode: "101",
-      courseprice: "$200",
-      courseduration: "40 Hours",
-      startdate: "29-Sept-24",
-      enddate: "21-Oct-24",
-      courseteacher: "Mr Ram Swaroop",
-      description: "This course covers the fundamentals of AI and ML.You will get the best course as it has the live doubt solving always available.Feel the best by getting the best.",
-    },
-    {
-      id: 2,
-      course: "Artificial Intelligence and Machine Learning",
-      coursecode: "102",
-      courseprice: "$290",
-      courseduration: "45 Hours",
-      startdate: "29-May-24",
-      enddate: "28-Jul-24",
-      courseteacher: "Mr Arun Shukla",
-      description: "Advanced concepts in AI and ML.You will get the best course as it has the live doubt solving always available.Feel the best by getting the best.",
-    }
- 
-    
-  ];
+
 
 
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredProducts, setFilteredProducts] = useState(products);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setFilteredProducts(products.filter(product =>
+    setFilteredProducts(getCourse.filter(product =>
       product.course.toLowerCase().includes(event.target.value.toLowerCase())
     ));
   };
@@ -104,7 +86,7 @@ const CourseTable = () => {
   return (
     <div className="my-8 mx-4 h-screen">
       <div className="p-4 bg-white rounded-lg">
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-12">
+        {/* <div className="flex flex-col sm:flex-row justify-between items-center mb-12">
           <div className="flex items-center space-x-2 mb-4 sm:mb-0">
             <input
               type="text"
@@ -117,9 +99,17 @@ const CourseTable = () => {
           <div className="flex items-center space-x-2">
             <button className={buttonClasses + " " + primaryClasses}>Add Course</button>
           </div>
-        </div>
-        <div className="flex flex-wrap">
+        </div> */}
+        {/* <div className="flex flex-wrap">
           {filteredProducts.map(product => (
+            <CourseCard 
+              key={getCourse.id} 
+              product={getCourse} 
+            />
+          ))}
+        </div> */}
+        <div className="flex flex-wrap">
+          {getCourse.map(product => (
             <CourseCard 
               key={product.id} 
               product={product} 
