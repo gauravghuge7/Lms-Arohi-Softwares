@@ -22,6 +22,8 @@ const lectureStorage = multer.diskStorage({
     } 
 })
 
+
+
 const thumbnailUpload = multer({thumbnailStorage});
 
 const lectureUpload = multer({lectureStorage});

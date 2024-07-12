@@ -7,7 +7,8 @@ const isAdminLogin = (req, res, next) => {
     try {
 
         console.log("frontend cookies => ",req.cookies); 
-        console.log("frontend headers => ",req.header("Authorization"));
+
+        // console.log("frontend headers => ",req.header("Authorization"));
 
         // const adminToken = req.cookies?.adminToken || req.header("Authorization")?.replace("Bearer ", "")
 
@@ -23,8 +24,9 @@ const isAdminLogin = (req, res, next) => {
         }
 
         
+        const decoded = JWT.decode(adminToken, process.env.JWT_SECRET);
 
-        const decoded = JWT.verify(adminToken, process.env.JWT_SECRET);
+        // const decoded = JWT.verify(adminToken, process.env.JWT_SECRET);
 
         req.user = decoded;
 

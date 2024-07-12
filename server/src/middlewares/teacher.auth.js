@@ -1,10 +1,16 @@
 import jwt from 'jsonwebtoken';
-import { asyncHandler } from '../utils/asyncHandler';
+import { asyncHandler } from '../utils/asyncHandler.js';
 import ApiError from '../utils/ApiError.js';
 
 const isTeacherLogin = asyncHandler (async (req, res, next) => {
 
     const teacherToken = req.cookies.teacherToken;
+
+     console.log("req.cookies => ", req.cookies);
+     console.log("req.files => ", req.files);
+     console.log("req.file => ", req.file);
+
+     
 
     if(!teacherToken) {
         return res

@@ -8,7 +8,7 @@ import {Student, Teacher, Admin} from "../../models/export/export.model.js";
 const cookieOptions = {
     maxAge: 1000 * 60 * 60 * 24 * 30,
     httpOnly: true,
-    secure: true
+    
 }
 
 
@@ -46,7 +46,7 @@ const loginUser = asyncHandler(async (req, res) => {
             }
 
             const studentToken = student.generateStudentLogin();
-            
+            console.log("studentToken => ", studentToken);
 
             return res
                 .status(200)
@@ -72,11 +72,13 @@ const loginUser = asyncHandler(async (req, res) => {
             }
 
             const teacherToken = teacher.generateTeacherLogin();
+            console.log("teacherToken => ", teacherToken);
+
 
             return res 
                 .status(200)
                 .cookie("teacherToken", teacherToken, cookieOptions)
-                .json(new ApiResponse(200, "Teacher login successfully", teacher));
+                .json(new ApiResponse(200, "Teacher login successfully", teacher, teacherToken));
         }
 
 

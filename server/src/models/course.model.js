@@ -2,128 +2,125 @@ import mongoose from 'mongoose';
 
 const CourseSchema = new mongoose.Schema({
 
+
 	
 
-	// courseDetails: [{
+	adminEmail : {
 
-	// }],
+		type: String
+	},
 
-	    adminEmail : {
 
-			type: String
-		},
+	courseName: {
+		type: String,
 
-    
-		courseName: {
+	},
+
+	courseDescription: {
+		type: String,
+
+	},
+
+	courseThumbnail: {
+		type: String,
+				
+	},
+
+	videoLink: [{
+		public_id :{
 			type: String,
-
 		},
+
+		private_url: {
+			type: String,
+		}
+	}],
 	
-		courseDescription: {
+
+	coursePdf: [{
+
+		public_id :{
+			type: String,
+		},
+		private_url: {
+
 			type: String,
 
-		},
+		}
 
-		courseThumbnail: {
+	}],
+
+	courseTests: [{
+
+		public_id :{
 			type: String,
-					
 		},
+		private_url: {
 
-		videoLink: [{
-			public_id :{
-				type: String,
-			},
+			type: String,
 
-			private_url: {
-				type: String,
-			}
-		}],
+		}
+
+	}],
+
+	coursePrice: {
+		type: Number,
+
+	},
+
+	courseCode: {
+		type: String,
+
+	},
+
+	courseSubject: {
+		type: String,
+
+	},
+
+	courseTeacher: [{
+
+		type: String,
+
+		// teacher: {
+		// 	type: mongoose.Schema.Types.ObjectId,
+		// 	ref: 'Teacher',
+
+		// },
+
+		// teacherName: {
+		// 	type: String,
+
+		// },
+
+		// teacherSubject:{
+		// 	type: String,
+	
+		// },
+		// teacherImage: {
+		// 	type: String,
+		// 	default: '',
+
+		// }
+
 		
+	}],
 
-		coursePdf: [{
 
-			public_id :{
-				type: String,
-			},
-			private_url: {
+	courseStartDate: {
+		type: Date,
 
-				type: String,
+	},
 
-			}
+	courseEndDate: {
+		type: Date,
 
-		}],
+	},
 
-		courseTests: [{
+	courseDuration: {
+		type: String,
 
-			public_id :{
-				type: String,
-			},
-			private_url: {
-
-				type: String,
-
-			}
-
-		}],
-	
-		coursePrice: {
-			type: Number,
-
-		},
-	
-		courseCode: {
-			type: String,
-
-		},
-	
-		courseSubject: {
-			type: String,
-
-		},
-	
-		courseTeacher: [{
-
-			type: String,
-
-			// teacher: {
-			// 	type: mongoose.Schema.Types.ObjectId,
-			// 	ref: 'Teacher',
-	
-			// },
-
-			// teacherName: {
-			// 	type: String,
-	
-			// },
-
-			// teacherSubject:{
-			// 	type: String,
-		
-			// },
-			// teacherImage: {
-			// 	type: String,
-			// 	default: '',
-	
-			// }
-
-			
-		}],
-	
-
-		courseStartDate: {
-			type: Date,
-	
-		},
-
-		courseEndDate: {
-			type: Date,
-	
-		},
-	
-		courseDuration: {
-			type: String,
-	
-		},
+	},
 		
 
 

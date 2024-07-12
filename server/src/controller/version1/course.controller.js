@@ -3,6 +3,7 @@ import { asyncHandler } from '../../utils/asyncHandler.js';
 import ApiResponse from '../../utils/apiResponse.js';
 import ApiError from '../../utils/ApiError.js';
 import { Lecture } from '../../models/lecture.model.js';
+import { lectureUploadOnCloudinary } from '../../helpers/lecture.cloudinary.js';
 
 
 
@@ -11,7 +12,7 @@ import { Lecture } from '../../models/lecture.model.js';
 
 const createCourse = asyncHandler(async (req, res) => {
 
-    // const {adminEmail} = req.user;
+    const {adminEmail} = req.user;
 
     console.log(req.body);
 
@@ -19,7 +20,9 @@ const createCourse = asyncHandler(async (req, res) => {
 
     if(!courseName || !courseDescription || !coursePrice || !courseCode || !courseSubject || !courseTeacher || !courseStartDate || !courseDuration) {
 
-        return res.status(400).json(new ApiError(405, 'Missing required fields'));
+        return res
+        .status(400)
+        .json(new ApiError(405, 'Missing required fields'));
     }
 
 
@@ -27,15 +30,16 @@ const createCourse = asyncHandler(async (req, res) => {
     
         const corName = await Course.findOne({ courseName });
 
-        console.log("corName");
-
+   
         // if(corName) {
 
-        //     return res.status(400).json(new ApiError(405, 'Course name already exists'));
-            
+        //     return res
+        //     .status(400)
+        //     .json(new ApiError(405, 'Course name already exists'));
+
         // }
 
-        console.log("After corName");
+
 
        
 
@@ -46,14 +50,9 @@ const createCourse = asyncHandler(async (req, res) => {
             coursePrice,
             courseCode,
             courseStartDate,
-            // adminEmail,
+            adminEmail,
             courseDuration,
-            courseTeacher : [
-                {
-                    teacherName: courseTeacher,
-
-                }
-            ]
+            courseTeacher : courseTeacher,
             
         });
 
@@ -190,11 +189,12 @@ const deleteCourse = asyncHandler(async (req, res) => {
 
 
 const uploadLectures = asyncHandler(async (req, res) => {
+
     const { courseCode } = req.query;
 
     const {teacherEmail } = req.user;
 
-    const { lectureName,  lectureDescription, attachments } = req.body;
+    const { lectureName,  lectureDescription } = req.body;
 
 
     if(!courseCode) { 
@@ -203,7 +203,7 @@ const uploadLectures = asyncHandler(async (req, res) => {
 
     try {
     
-        const course = await Lecture.findOne({ courseCode });
+        const course = await Course.findOne({ courseCode });
 
         if(!course) {
 
@@ -211,12 +211,18 @@ const uploadLectures = asyncHandler(async (req, res) => {
         
         }
 
-        if(req.files) {
+        console.log("req.files => ", req.files);
+        console.log("req.file => ", req.file);
 
-            const response = await uploadOnCloudinary(req.files.attachments);
+        // const path = req.files.lecture.path;
+        
+        const path = req.file.path;
 
-            console.log("response => ", response);
-        }
+
+        const response = await lectureUploadOnCloudinary(path);
+       
+
+
 
 
         const lecture = await Lecture.create({
@@ -224,7 +230,7 @@ const uploadLectures = asyncHandler(async (req, res) => {
             lectureName,
             lectureDescription,
             courseCode,
-            attachments,
+
             teacherEmail,
             videoLink: {
                 public_id: response.public_id,
