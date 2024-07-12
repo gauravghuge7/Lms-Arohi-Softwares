@@ -23,7 +23,8 @@ const createAdmin = asyncHandler(async (req, res) => {
             .json(new ApiError(400, 'Please provide student email and password'));
         }
 
-        console.log("");
+        
+
         const user = await Student.findOne({ studentEmail }).select('+studentPassword').populate('studentCourses')
 
         if(!user) {
@@ -39,7 +40,14 @@ const createAdmin = asyncHandler(async (req, res) => {
         }
 
 
-        const verifyAdmin = await Admin.findOne({studentEmail});
+        const verifyTeacher = await Teacher.findOne({ teacherEmail: studentEmail })
+
+        if(verifyTeacher) {
+            return res
+            .json(new ApiResponse(400, "teacher already created by this email you can't create admin "))
+        }
+
+        const verifyAdmin = await Admin.findOne({adminEmail: studentEmail});
         
         if(verifyAdmin) {
             return res
@@ -74,11 +82,18 @@ const createTeacher = asyncHandler(async (req, res) => {
     try {
         const { studentEmail, studentPassword } = req.body;
 
+        if(!studentEmail || !studentPassword) {
+            return res
+            .json(new ApiError(400, 'Please provide student email and password'));
+        }
+
+
+        // check if student email in collection
         const user = await Student.findOne({ studentEmail }).select('+studentPassword');
 
         if (!user) {
             return res 
-            .json(new ApiError(400, 'Student with this email already exists'));
+            .json(new ApiError(400, 'Student with this email is not exist'));
         }
 
         const comparePassword = await bcrypt.compare(studentPassword, user.studentPassword);
@@ -86,6 +101,20 @@ const createTeacher = asyncHandler(async (req, res) => {
         if (!comparePassword) {
             return res
             .json(new ApiError(400, 'Invalid password for this student'));
+        }
+
+        const verifyAdmin = await Admin.findOne({adminEmail: studentEmail});
+
+        if(verifyAdmin) {
+            return res
+            .json(new ApiResponse(400, "admin already created by this email you can't create teacher "))
+        }
+
+        const verifyTeacher = await Teacher.findOne({adminEmail: studentEmail});
+
+        if(verifyTeacher) {
+            return res
+            .json(new ApiResponse(400, "teacher already created by this email you can't create teacher "))
         }
 
         /// create a entry in admin collection

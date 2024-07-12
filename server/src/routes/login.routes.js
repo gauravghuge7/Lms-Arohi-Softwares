@@ -6,6 +6,7 @@ import { upload } from "../middlewares/multer.middleware.js";
 const loginRouter = Router();
 
 loginRouter.route('/login').post(
+
     upload.none(),
     loginUser
 )

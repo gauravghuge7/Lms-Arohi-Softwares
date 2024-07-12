@@ -19,6 +19,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const { studentEmail, studentPassword } = req.body;
 
+    console.log("req.body => ", req.body)
     
 
     if(!studentEmail || !studentPassword ) {
@@ -32,6 +33,7 @@ const loginUser = asyncHandler(async (req, res) => {
         /// find this is student or not
 
         const student = await Student.findOne({ studentEmail }).select("+studentPassword");
+
         console.log(student)
         if(student) {
 
@@ -40,7 +42,7 @@ const loginUser = asyncHandler(async (req, res) => {
             if(!comparePassword) {
                 return res
                     .status(400)
-                    .json(new ApiError(400, "Email or Password is incorrect to find in servers"));
+                    .json(new ApiError(400, "Email or Password is incorrect in Students"));
             }
 
             const studentToken = student.generateStudentLogin();
@@ -57,7 +59,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
         /// find this teacher or not 
 
-        const teacher = await Teacher.findOne({ teacherEmail:studentEmail }).select("+teacherPassword");
+        const teacher = await Teacher.findOne({ teacherEmail: studentEmail }).select("+teacherPassword");
 
         if(teacher) {
           
@@ -66,7 +68,7 @@ const loginUser = asyncHandler(async (req, res) => {
             if(!comparePassword) {
                 return res
                     .status(400)
-                    .json(new ApiError(400, "Email or Password is incorrect to find in servers"));
+                    .json(new ApiError(400, "Email or Password is incorrect to find in Teachers"));
             }
 
             const teacherToken = teacher.generateTeacherLogin();
@@ -87,7 +89,7 @@ const loginUser = asyncHandler(async (req, res) => {
             if(!comparePassword) {
                 return res
                     .status(400)
-                    .json(new ApiError(400, "Email or Password is incorrect to find in servers"));
+                    .json(new ApiError(400, "Email or Password is incorrect to find in Admins"));
             }
 
             const adminToken = admin.generateAdminLogin();
@@ -99,11 +101,8 @@ const loginUser = asyncHandler(async (req, res) => {
         }
 
 
-
-
         return res
-            .status(200)
-            .json(new ApiResponse(404, "Email or Password is incorrect to find in servers"));
+            .json(new ApiResponse(404, "Email or Password is incorrect to find in All Servers"));
         
     } 
     catch (error) {
