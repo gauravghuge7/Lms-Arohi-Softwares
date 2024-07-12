@@ -25,10 +25,11 @@ function NewRoute() {
         <Route path="/login" element={<Login />} />
 
 
-
+      
        
      
-        <Route path='/viewLecture' element={<ViewLecture/>} />
+        <Route path={`/viewLecture`} element={<ViewLecture/>} />
+        <Route path={`/viewLecture/id`} element={<ViewLecture />} />
 
 
 

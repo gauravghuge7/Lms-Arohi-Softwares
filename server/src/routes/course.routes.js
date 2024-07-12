@@ -6,7 +6,8 @@ import { createCourse, deleteCourse, getCourseByCode, getCourses, updateCourse, 
 import isAdminLogin from '../middlewares/admin.auth.js';
 import { upload } from '../middlewares/multer.middleware.js';
 import isTeacherLogin from '../middlewares/teacher.auth.js'
-import { lectureUpload } from '../middlewares/lecture.middleware.js';
+import { lectureUpload, thumbnailUpload } from '../middlewares/lecture.middleware.js';
+import { showAllCourses } from '../controller/version1/admin.controller.js';
 
 
 
@@ -15,7 +16,7 @@ import { lectureUpload } from '../middlewares/lecture.middleware.js';
 courseRouter.route('/createCourse').post(
 
     isAdminLogin,
-    upload.none(),
+    upload.single('thumbnail'),
     createCourse
 )
 
@@ -53,6 +54,11 @@ courseRouter.route('/getCourseByCode').get(
 
 
 
+courseRouter.route('/showAllCourses').get(
+    showAllCourses
+)
+
+
 
 
 
@@ -63,8 +69,9 @@ courseRouter.route('/getCourseByCode').get(
 courseRouter.route('/uploadLectures').post(
     
     isTeacherLogin,
-    lectureUpload.single('lecture'),
+    upload.single('lecture'),
     uploadLectures
+    
 )
 
 
