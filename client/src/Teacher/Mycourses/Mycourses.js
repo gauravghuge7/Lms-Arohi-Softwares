@@ -16,7 +16,7 @@ const courses = [
     viewcourses:"View Courses",
 
     uploadCoursesLink: "/uploadvideo",
-    uploadcourses:"Upload Courses ",
+    uploadcourses:"Upload Lecture ",
     link:"/overview",
   },
   {
@@ -31,7 +31,7 @@ const courses = [
     viewCoursesLink: "/viewLecture",
     viewcourses:"View Courses",
     uploadCoursesLink: "/uploadvideo",
-    uploadcourses:"Upload Courses "
+    uploadcourses:"Upload Lecture "
   },
   {
     id: 3,
@@ -45,7 +45,7 @@ const courses = [
     viewCoursesLink: "/viewLecture",
     viewcourses:"View Courses",
 
-    uploadcourses:"Upload Courses ",
+    uploadcourses:"Upload Lecture ",
     uploadCoursesLink: "/uploadvideo",
   },
 

@@ -149,21 +149,10 @@ const UploadVideo = () => {
             <span className="close-btn" onClick={() => setShowForm(false)}>&times;</span>
             <form className="upload-form" onSubmit={handleSubmit}>
             <h2>Upload Video</h2>
+             
               <div className="form-row">
                                 <div className="form-group">
-                                    <label>Full Name *</label>
-                                    <input type="text" name="name" value={newVideo.name} onChange={handleInputChange} placeholder="Name" required />
-
-                                </div>
-                                <div className="form-group">
-                                    <label>Email *</label>
-                                    <input type="email" name="email" value={newVideo.email} onChange={handleInputChange} placeholder="Email" required />
-
-                                </div>
-                            </div>
-              <div className="form-row">
-                                <div className="form-group">
-                                    <label>Title *</label>
+                                    <label>Lecture Title *</label>
                                     <input type="text" name="title" value={newVideo.title} onChange={handleInputChange} placeholder="Title" required />
 
                                 </div>

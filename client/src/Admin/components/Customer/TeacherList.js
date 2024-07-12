@@ -9,7 +9,7 @@ const TeacherList = () => {
     <div className="min-h-screen bg-zinc-100 p-4">
       <div className="container mx-auto bg-white rounded-lg shadow-md p-6">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold">Customer List</h1>
+          <h1 className="text-2xl font-bold text-gray-800">Teacher List</h1>
           <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">+ Add new</button>
         </div>
         <div className="relative mb-4">
@@ -22,9 +22,9 @@ const TeacherList = () => {
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white rounded-lg shadow-md">
-            <thead>
+            <thead className="bg-gradient-to-r from-blue-500 to-green-400 text-white">
               <tr>
-                <th className="py-2 px-4 border-b">User</th>
+                <th className="py-2 px-4 border-b">Name</th>
                 <th className="py-2 px-4 border-b">Phone</th>
                 <th className="py-2 px-4 border-b">Email</th>
                 <th className="py-2 px-4 border-b">Address</th>
@@ -54,18 +54,18 @@ const TeacherList = () => {
                   address: "789 Oak St, Ogdenville, IL",
                   image: "https://placehold.co/40x40"
                 }
-              ].map((user, index) => (
+              ].map((teacher, index) => (
                 <tr key={index} className="hover:bg-zinc-50 transition duration-200">
                   <td className="py-2 px-4 border-b flex items-center space-x-3">
-                    <img src={user.image} alt="User" className="rounded-full w-10 h-10" />
+                    <img src={teacher.image} alt="Teacher" className="rounded-full w-10 h-10" />
                     <div>
-                      <p className="font-medium">{user.name}</p>
-                      <p className="text-zinc-500 text-sm">Grocery Shopper</p>
+                      <p className="font-medium">{teacher.name}</p>
+                      <p className="text-zinc-500 text-sm">Teacher</p>
                     </div>
                   </td>
-                  <td className="py-2 px-4 border-b">{user.phone}</td>
-                  <td className="py-2 px-4 border-b">{user.email}</td>
-                  <td className="py-2 px-4 border-b">{user.address}</td>
+                  <td className="py-2 px-4 border-b">{teacher.phone}</td>
+                  <td className="py-2 px-4 border-b">{teacher.email}</td>
+                  <td className="py-2 px-4 border-b">{teacher.address}</td>
                   <td className="py-2 px-4 border-b flex space-x-2">
                     <button className={iconButtonClass}>
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
