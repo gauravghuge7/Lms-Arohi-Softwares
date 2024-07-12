@@ -148,6 +148,64 @@ const updateCourse = asyncHandler(async (req, res) => {
 
 
 
+const getCourses = asyncHandler(async (req, res) => {
+
+    try {
+
+        const {adminEmail} = req.user;
+
+        const admin = await Admin.findOne({adminEmail});
+
+        if(!admin) {
+            return res.status(404).json(new ApiError(404, 'Admin not found'));
+        }
+
+        const courses = await Course.find({adminEmail});
+
+        return res
+        .status(200)
+        .json(new ApiResponse(200, 'Courses retrieved successfully', courses));
+    }    
+    catch (error) {
+
+        return res
+        .status(500)
+        .json(new ApiError(500, error.message));
+        
+    }
+}); 
+
+
+const getCourseByCode = asyncHandler(async (req, res) => {
+
+    const { courseCode } = req.query;
+
+    if(!courseCode) {
+        return res.status(400).json(new ApiError(405, 'Missing required fields'));
+    }
+
+    try {
+
+        const course = await Course.findOne({courseCode});
+
+        if(!course) {
+            return res.status(404).json(new ApiError(404, 'Course not found'));
+        }
+
+        return res
+        .status(200)
+        .json(new ApiResponse(200, 'Course retrieved successfully', course));
+    }    
+    catch (error) {
+
+        return res
+        .status(500)
+        .json(new ApiError(500, error.message));
+        
+    }
+}); 
+
+
 const deleteCourse = asyncHandler(async (req, res) => {
 
     const { courseId } = req.body;
@@ -264,6 +322,9 @@ export {
     createCourse,
     updateCourse,
     deleteCourse,
+
+    getCourses,
+    getCourseByCode,
 
     // lectures routes 
 
