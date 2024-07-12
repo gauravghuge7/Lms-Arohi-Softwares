@@ -5,6 +5,7 @@ import ApiError from '../../utils/ApiError.js';
 import ApiResponse from '../../utils/apiResponse.js';
 import { Teacher } from '../../models/teacher.model.js';
 import { Student } from '../../models/student.model.js';
+import courseModel from '../../models/course.model.js';
 
 const cookieOptions = {
     maxAge: 1000 * 60 * 60 * 24 * 30,
@@ -82,6 +83,8 @@ const createTeacher = asyncHandler(async (req, res) => {
     try {
         const { studentEmail, studentPassword } = req.body;
 
+        const { adminEmail } = req.user;
+
         if(!studentEmail || !studentPassword) {
             return res
             .json(new ApiError(400, 'Please provide student email and password'));
@@ -123,6 +126,7 @@ const createTeacher = asyncHandler(async (req, res) => {
             teacherName: user.studentName,
             teacherEmail: user.studentEmail,
             teacherPhoneNumber: user.studentPhoneNumber,
+            adminEmail,
             teacherPassword: user.studentPassword,
             isActive: true
         });
@@ -191,9 +195,64 @@ const logoutAdmin = asyncHandler(async (req, res) => {
     }
 });
 
+
+
+
+const getAllStudents = asyncHandler(async (req, res) => { 
+    const { adminEmail } = req.user;
+
+    try {
+
+        const course = await courseModel
+        
+    } 
+    catch (error) {
+        
+        console.log(error);
+        return res.status(400).json(new ApiError(400, error.message));
+    }
+})
+
+
+const showAllCourses = asyncHandler(async (req, res) => {
+
+    try {
+    
+        const course = await courseModel.find({});
+
+        console.log(course);
+
+        return res
+        .status(200)
+        .json(new ApiResponse(200, 'Courses fetched successfully', course));
+        
+    } 
+    catch (error) {
+        console.log(error);
+    }
+})
+
+const getTeachers = async (req, res) => {
+    const { adminEmail } = req.user;
+
+    try {
+        const teachers = await Teacher.find({ adminEmail });
+
+        return res.status(200).json(new ApiResponse(200, 'Teachers fetched successfully', teachers));
+    } 
+    
+    catch (error) {
+        return res.status(400).json(new ApiError(400, error.message));
+    }
+};
+
+
+
 export {
     createAdmin, /// create admin
     createTeacher, //// create teacher
     updateAdmin,
-    logoutAdmin
+    logoutAdmin,
+    getTeachers,
+    showAllCourses
 };

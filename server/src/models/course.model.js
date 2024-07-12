@@ -22,7 +22,13 @@ const CourseSchema = new mongoose.Schema({
 	},
 
 	courseThumbnail: {
-		type: String,
+		public_id :{
+			type: String,
+		},
+		secure_url: {
+			type: String,
+		}
+
 				
 	},
 
@@ -35,6 +41,7 @@ const CourseSchema = new mongoose.Schema({
 			type: String,
 		}
 	}],
+
 	courseThumbnail:{
 		public_id :{
 			type: String,

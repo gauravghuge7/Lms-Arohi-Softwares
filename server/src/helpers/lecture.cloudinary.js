@@ -1,27 +1,50 @@
 import cloudinary from 'cloudinary';
+import fs from 'fs';
+
+// cloudinary.config({
+//     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+//     api_key: process.env.CLOUDINARY_API_KEY,
+//     api_secret: process.env.CLOUDINARY_API_SECRET
+// });
+
 
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET
+    cloud_name: "dsh5742fk",
+    api_key: "899594559273632",
+    api_secret: "9E2v2LfZFqO2qiFf1-yuZmO3JX8"
 });
 
 
 
-const thumbnailUploadOnCloudinary = (path) => {
+const thumbnailUploadOnCloudinary = async(path) => {
     try {
-        return new Promise((resolve, reject) => {
-            cloudinary.uploader.upload(path, (error, result) => {
+        
+        const response = await cloudinary.uploader.upload(path, {
+            
+            path: './uploads/thumbnails',
+            resource_type: 'image',
+            upload_preset: 'default',
+            
+            transformation: {
+                quality: 'auto',
+                fetch_format: 'auto',
+                crop: 'limit',
+                width: 1280,
+                height: 720,
+                aspect_ratio: '16:9',
+                gravity: 'auto',
+                radius: 0,
+                background: 'transparent',
+     
+            }
+        })
+        
+        console.log(response);
 
-                path: '/uploads/thumbnails';
-                resource_type: auto;
+        console.log("response =>", response);
+        return response;
 
-                if (error) {
-                    reject(error);
-                }
-                resolve(result);
-            });
-        });
+
     } 
     catch (error) {
         console.log(error);
@@ -33,33 +56,35 @@ const thumbnailUploadOnCloudinary = (path) => {
 
 
 const lectureUploadOnCloudinary = async(path) => {
+
     try {
         
         const response = await cloudinary.uploader.upload(path, {
             
-            path: './uploads/lectures',
+            path: '/uploads/lectures/',
             resource_type: 'video',
             upload_preset: 'default',
 
 
-            // transformation: {
-            //     quality: 'auto',
-            //     fetch_format: 'auto',
-            //     crop: 'limit',
-            //     width: 1280,
-            //     height: 720,
-            //     aspect_ratio: '16:9',
-            //     gravity: 'auto',
-            //     radius: 0,
-            //     background: 'transparent',
+            transformation: {
+                quality: 'auto',
+                fetch_format: 'auto',
+                crop: 'limit',
+                width: 1280,
+                height: 720,
+                aspect_ratio: '16:9',
+                gravity: 'auto',
+                radius: 0,
+                background: 'transparent',
      
-            // }
+            }
 
 
         })
 
         console.log(response);
 
+        fs.unlinkSync(path);
         return response;
 
 
@@ -67,6 +92,7 @@ const lectureUploadOnCloudinary = async(path) => {
     } 
     catch (error) {
         console.log(error);
+        // fs.unlinkSync(path);
         return error.message;
     }
 }

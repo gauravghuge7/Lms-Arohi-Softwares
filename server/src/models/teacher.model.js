@@ -13,6 +13,10 @@ const TeacherSchema = new mongoose.Schema({
         // required: true,
         // unique: true,
     },
+
+    adminEmail: {
+        type: String,
+    },
     
     teacherAge: {
         type: Number,

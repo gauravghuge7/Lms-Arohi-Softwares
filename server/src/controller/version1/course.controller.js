@@ -3,7 +3,7 @@ import { asyncHandler } from '../../utils/asyncHandler.js';
 import ApiResponse from '../../utils/apiResponse.js';
 import ApiError from '../../utils/ApiError.js';
 import { Lecture } from '../../models/lecture.model.js';
-import { lectureUploadOnCloudinary } from '../../helpers/lecture.cloudinary.js';
+import { lectureUploadOnCloudinary, thumbnailUploadOnCloudinary } from '../../helpers/lecture.cloudinary.js';
 import { Admin } from '../../models/admin.model.js';
 
 
@@ -17,7 +17,8 @@ const createCourse = asyncHandler(async (req, res) => {
 
     console.log(adminEmail);
 
-    const { courseName,courseThumbnail, courseDescription, coursePrice, courseCode,courseTeacher,courseEndDate, courseStartDate, courseDuration } = req.body;
+    const { courseName, courseDescription, coursePrice, courseCode,courseTeacher,courseEndDate, courseStartDate, courseDuration } = req.body;
+
     // if(!courseName || !courseDescription || !coursePrice || !courseCode || !courseTeacher || !courseStartDate ||!courseEndDate|| !courseDuration) {
 
     //     return res
@@ -25,22 +26,30 @@ const createCourse = asyncHandler(async (req, res) => {
     //     .json(new ApiError(405, 'Missing required fields'));
     // }
 
+    console.log("req.file => ", req.file);
+
     console.log(req.body);
     try {
     
-        const corName = await Course.findOne({ courseName });
+        const corName = await Course.findOne({ courseCode });
 
-        // if(corName) {
+        if(corName) {
 
+            return res
+            .status(400)
+            .json(new ApiError(405, 'Course name already exists'));
+
+        }
+
+        const path = req.file.path;
+
+        const response = await thumbnailUploadOnCloudinary(path);
+
+        // if(!response) {
         //     return res
         //     .status(400)
-        //     .json(new ApiError(405, 'Course name already exists'));
-
+        //     .json(new ApiError(405, 'Thumbnail not uploaded', response));
         // }
-
-
-
-       
 
         const course = await Course.create({
             
@@ -53,6 +62,12 @@ const createCourse = asyncHandler(async (req, res) => {
             adminEmail:adminEmail,
             courseDuration,
             courseTeacher : courseTeacher,
+
+            // courseThumbnail: {
+            //     public_id: response.public_id,
+            //     secure_url: response.url
+            // }
+          
             
         });
 
@@ -86,10 +101,12 @@ const updateCourse = asyncHandler(async (req, res) => {
 
     const {courseName, courseDescription, coursePrice, courseSubject, courseTeacher, courseStartDate, courseDuration } = req.body;
 
+
     console.log("req.body => ", req.body);
+
     try {
 
-        const course = await Course.findOne({courseName});
+        const course = await Course.findOne({courseName, courseCode});
 
         if(!course) {
 
@@ -112,9 +129,9 @@ const updateCourse = asyncHandler(async (req, res) => {
             course.courseSubject = courseSubject;
         }
 
-        // if(courseTeacher) {
-        //     course.courseTeacher = [{courseTeacher}]
-        // }
+        if(courseTeacher) {
+            course.courseTeacher.push({courseTeacher})
+        }
 
         if(courseStartDate) {
             course.courseStartDate = courseStartDate;
@@ -290,10 +307,11 @@ const uploadLectures = asyncHandler(async (req, res) => {
             courseCode,
 
             teacherEmail,
-            videoLink: {
-                public_id: response.public_id,
-                private_url: response.secure_url    
-            }
+            
+            // videoLink: {
+            //     public_id: response.public_id,
+            //     private_url: response.secure_url    
+            // }
             
         });
 

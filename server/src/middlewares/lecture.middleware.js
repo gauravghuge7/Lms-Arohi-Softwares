@@ -13,8 +13,10 @@ const thumbnailStorage = multer.diskStorage({
 
 
 const lectureStorage = multer.diskStorage({
+
     destination: (req, file, cb) => {
-        cb(null, './uploads/lectures')
+        
+        cb(null, '/uploads/lectures')
     },
 
     filename: (req, file, cb) => {
