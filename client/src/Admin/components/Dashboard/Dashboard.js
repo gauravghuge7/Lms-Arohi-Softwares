@@ -1,53 +1,22 @@
-import React from "react";
-import { Grid, Box } from "@mui/material";
-import Achivement from "./Achivement";
-import MonthlyOverview from "./MonthlyOverview";
-import ProductsTable from "../CourseTable/CourseTable";
-import Customers from "../Customer/TeacherList";
-import Navbar from "../../tables/navbar";
-import ChartGallery from "../../tables/ChartGallery";
-import Analytics from "./Analytics";
-import Analytics2 from "./Analytics2";
-import Analytics3 from "./Analytics3";
+// /components/Dashboard/Dashboard.js
+import React from 'react';
+import DashboardCard from './DashboardCard';
 
-function AdminDashboard() {
+const Dashboard = () => {
   return (
-    <div className=" bg-transparent ">
-      {/* {
-      <Box>
-        <Grid container spacing={1}>
-          <Grid item xs={12} md={4}>
-            <Achivement /> 
-          </Grid>
-          <Grid item xs={10} md={8}>
-            <MonthlyOverview />
-          </Grid>
-
-          <Box mt={0} mb={0} mx={1.5}>
-            <ChartGallery />
-          </Box>
-          <Grid item xs={12} md={6}>
-            <Box mx={3}>
-              <ProductsTable />
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Box mx={3}>
-              <Customers />
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
-      } */}
-
-
-        <Analytics/>
-        <Analytics2/>
-        <Analytics3/>
-
-
+    <div className="min-h-screen bg-gray-100 p-4">
+      <div className="container mx-auto rounded-lg shadow-md p-6 bg-white">
+        <h1 className="text-3xl font-bold mb-6 text-center text-gray-900">Admin Dashboard</h1>
+        <div className="grid grid-cols-4 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+          <DashboardCard title="Enrolled Students" number={1200} />
+          <DashboardCard title="Number of Teachers" number={75} />
+          <DashboardCard title="Number of Courses" number={45} />
+          <DashboardCard title="Number of Classes" number={30} />
+          <DashboardCard title="Number of Departments" number={10} />
+        </div>
+      </div>
     </div>
   );
-}
+};
 
-export default AdminDashboard;
+export default Dashboard;
