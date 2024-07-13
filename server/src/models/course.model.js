@@ -2,9 +2,6 @@ import mongoose from 'mongoose';
 
 const CourseSchema = new mongoose.Schema({
 
-
-	
-
 	adminEmail : {
 
 		type: String
