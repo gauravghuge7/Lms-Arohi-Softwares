@@ -56,13 +56,7 @@ function ViewLecture() {
       thumbnail: "./logo192.png",
       url: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
     },
-    {
-      title: "video2",
-      description: "this is a very very useful video",
-      channel: "sushant01",
-      thumbnail: "./logo192.png",
-      url: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-    },
+    // Add more videos as needed
   ];
 
   const [activeVideo, setActiveVideo] = useState(null);
@@ -83,6 +77,7 @@ function ViewLecture() {
     setTimeout(() => setPlaying(true), 100);
     activeVideo.ref.seekTo(seconds, "seconds");
   };
+
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
@@ -90,18 +85,20 @@ function ViewLecture() {
   return (
     <div className="flex flex-col md:flex-row">
       {activeVideo && (
-        <div className="w-full  md:w-4/4  flex flex-col items-center bg-gray-900 p-5  ">
-          <ReactPlayer
-            ref={(player) => {
-              activeVideo.ref = player;
-            }}
-            url={activeVideo.url}
-            playing={playing}
-            controls
-            width="70vw"
-            height="90vh"
-            className="max-h-[90vh]"
-          />
+        <div className="w-full md:w-3/4 flex flex-col items-center bg-gray-900 p-5">
+          <div className="w-full h-56 md:h-96">
+            <ReactPlayer
+              ref={(player) => {
+                activeVideo.ref = player;
+              }}
+              url={activeVideo.url}
+              playing={playing}
+              controls
+              width="100%"
+              height="100%"
+              className="rounded"
+            />
+          </div>
           <div className="mt-5 flex space-x-4">
             <button
               onClick={handlePlayPause}
@@ -121,77 +118,58 @@ function ViewLecture() {
             >
               +5s
             </button>
-            
           </div>
 
-          <ul className="text-white flex gap-5 py-10 ">
-            <li>
-              <a className="" href="#">
-                <button
-                  className={`w-full flex items-center  capitalize  `}
-                  type="button"
-                  onClick={() => handleTabChange("comments")}
-                >
-                  <li className="p-2 cursor-pointer tracking-wider hover:text-slate-300">Comments</li>
-                </button>
-              </a>
-            </li>
-            <li>
-              <a className="" href="#">
-                <button
-                  className={`w-full flex items-center  capitalize `}
-                  type="button"
-                  onClick={() => handleTabChange("attachments")}
-                >
-                  <li className="p-2 cursor-pointer tracking-wider hover:text-slate-300">attachments</li>
-                </button>
-              </a>
-            </li>
-            <li>
-              <a className="" href="#">
-                <button
-                  className={`w-full flex items-center  capitalize `}
-                  type="button"
-                  onClick={() => handleTabChange("doubts")}
-                >
-                  <li className="p-2 cursor-pointer tracking-wider hover:text-slate-300">doubts</li>
-                </button>
-              </a>
-            </li>
-            <li>
-              <a className="" href="#">
-                <button
-                  className={`w-full flex items-center  capitalize `}
-                  type="button"
-                  onClick={() => handleTabChange("refrence")}
-                >
-                  <li className="p-2 cursor-pointer tracking-wider hover:text-slate-300">refrence</li>
-                </button>
-              </a>
-            </li>
-          </ul>
+         <ul className="text-white flex flex-col md:flex-row gap-2 md:gap-5 py-5 md:py-10">
+  <li className="flex-1 text-center">
+    <button
+      className="p-2 w-full cursor-pointer tracking-wider hover:text-slate-300"
+      onClick={() => handleTabChange("comments")}
+    >
+      Comments
+    </button>
+  </li>
+  <li className="flex-1 text-center">
+    <button
+      className="p-2 w-full cursor-pointer tracking-wider hover:text-slate-300"
+      onClick={() => handleTabChange("attachments")}
+    >
+      Attachments
+    </button>
+  </li>
+  <li className="flex-1 text-center">
+    <button
+      className="p-2 w-full cursor-pointer tracking-wider hover:text-slate-300"
+      onClick={() => handleTabChange("doubts")}
+    >
+      Doubts
+    </button>
+  </li>
+  <li className="flex-1 text-center">
+    <button
+      className="p-2 w-full cursor-pointer tracking-wider hover:text-slate-300"
+      onClick={() => handleTabChange("refrence")}
+    >
+      Refrence
+    </button>
+  </li>
+</ul>
 
-          <div className="">
-        
-        {activeTab === "comments" && <Comment />}
-        {activeTab === "attachments" && <Attachment />}
-        {activeTab === "doubts" && <Doubts />}
-        {activeTab === "refrence" && <Refrence />}
 
-      </div>
+          <div className="w-full">
+            {activeTab === "comments" && <Comment />}
+            {activeTab === "attachments" && <Attachment />}
+            {activeTab === "doubts" && <Doubts />}
+            {activeTab === "refrence" && <Refrence />}
+          </div>
         </div>
       )}
 
- 
-
-      <ul
-        className="space-y-5 py-5 mx-auto md:w-1/4"
-        style={{ width: "90vw", maxWidth: "60vw" }}
-      >
+      <ul className="space-y-5 py-5 mx-auto md:w-1/4 w-full max-w-screen-md">
         {dummyData.map((data, i) => (
           <li
             key={i}
-            className="flex flex-col md:flex-row items-center shadow-lg gap-5 md:gap-10 px-5 md:px-10 bg-gray-800 rounded-lg hover:bg-slate-400 "
+            className="flex flex-col md:flex-row items-center shadow-lg gap-5 md:gap-10 px-5 md:px-10 bg-gray-800 rounded-lg hover:bg-slate-400"
           >
             <div className="flex-shrink-0">
               <button onClick={() => playVideo(data)}>
@@ -214,7 +192,6 @@ function ViewLecture() {
           </li>
         ))}
       </ul>
-
     </div>
   );
 }
