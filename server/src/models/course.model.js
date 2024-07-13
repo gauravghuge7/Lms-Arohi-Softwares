@@ -10,13 +10,13 @@ const CourseSchema = new mongoose.Schema({
 		type: String
 	},
 
-	studentEmail : {	
+	studentEmail : [{	
 		type: String
-	},
+	}],
 
-	teacherEmail : {	
+	teacherEmail : [{	
 		type: String
-	},
+	}],
 
 	courseName: {
 		type: String,

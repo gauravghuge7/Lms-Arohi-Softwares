@@ -6,6 +6,7 @@ import { asyncHandler } from "../../utils/asyncHandler";
 
 
 const createPaymentForCourse = asyncHandler(async (req, res) => {
+
     const { courseCode, payment } = req.body;
 
     
@@ -18,16 +19,13 @@ const createPaymentForCourse = asyncHandler(async (req, res) => {
             return res.status(400).json(new ApiError(400, "Student not found"));
         }
 
+        student.studentCourses.push(courseCode);
+
         const checkCourse = await Course.findOne({ courseCode });
         
+
+        checkCourse.studentEmail.push(studentEmail);
         
-        const course = await Course.create({
-
-            courseCode,
-            studentEmail,
-
-            
-        })
 
         const payment = await Payment.create({
             studentMail : studentEmail,
@@ -40,6 +38,10 @@ const createPaymentForCourse = asyncHandler(async (req, res) => {
         })
 
         
+
+        return res
+            .status(200)
+            .json(new ApiResponse(200, "Payment initiated successfully", payment));
 
         
     } 
