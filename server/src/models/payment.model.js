@@ -2,9 +2,9 @@ import mongoose from 'mongoose';
 
 const paymentSchema = new mongoose.Schema({
 
-    studentMail : {
+    studentEmail : {
         type : String,
-        required : true
+        // required : true
     },
 
     courseName : {
@@ -17,24 +17,30 @@ const paymentSchema = new mongoose.Schema({
         // required : true
     },
 
-    orderId : {
+    razorpay_order_id : {
         type : String,
         // required : true
     },
 
-    transactionId : {
+    razorpay_payment_id : {
         type : String,
         required : true
     },
 
     transactionDate : {
-        type : Date.now(),
+        type : Date,
+        default : Date.now(),
         // required : true
+    },
+
+    razorpay_signature : {
+        type : String,
+        required : true
     },
 
     amount : {
         type : Number,
-        required : true
+        // required : true
     },
 
     status : {
@@ -44,9 +50,6 @@ const paymentSchema = new mongoose.Schema({
     },
 
 
-
-    
-    
 
 
 }, {timestamps: true});
