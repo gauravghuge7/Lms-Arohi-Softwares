@@ -132,7 +132,7 @@ const TeacherRegistrationForm = () => {
   return (
     <div className="max-w-2xl  mx-auto p-6">
       <h2 className="text-2xl font-bold text-center mb-2">Teacher Registration</h2>
-      <p className="text-gray-600 text-center mb-6">Please fill out the form below to register as a teacher.</p>
+      <p className="text-gray-600 text-center mb-6">Please fill out the form below to register a teacher.</p>
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
