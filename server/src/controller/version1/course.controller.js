@@ -1,4 +1,4 @@
-import Course from '../../models/course.model.js';
+import {Course} from '../../models/course.model.js';
 import { asyncHandler } from '../../utils/asyncHandler.js';
 import ApiResponse from '../../utils/apiResponse.js';
 import ApiError from '../../utils/ApiError.js';

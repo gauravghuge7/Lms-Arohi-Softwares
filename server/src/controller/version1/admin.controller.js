@@ -5,7 +5,7 @@ import ApiError from '../../utils/ApiError.js';
 import ApiResponse from '../../utils/apiResponse.js';
 import { Teacher } from '../../models/teacher.model.js';
 import { Student } from '../../models/student.model.js';
-import courseModel from '../../models/course.model.js';
+import {Course} from '../../models/course.model.js';
 
 const cookieOptions = {
     maxAge: 1000 * 60 * 60 * 24 * 30,
@@ -218,7 +218,7 @@ const showAllCourses = asyncHandler(async (req, res) => {
 
     try {
     
-        const course = await courseModel.find({});
+        const course = await Course.find({});
 
         console.log(course);
 
