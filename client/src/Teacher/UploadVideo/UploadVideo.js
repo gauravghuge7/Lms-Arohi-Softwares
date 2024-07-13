@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import './UploadVideo.css';
 import Navbar from '../../components/Navbar/Navbar';
+import axios from "axios"
+
+import {useEffect} from "react"
+import {useParams} from "react-router-dom"
 
 const initialVideos = [
 
@@ -109,6 +113,57 @@ const UploadVideo = () => {
       }
     };
   };
+
+
+  
+  const [uploadLectures , setuploadLectures]= useState([{
+     
+      }]);
+
+     
+     
+  const {courseCode} = useParams() ;   
+     
+     
+     
+     
+     
+     
+     
+     
+     
+      const fetchmycourses = async () => {
+    
+        try {
+            const response = await axios.get('/api/course/showAllCourses')
+    
+            console.log("Get All My Courses",response.data);
+    
+            console.log("response.data =>", response.data);
+    
+            console.log("response.data.data =>", response.data.data);
+    
+            // setcourses(response.data.data);
+    
+        }
+        catch (error){
+          console.log(error)
+        }
+      }
+
+
+
+      useEffect(() => {
+        fetchmycourses()
+      }, [])
+
+
+
+
+
+
+
+
 
   return (
     <div className="upload-video-container">

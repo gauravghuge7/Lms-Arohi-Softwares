@@ -2,9 +2,6 @@ import mongoose from 'mongoose';
 
 const CourseSchema = new mongoose.Schema({
 
-
-	
-
 	adminEmail : {
 
 		type: String
@@ -29,14 +26,13 @@ const CourseSchema = new mongoose.Schema({
 	},
 
 	courseThumbnail: {
+		secure_url: {
+			type: String,
+		},
 		public_id :{
 			type: String,
 		},
-		secure_url: {
-			type: String,
-		}
-
-				
+					
 	},
 
 	videoLink: [{

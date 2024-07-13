@@ -82,6 +82,18 @@ function ViewLecture() {
     setActiveTab(tab);
   };
 
+  
+  const [lectureDetails , setLectureDetails]= useState([{
+      
+    }]);
+
+
+
+
+
+
+
+
   return (
     <div className="flex flex-col md:flex-row">
       {activeVideo && (

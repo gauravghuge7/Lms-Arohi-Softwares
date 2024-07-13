@@ -27,7 +27,7 @@ const createAdmin = asyncHandler(async (req, res) => {
         
 
         const user = await Student.findOne({ studentEmail }).select('+studentPassword').populate('studentCourses')
-
+        console.log(user);
         if(!user) {
             return res
             .json( new ApiError(400, 'Student with this email is not exist'));
@@ -93,7 +93,6 @@ const createTeacher = asyncHandler(async (req, res) => {
 
         // check if student email in collection
         const user = await Student.findOne({ studentEmail }).select('+studentPassword');
-
         if (!user) {
             return res 
             .json(new ApiError(400, 'Student with this email is not exist'));
@@ -121,9 +120,10 @@ const createTeacher = asyncHandler(async (req, res) => {
         }
 
         /// create a entry in admin collection
-
+        console.log(res);
         const teacher = await Teacher.create({
             teacherName: user.studentName,
+            teacherFullName: user.studentFullName,
             teacherEmail: user.studentEmail,
             teacherPhoneNumber: user.studentPhoneNumber,
             adminEmail,

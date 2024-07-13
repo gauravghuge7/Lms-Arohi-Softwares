@@ -1,63 +1,100 @@
 import React from "react";
 import {Link} from "react-router-dom"
+import axios from "axios"
 
+import {useState, useEffect} from "react"
 
-const courses = [
-  {
-    id: 1,
-    image:
-      "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://d15cw65ipctsrr.cloudfront.net/41/4d3d7c05fb42729c9d90352e072ca3/1060x596_GCC-photos_Karrim.png?auto=format%2Ccompress%2C%20enhance&dpr=1&w=320&h=180&fit=crop&q=50&crop=faces", // Replace with actual image URLs
-    title: "Full Stack development",
-    description:
-      "Ready to rule the digital world. Learn to build powerfull fullstack software easily",
-    languges: "Html, css, javascript, react",
-    auther: "Vivek Shejole",
-    viewCoursesLink: "/viewLecture",
-    viewcourses:"View Courses",
+// const courses = [
+//   {
+//     id: 1,
+//     image:
+//       "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://d15cw65ipctsrr.cloudfront.net/41/4d3d7c05fb42729c9d90352e072ca3/1060x596_GCC-photos_Karrim.png?auto=format%2Ccompress%2C%20enhance&dpr=1&w=320&h=180&fit=crop&q=50&crop=faces", // Replace with actual image URLs
+//     title: "Full Stack development",
+//     description:
+//       "Ready to rule the digital world. Learn to build powerfull fullstack software easily",
+//     languges: "Html, css, javascript, react",
+//     auther: "Vivek Shejole",
+//     viewCoursesLink: "/viewLecture",
+//     viewcourses:"View Courses",
 
-    uploadCoursesLink: "/uploadvideo",
-    uploadcourses:"Upload Lecture ",
-    link:"/overview",
-  },
-  {
-    id: 2,
-    image:
-      "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://d15cw65ipctsrr.cloudfront.net/41/4d3d7c05fb42729c9d90352e072ca3/1060x596_GCC-photos_Karrim.png?auto=format%2Ccompress%2C%20enhance&dpr=1&w=320&h=180&fit=crop&q=50&crop=faces", // Replace with actual image URLs
-    title: "Full Stack development",
-    description:
-      "Ready to rule the digital world. Learn to build powerfull fullstack software easily",
-    languges: "Html css javascript react",
-    auther: "Vivek Shejole",
-    viewCoursesLink: "/viewLecture",
-    viewcourses:"View Courses",
-    uploadCoursesLink: "/uploadvideo",
-    uploadcourses:"Upload Lecture "
-  },
-  {
-    id: 3,
-    image:
-      "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://d15cw65ipctsrr.cloudfront.net/41/4d3d7c05fb42729c9d90352e072ca3/1060x596_GCC-photos_Karrim.png?auto=format%2Ccompress%2C%20enhance&dpr=1&w=320&h=180&fit=crop&q=50&crop=faces", // Replace with actual image URLs
-    title: "Full Stack development",
-    description:
-      "Ready to rule the digital world. Learn to build powerfull fullstack software easily",
-    languges: "Html css javascript react",
-    auther: "Vivek Shejole",
-    viewCoursesLink: "/viewLecture",
-    viewcourses:"View Courses",
+//     uploadCoursesLink: "/uploadvideo",
+//     uploadcourses:"Upload Lecture ",
+//     link:"/overview",
+//   },
+//   {
+//     id: 2,
+//     image:
+//       "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://d15cw65ipctsrr.cloudfront.net/41/4d3d7c05fb42729c9d90352e072ca3/1060x596_GCC-photos_Karrim.png?auto=format%2Ccompress%2C%20enhance&dpr=1&w=320&h=180&fit=crop&q=50&crop=faces", // Replace with actual image URLs
+//     title: "Full Stack development",
+//     description:
+//       "Ready to rule the digital world. Learn to build powerfull fullstack software easily",
+//     languges: "Html css javascript react",
+//     auther: "Vivek Shejole",
+//     viewCoursesLink: "/viewLecture",
+//     viewcourses:"View Courses",
+//     uploadCoursesLink: "/uploadvideo",
+//     uploadcourses:"Upload Lecture "
+//   },
+//   {
+//     id: 3,
+//     image:
+//       "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://d15cw65ipctsrr.cloudfront.net/41/4d3d7c05fb42729c9d90352e072ca3/1060x596_GCC-photos_Karrim.png?auto=format%2Ccompress%2C%20enhance&dpr=1&w=320&h=180&fit=crop&q=50&crop=faces", // Replace with actual image URLs
+//     title: "Full Stack development",
+//     description:
+//       "Ready to rule the digital world. Learn to build powerfull fullstack software easily",
+//     languges: "Html css javascript react",
+//     auther: "Vivek Shejole",
+//     viewCoursesLink: "/viewLecture",
+//     viewcourses:"View Courses",
 
-    uploadcourses:"Upload Lecture ",
-    uploadCoursesLink: "/uploadvideo",
-  },
+//     uploadcourses:"Upload Lecture ",
+//     uploadCoursesLink: "/uploadvideo",
+//   },
 
-  // Add more courses as needed
-];
+//   // Add more courses as needed
+// ];
 
 function Mycourses() {
+  
+  const [courses , setcourses]= useState([{
+    _id: "",
+    courseName : "",
+    adminEmail:"",
+    courseDescription : "",
+    courseImage : "",
+    courseLanguges : "",
+    courseAuthor : "",
+    viewCoursesLink : "/viewLecture",
+    viewcourses:"View Courses",
+    uploadCoursesLink : "/uploadvideo",
+    uploadcourses:"Upload Lecture ",
+    courseCode:"",
+    }]);
+
+  const fetchmycourses = async () => {
+    
+    try {
+        const response = await axios.get('/api/course/showAllCourses')
+
+        console.log("Get All My Courses",response.data);
+
+        console.log("response.data =>", response.data);
+
+        console.log("response.data.data =>", response.data.data);
+
+        setcourses(response.data.data);
+
+    }
+    catch (error){
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    fetchmycourses()
+  }, [])
+
   return (
     <div className="min-h-screen  p-10">
-
-    
-
       <h1 className="text-white text-6xl ml-20 font-bold mb-10">
         My Courses.
       </h1>
@@ -65,35 +102,35 @@ function Mycourses() {
      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 ml-20">
         {courses.map((course) => (
           <div
-            key={course.id}
+            key={course._id}
             className="bg-black text-white rounded-lg shadow-lg overflow-hidden"
           >
             <img
-              src={course.image}
+              src={course.courseImage}
               alt={course.title}
               className="w-full h-70 object-cover"
             />
             <div className="p-5">
-              <h2 className="text-2xl font-bold mt-4 mb-2">{course.title}</h2>
-              <p className="text-gray-400 mb-5">{course.description}</p>
+              <h2 className="text-2xl font-bold mt-4 mb-2">{course.courseName}</h2>
+              <p className="text-gray-400 mb-5">{course.courseDescription}</p>
               <hr />
               <button className="text-cyan-400 mt-7 font-semibold text-xl ">
-                {course.languges}
+                {course.courseLanguges}
               </button>
 
               <div className="mt-7 flex justify-between mb-2  text-gray-300  text-xl font-bold">
-                <div> By {course.auther}</div>
+                <div> By {course.adminEmail}</div>
               </div>
             </div>
             <div className="flex justify-center space-x-4 text-2xl mb-2">
-              <Link to={course.viewCoursesLink}>
+              <Link to={`/teacher/ViewLecture/${course.courseCode}`}>
                 <button className="bg-cyan-400 text-black font-bold p-2 rounded">
-                  {course.viewcourses}
+                  View Lectures
                 </button>
               </Link>
-              <Link to={course.uploadCoursesLink}>
+              <Link to={`/uploadvideo/${course.courseCode}`}>
                 <button className="bg-cyan-400 text-black font-bold p-2 rounded">
-                  {course.uploadcourses}
+                 Upload Lectures
                 </button>
               </Link>
             </div>

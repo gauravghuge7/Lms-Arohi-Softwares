@@ -16,7 +16,7 @@ import { showAllCourses } from '../controller/version1/admin.controller.js';
 courseRouter.route('/createCourse').post(
 
     isAdminLogin,
-    upload.single('thumbnail'),
+    upload.single('courseThumbnail'),
     createCourse
 )
 
