@@ -10,6 +10,13 @@ const CourseSchema = new mongoose.Schema({
 		type: String
 	},
 
+	studentEmail : [{	
+		type: String
+	}],
+
+	teacherEmail : [{	
+		type: String
+	}],
 
 	courseName: {
 		type: String,
@@ -142,4 +149,4 @@ const CourseSchema = new mongoose.Schema({
 
 }, {timestamps: true});
  
-export default mongoose.model('Course', CourseSchema);  
+export const Course =  mongoose.model('Course', CourseSchema);  

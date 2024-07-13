@@ -12,7 +12,7 @@ const paymentSchema = new mongoose.Schema({
         // required : true
     },
 
-    courseId : {
+    courseCode : {
         type : String,
         // required : true
     },

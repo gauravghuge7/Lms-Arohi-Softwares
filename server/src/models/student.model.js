@@ -16,11 +16,12 @@ const StudentSchema = new mongoose.Schema({
     },
 
 
-    studentCourseCode: {
+    studentCourses: [{  
 
-        type: String
+        type: String,
+        
 
-    },
+    }],
 
         
     studentAge: {
