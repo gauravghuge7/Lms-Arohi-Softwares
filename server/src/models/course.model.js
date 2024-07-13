@@ -22,14 +22,13 @@ const CourseSchema = new mongoose.Schema({
 	},
 
 	courseThumbnail: {
+		secure_url: {
+			type: String,
+		},
 		public_id :{
 			type: String,
 		},
-		secure_url: {
-			type: String,
-		}
-
-				
+					
 	},
 
 	videoLink: [{

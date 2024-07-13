@@ -1,27 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "axios"
+import moment from 'moment'
+
 
 // 
 
 
 function CreateCourse() {
 
-        // courseThumnail
+    const [teachers,setTeachers] = useState([])
+
     const [courseData,setCourseData] =useState({
         courseName:"",
         courseCode:"",
         courseDescription:"",
         coursePrice:"",
         courseDuration:"",
-        courseStartDate:"",
-        courseEndDate:"",
+        courseStartDate:null,
+        courseEndDate:null,
         courseTeacher:"",
-        courseThumbnail:null,
+        courseThumbnail:null
     })
+
+    useEffect(() => {
+         axios.get('/api/admin/getTeachers').then(res => setTeachers(res.data.data))
+    },[])
 
     const handleOnSubmit = async(e) => {
         e.preventDefault();
-        const res = await axios.post('/api/course/createCourse',courseData);
+        courseData.courseStartDate = new Date(courseData.courseStartDate).toDateString();
+        courseData.courseEndDate = new Date(courseData.courseEndDate).toDateString();
+        const res = await axios.post('/api/course/createCourse',courseData,{
+            headers:{
+                "Content-Type":"multipart/form-data"
+            }
+        });
         console.log(res);
     }
 
@@ -115,7 +128,7 @@ function CreateCourse() {
                             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             type="date"
                             id="endDate"
-                            onChange={(e) => setCourseData({...courseData,courseEndDate:e.target.value})}
+                            onChange={(e) => setCourseData({...courseData,courseEndDate:(e.target.value)})}
                         />
                     </div>
 
@@ -123,23 +136,22 @@ function CreateCourse() {
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-700" htmlFor="courseTeacher">Course Teacher</label>
                         <select 
-                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                            className="w-full text-black px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
                             id="courseTeacher"
                             onChange={(e) => setCourseData({...courseData,courseTeacher:e.target.value})}
                         >
                             <option value="">Select Teacher</option>
-                            <option value="Mrs Amy Sinha">Mrs Amy Sinha</option>
-                            <option value="Mr Anup Kasol">Mr Anup Kasol</option>
-                            <option value="Ms Jane Smith">Ms Jane Smith</option>
+                            {teachers.length > 1 ? teachers.map((teacher) => {
+                                return <option value={teacher.teacherFullName}>{teacher.teacherFullName}</option>
+                            }):<option value={teachers[0].teacherFullName}>{teachers[0].teacherFullName}</option>}
+                    
                         </select>
                     </div>
 
                     {/* Course Thumbnail */}
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-700" htmlFor="courseThumbnail">Course Thumbnail</label>
-                        <input type='file'   accept='image/png, image/jpeg' onClick={(e) => setCourseData({...courseData,courseThumbnail:e.target.files[0]  })}/>
-                       
-
+                        <input type='file'   accept='image/png, image/jpeg' onChange={(e) => setCourseData({...courseData,courseThumbnail:e.target.files[0]})}/>
                     </div>
 
                     {/* Submit Button */}

@@ -36,13 +36,12 @@ const CourseTable = () => {
       <h3 className="text-xl font-semibold mb-2">{product.courseName}</h3>
       <p><strong>Course Code:</strong> {product.courseCode}</p>
       <p><strong>Price:</strong> {product.coursePrice}</p>
-      <p><strong>Duration:</strong> {product.courseDuration}</p>
-      <div className="flex justify-between w-full">
-        <p><strong>Start Date:</strong> {product.courseStartDate}</p>
-        <p><strong>End Date:</strong> {product.courseEndDate}</p>
+      <p><strong>Duration:</strong> {`${(Number(product.courseDuration)/60).toFixed()}  Hrs` }</p>
+      <div className="flex justify-between w-full"> 
+        <p className=''><strong>Start Date:</strong> {(product.courseStartDate).slice(0,7)}</p>
+        <p><strong>End Date:</strong> {(product.courseEndDate).slice(0,7)  }</p>
       </div>
       <p><strong>Teacher:</strong> {product.courseTeacher.map((data) => data)}</p>
-      
       <section className='flex justify-around gap-12 items-center'>
 
 
