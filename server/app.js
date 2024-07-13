@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import allRouter from './router/router.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors'
+import ApiResponse from './src/utils/apiResponse.js';
 
 
 const app = express();  /// create express app
@@ -20,6 +21,13 @@ app.use(cors())
 
 
 
+app.get('/api/getkey', (req, res) => {
+
+    res
+    .json(
+        new ApiResponse(200, "key fetched successfully", process.env.RAZORPAY_KEY_ID)
+    );
+})
  
 
 

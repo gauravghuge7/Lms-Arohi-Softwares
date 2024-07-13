@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const paymentSchema = new mongoose.Schema({
 
-    studentMail : {
+    studentEmail : {
         type : String,
         required : true
     },
@@ -28,7 +28,8 @@ const paymentSchema = new mongoose.Schema({
     },
 
     transactionDate : {
-        type : Date.now(),
+        type : Date,
+        default : Date.now(),
         // required : true
     },
 

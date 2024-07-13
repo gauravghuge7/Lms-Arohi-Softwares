@@ -28,6 +28,7 @@ function Overview() {
     },
   ];
 
+
   const courseContent = {
     nodejs: [
       "Introduction to Node.js and NPM",
@@ -52,6 +53,7 @@ function Overview() {
       "Connecting MongoDB with Node.js",
     ],
   };
+
 
   const tools = [
     {
@@ -79,17 +81,18 @@ function Overview() {
   ];
 
 
+
   const checkoutHandler = async(amount) => {
 
-    const {data:{key}} = await axios.get('http://localhost:5000/api/getkey')
+    const {data:{key}} = await axios.get('/api/getkey')
 
     const data = {
         amount: amount || 2000,
     }
-    
-    const {data:{order}} = await axios.post('http://localhost:5000/user/payment', data)
-   
 
+    
+    const {data:{order}} = await axios.post('/api/payment/createPaymentForCourse', data)
+   
     console.log(window);
 
     const options = {
@@ -98,17 +101,21 @@ function Overview() {
         currency: "INR",
         name: "gaurav ghuge",
         description: "Test Transaction of softwares",
+
         image: "https://example.com/your_logo",
         order_id: order.id,
         callback_url: `http://localhost:3000/overview`,
+
         prefill: {
             name: "Gaurav ghuge",
             email: "gauravghuge@microsoft.com",
             contact: "8767482793"
         },
+
         notes: {
             address: "Razorpay Corporate Office"
         },
+
         theme: {
             color: "#83E633"
         }
@@ -138,7 +145,9 @@ function Overview() {
           Master Backend Development with Node.js, Express.js, and MongoDB
         </p> */}
           </div>
+
           <div className="bg-gradient-to-b from-gray-800 to-cyan-850 text-white rounded-lg shadow-lg overflow-hidden my-5 p-5 mx-5 sm:mx-10">
+
             <div className="flex flex-col lg:flex-row justify-around items-center p-5 lg:p-20">
               <div className="flex-1 mb-5 lg:mb-0">
                 <p className="text-3xl sm:text-4xl font-bold">
@@ -158,14 +167,16 @@ function Overview() {
                 </p>
 
                 <button 
-                  onClick={() => checkoutHandler()}
+                  onClick={() => checkoutHandler(2000)}
                   className="mt-8 p-4 bg-cyan-500 rounded hover:bg-cyan-850 font-bold text-2xl mb-5">
                   Buy Now - Start Learning
                 </button>
+
                 <p className="text-base sm:text-2xl font-semibold mt-2">
                   {category.coursesDescription}
                 </p>
               </div>
+
               <div className="flex-1">
                 <img
                   src={category.image}
@@ -176,6 +187,7 @@ function Overview() {
             </div>
           </div>
 
+
           <div className="flex flex-col mt-10 items-center">
             <img
               src={category.logoimage}
@@ -183,6 +195,7 @@ function Overview() {
               className="h-48 sm:h-72 lg:ml-20 rounded-lg mb-10"
             />
           </div>
+
 
           <div className="flex justify-center flex-wrap my-20">
             <div className="relative text-center font-bold text-3xl mr-10 ml-10 p-10 rounded-3xl">
@@ -207,6 +220,7 @@ function Overview() {
               </div>
             </div>
           </div>
+
 
           <div className="flex flex-col items-center mt-20 mb-10">
             <h2 className="text-4xl text-cyan-500 mt-20 font-bold">
@@ -275,6 +289,10 @@ function Overview() {
               </div>
             )}
           </div>
+          
+          
+
+
 
           <div className="flex flex-col items-center mt-20 mb-10">
             <h2 className="text-4xl text-cyan-500 mt-20 font-bold">
@@ -297,6 +315,7 @@ function Overview() {
               ))}
             </div>
           </div>
+
         </div>
 
 

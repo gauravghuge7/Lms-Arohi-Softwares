@@ -9,6 +9,31 @@ dotenv.config({
 const PORT = process.env.PORT || 5000;
 
 
+
+
+
+import Razorpay from 'razorpay';
+export const paymentInstance = new Razorpay({
+    
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
+    
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 connectDB()
 
 .then(() => {
