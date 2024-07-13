@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { setUser } from "../store/User/userSlice";
+import { setUser, setLogin } from "../store/User/userSlice";
 
 function Login() {
   const dispatch = useDispatch();
@@ -47,15 +47,21 @@ function Login() {
         dispatch(setUser(result.data));
 
         if(result.data.adminType === 'admin'){
+          dispatch(setLogin(result.data.adminType));
           navigate("/admin");
         }
         else if(result.data.teacherType === 'teacher'){
+          dispatch(setLogin(result.data.teacherType));
+          navigate("/");
+        }
+        else if(result.data.studentType === 'student'){
+          dispatch(setLogin(result.data.studentType));
           navigate("/");
         }
 
         
-        // navigate("/");
-      } else {
+      } 
+      else {
         toast.error(result.message);
       }
     } catch (error) {

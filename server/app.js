@@ -9,13 +9,18 @@ import ApiResponse from './src/utils/apiResponse.js';
 
 const app = express();  /// create express app
 
+export const clientUrl = "http://localhost:3000";
+
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));  /// accept form data
 app.use(morgan('dev'));
 
 app.use(cookieParser())
-app.use(cors())
+app.use(cors({
+    origin: "http://localhost:3000",
+    
+}))
 
 
 
@@ -25,7 +30,7 @@ app.get('/api/getkey', (req, res) => {
 
     res
     .json(
-        new ApiResponse(200, "key fetched successfully", process.env.RAZORPAY_KEY_ID)
+        {key : process.env.RAZORPAY_KEY_ID}
     );
 })
  

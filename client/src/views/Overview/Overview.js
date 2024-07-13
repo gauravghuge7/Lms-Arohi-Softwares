@@ -80,14 +80,17 @@ function Overview() {
     },
   ];
 
+  
+  
+
 
 
   const checkoutHandler = async(amount) => {
 
-    const {data:{key}} = await axios.get('/api/getkey')
+    const {data: {key}} = await axios.get('/api/getkey')
 
     const data = {
-        amount: amount || 2000,
+        amount: amount || 200000,
     }
 
     
@@ -97,14 +100,14 @@ function Overview() {
 
     const options = {
         key, 
-        amount: order.amount, 
+        amount: amount, 
         currency: "INR",
         name: "gaurav ghuge",
         description: "Test Transaction of softwares",
 
         image: "https://example.com/your_logo",
         order_id: order.id,
-        callback_url: `http://localhost:3000/overview`,
+        callback_url: `/api/payment/verifyPaymentForCourse`,
 
         prefill: {
             name: "Gaurav ghuge",
@@ -167,7 +170,7 @@ function Overview() {
                 </p>
 
                 <button 
-                  onClick={() => checkoutHandler(2000)}
+                  onClick={() => checkoutHandler()}
                   className="mt-8 p-4 bg-cyan-500 rounded hover:bg-cyan-850 font-bold text-2xl mb-5">
                   Buy Now - Start Learning
                 </button>

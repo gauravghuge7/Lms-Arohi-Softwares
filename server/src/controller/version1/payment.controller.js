@@ -5,6 +5,9 @@ import { Student } from "../../models/student.model.js";
 import ApiError from "../../utils/ApiError.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import ApiResponse from "../../utils/apiResponse.js";
+import crypto from "crypto";
+import { clientUrl } from "../../../app.js";
+
 
 const createPaymentForCourse = asyncHandler(async (req, res) => {
 
@@ -28,7 +31,12 @@ const createPaymentForCourse = asyncHandler(async (req, res) => {
 
         return res
             .status(200)
-            .json(new ApiResponse(200, "Payment initiated successfully", order));
+            .json({
+                status: 200,
+                success: true,
+                message: "Payment initiated successfully", 
+                order
+            });
 
 
     } 
@@ -43,48 +51,71 @@ const createPaymentForCourse = asyncHandler(async (req, res) => {
 
 const verifyPaymentForCourse = asyncHandler(async (req, res) => {
     
-    const { paymentId } = req.body;
+    const {razorpay_order_id, razorpay_payment_id, razorpay_signature} = req.body;
+
+    console.log(req.body);
+
+    // const {studentEmail, courseCode} = req.user;
 
     try {
 
-       const payment = await Payment.findById(paymentId);
-       if (!payment) {
-           return res.status(400).json(new ApiError(400, "Payment not found"));
-       }
-       payment.status = 'verified';
-       await payment.save();
+
+        const body = razorpay_order_id + "|" + razorpay_payment_id 
+
+        
+        const expectedSignature = crypto
+            .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+            .update(body)
+            .digest("hex");
 
 
-       
+        const verified = expectedSignature === razorpay_signature;
 
-        // const student = await Student.findOne({ email: studentEmail });
+        if(!verified){
+            return res.status(400).json(new ApiError(400, "Signature is not verified your session is expired"));
+        }
+
+
+
+        // const student = await Student.findOne({ studentEmail });
+
         // if (!student) {
         //     return res.status(400).json(new ApiError(400, "Student not found"));
         // }
 
-        // student.studentCourses.push(courseCode);
 
         // const checkCourse = await Course.findOne({ courseCode });
-        
+
+
+        // student.studentCourses.push(courseCode);
 
         // checkCourse.studentEmail.push(studentEmail);
-        
 
-        // const payment = await Payment.create({
-        //     studentMail : studentEmail,
-        //     courseCode,
-        //     orderId,
-        //     transactionId,
-        //     transactionDate,
-        //     amount,
-        //     status : 'pending'
-        // })
+
+
+
+
+        const payment = await Payment.create({
+            // studentMail : studentEmail,
+            // courseCode,
+            razorpay_order_id,
+            razorpay_payment_id,
+            transactionDate : Date.now(),
+            razorpay_signature,
+            // amount,
+            status : 'paid'
+            
+        })
+
+        console.log(payment);
 
 
        return res
            .status(200)
-           .json(new ApiResponse(200, "Payment verified successfully", payment));
+           .redirect(`http://localhost:3000`)
+           .json({message : "Payment verified successfully", payment});
     } 
+
     catch (error) {
        console.log(error);
        return res.status(500).json(new ApiError(500, error.message));
