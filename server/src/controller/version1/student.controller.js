@@ -18,7 +18,7 @@ const cookieOptions = {
 
 const studentRegister = asyncHandler(async (req, res, next) => {
 
-    const {studentPassword, studentUserName, studentPhoneNumber, studentEmail,} = req.body;
+    const {studentPassword,studentFullName, studentUserName, studentPhoneNumber, studentEmail,} = req.body;
 
     if(!req.body) {
         throw new ApiError(400, 'Student data is missing');
@@ -53,6 +53,7 @@ const studentRegister = asyncHandler(async (req, res, next) => {
         const savedStudent = await Student.create({
             
             studentPhoneNumber,
+            studentFullName,
             studentPassword: encryptedPassword,
             studentEmail,
             studentUserName,
