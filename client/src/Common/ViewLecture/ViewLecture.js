@@ -80,6 +80,18 @@ function ViewLecture() {
     activeVideo.ref.seekTo(seconds, 'seconds');
   };
 
+  
+  const [lectureDetails , setLectureDetails]= useState([{
+      
+    }]);
+
+
+
+
+
+
+
+
   return (
     <div className="flex flex-col md:flex-row">
 
