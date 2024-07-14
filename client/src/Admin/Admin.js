@@ -39,34 +39,9 @@ function AdminPanel() {
 
         <div className="flex h-full">
 
-
-          {isSidebarOpen && (
-            <div className={sidebarClasses}>
-              <div className="p-4 flex justify-between items-center w-[280px]">
-                <h1 className="text-2xl font-bold text-red-500">Admin</h1>
-                <button className="text-gray-400 hover:text-green-500 lg:hidden" onClick={toggleSidebar}>
-                  <FaTimes />
-                </button>
-              </div>
-              <nav className="mt-8 h-screen">
-              
-                {menu.map((item, index) => (
-                  <Link to={item.path} key={index} className={linkClasses}>
-                    {item.icon}
-                    <span className="ml-3">{item.name}</span>
-                  </Link>
-                ))}
-              </nav>
-            </div>
-          )}
-
-
           <div className='flex-grow '>
             <Routes>
-              <Route path="/" element={<AdminDashboard />} />
-
-            
-         
+              <Route path="/" element={<AdminDashboard />} />         
 
             </Routes>
           </div>

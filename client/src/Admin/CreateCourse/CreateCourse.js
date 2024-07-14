@@ -43,7 +43,7 @@ function CreateCourse() {
     
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex items-center w-full justify-center min-h-screen bg-gray-100">
             <div className="w-full max-w-2xl p-6 bg-white border border-black-300 rounded-md shadow-md">
                 <h2 className="text-2xl font-bold text-center mb-4">Create New Course</h2>
                 <p className="text-center mb-6">Kindly fill this form to create a new course</p>
