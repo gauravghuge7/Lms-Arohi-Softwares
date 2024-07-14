@@ -10,6 +10,7 @@ const UploadVideo = () => {
   const [videos, setVideos] = useState(initialVideos);
   const [showForm, setShowForm] = useState(false);
   const [newVideo, setNewVideo] = useState({
+    title: '',
     instructor: '',
     tags: '',
     category: '',
@@ -173,9 +174,21 @@ const UploadVideo = () => {
     };
   };
 
+  // Fetch videos when the component mounts or courseCode changes
   useEffect(() => {
-    
-  }, []);
+    const fetchVideos = async () => {
+      try {
+        const response = await axios.get(`/api/course/uploadLectures?courseCode=${courseCode}`, {
+          withCredentials: true,
+        });
+        setVideos(response.data.videos);
+      } catch (error) {
+        console.error('Error fetching videos:', error);
+      }
+    };
+
+    fetchVideos();
+  }, [courseCode]);
 
   return (
     <div className="upload-video-container">
@@ -217,10 +230,6 @@ const UploadVideo = () => {
             <form className="upload-form" onSubmit={uploadLecture}>
               <h2>Upload Video</h2>
               <div className="form-row">
-                {/* <div className="form-group">
-                  <label>Lecture Title *</label>
-                  <input type="text" name="title" value={newVideo.title} onChange={handleInputChange} placeholder="Title" required />
-                </div> */}
                 <div className="form-group">
                   <label>Instructor *</label>
                   <input type="text" name="instructor" value={newVideo.instructor} onChange={handleInputChange} placeholder="Instructor" required />
@@ -251,34 +260,29 @@ const UploadVideo = () => {
                   <label>Course Code *</label>
                   <input type="text" name="courseCode" value={newVideo.courseCode} onChange={handleInputChange} placeholder="Course Code" required />
                 </div>
-                
               </div>
               <div className="form-row">
                 <div className="form-group">
                   <label>Lecture Image *</label>
-                  <input type="file" name="lectureImage" value={newVideo.lectureImage} onChange={handleInputChange} accept="image/*" required />
+                  <input type="file" name="lectureImage" onChange={handleInputChange} accept="image/*" required />
                 </div>
                 <div className="form-group">
                   <label>Attachments *</label>
-                  <input type="file" name="attachments" value={newVideo.attachments} onChange={handleInputChange} accept=".pdf,.doc,.ppt,.zip" required />
+                  <input type="file" name="attachments" onChange={handleInputChange} accept=".pdf,.doc,.ppt,.zip" required />
                 </div>
               </div>
               <div className="form-row">
-                <div className="form-group">
-                  <label>Rating *</label>
-                  <input type="number" name="rating" value={newVideo.rating} onChange={handleInputChange} placeholder="Rating" required />
-                </div>
                 <div className="form-group">
                   <label>Teacher Mail *</label>
                   <input type="email" name="teacherMail" value={newVideo.teacherMail} onChange={handleInputChange} placeholder="Teacher Mail" required />
                 </div>
               </div>
               <div className="form-row">
-              <div className="form-group">
+                <div className="form-group">
                   <label>Lecture Description *</label>
                   <textarea  name="lectureDescription" value={newVideo.lectureDescription} onChange={handleInputChange} placeholder="Lecture Description" required></textarea>
                 </div>
-                </div>
+              </div>
               <button type="submit" className="submit-btn">Upload</button>
             </form>
           </div>
