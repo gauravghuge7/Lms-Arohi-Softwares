@@ -3,7 +3,6 @@ import {Link} from "react-router-dom"
 import axios from "axios"
 
 import {useState, useEffect} from "react"
-
 // const courses = [
 //   {
 //     id: 1,
@@ -105,11 +104,14 @@ function Mycourses() {
             key={course._id}
             className="bg-black text-white rounded-lg shadow-lg overflow-hidden"
           >
-            <img
+              <img src={'${course.courseThumbnail.private_url}'}
+              alt={course.title} className="w-full h-70 object-cover" />
+
+            {/* <img
               src={course.courseImage}
               alt={course.title}
               className="w-full h-70 object-cover"
-            />
+            /> */}
             <div className="p-5">
               <h2 className="text-2xl font-bold mt-4 mb-2">{course.courseName}</h2>
               <p className="text-gray-400 mb-5">{course.courseDescription}</p>

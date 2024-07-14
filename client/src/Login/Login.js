@@ -58,7 +58,10 @@ function Login() {
           dispatch(setLogin(result.data.studentType));
           navigate("/");
         }
+        navigate("/");
+
         
+
         
       } 
       else {
