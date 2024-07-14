@@ -3,49 +3,6 @@ import React, { useEffect, useState } from "react";
 import {Link} from "react-router-dom"
 
 
-const courses = [
-  {
-    id: 1,
-    image:
-      "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://d15cw65ipctsrr.cloudfront.net/41/4d3d7c05fb42729c9d90352e072ca3/1060x596_GCC-photos_Karrim.png?auto=format%2Ccompress%2C%20enhance&dpr=1&w=320&h=180&fit=crop&q=50&crop=faces", // Replace with actual image URLs
-    title: "Full Stack development",
-    description:
-      "Ready to rule the digital world. Learn to build powerfull fullstack software easily",
-    languges: "Html, css, javascript, react",
-    auther: "Vivek Shejole",
-    price: "₹ 2000",
-    buy: "Buy Now",
-    link:"/overview"
-  },
-  {
-    id: 2,
-    image:
-      "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://d15cw65ipctsrr.cloudfront.net/41/4d3d7c05fb42729c9d90352e072ca3/1060x596_GCC-photos_Karrim.png?auto=format%2Ccompress%2C%20enhance&dpr=1&w=320&h=180&fit=crop&q=50&crop=faces", // Replace with actual image URLs
-    title: "Full Stack development",
-    description:
-      "Ready to rule the digital world. Learn to build powerfull fullstack software easily",
-    languges: "Html css javascript react",
-    auther: "Vivek Shejole",
-    price: "₹ 2000",
-    buy: "Buy Now",
-  },
-  {
-    id: 3,
-    image:
-      "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://d15cw65ipctsrr.cloudfront.net/41/4d3d7c05fb42729c9d90352e072ca3/1060x596_GCC-photos_Karrim.png?auto=format%2Ccompress%2C%20enhance&dpr=1&w=320&h=180&fit=crop&q=50&crop=faces", // Replace with actual image URLs
-    title: "Full Stack development",
-    description:
-      "Ready to rule the digital world. Learn to build powerfull fullstack software easily",
-    languges: "Html css javascript react",
-    auther: "Vivek Shejole",
-    price: "₹ 2000",
-    buy: "Buy Now",
-  },
-
-  // Add more courses as needed
-];
-
-
 
 function Courses() {
 
@@ -109,7 +66,7 @@ function Courses() {
       </h1>
 
 
-     <Link to="/overview">
+     
      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 ml-20">
 
         {courses.map((course) => (
@@ -138,13 +95,20 @@ function Courses() {
                 <div> {course.coursePrice}</div>
               </div>
             </div>
-            <div className="text-center text-black bg-cyan-400  font-bold p-2 ml-4 mr-4 mb-2  text-2xl  rounded">
-              <button>{course.buy}</button>
-            </div>
+           
+            <Link to={`/overview/${course.courseCode}`}>
+
+              <div className="text-center text-black bg-cyan-400  font-bold p-2 ml-4 mr-4 mb-2  text-2xl  rounded">
+                <button>Enrolled in Course</button>
+              </div>
+
+            </Link>
+
           </div>
         ))}
+        
       </div>
-     </Link>
+ 
     </div>
   );
 }

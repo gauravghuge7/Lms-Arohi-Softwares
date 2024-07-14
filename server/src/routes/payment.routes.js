@@ -1,5 +1,6 @@
 import express from 'express';
 import { createPaymentForCourse, verifyPaymentForCourse } from '../controller/version1/payment.controller.js';
+import isStudentLoggedIn from '../middlewares/student.auth.js';
 
 const paymentRouter = express.Router();
 
@@ -10,7 +11,8 @@ paymentRouter.route('/createPaymentForCourse').post(
 )
 
 
-paymentRouter.route('/verifyPaymentForCourse').post(
+paymentRouter.route(`/verifyPaymentForCourse/:courseCode`).post(
+    isStudentLoggedIn,
     verifyPaymentForCourse
 )
 

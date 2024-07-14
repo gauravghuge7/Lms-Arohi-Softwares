@@ -90,7 +90,7 @@ const CourseSchema = new mongoose.Schema({
 
 	courseCode: {
 		type: String,
-
+		required: true,
 	},
 
 	courseSubject: {

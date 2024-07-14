@@ -19,7 +19,7 @@ function NewRoute() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/courses" element={<Coursespage />} />
-        <Route path="/overview" element={<Overview />} />
+        <Route path="/overview/:courseCode" element={<Overview />} />
 
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />

@@ -123,7 +123,7 @@ const YourProfile = () => {
                   <input
                     type="text"
                     name="fullName"
-                    value={profile.studentFullName}
+                    value={profile.fullName}
                     onChange={handleChange}
                   />
                 </div>
