@@ -55,7 +55,18 @@ const verifyPaymentForCourse = asyncHandler(async (req, res) => {
 
     console.log(req.body);
 
-    // const {studentEmail, courseCode} = req.user;
+    const { studentEmail } = req.user;
+    const {courseCode} = req.params;
+    
+
+    console.log("req.user => ",req.user);
+
+    console.log("req.query",req.query);
+    console.log("req.params",req.params);
+
+    
+
+    
 
     try {
 
@@ -77,27 +88,27 @@ const verifyPaymentForCourse = asyncHandler(async (req, res) => {
 
 
 
-        // const student = await Student.findOne({ studentEmail });
+        const student = await Student.findOne({ studentEmail });
 
-        // if (!student) {
-        //     return res.status(400).json(new ApiError(400, "Student not found"));
-        // }
-
-
-        // const checkCourse = await Course.findOne({ courseCode });
+        if (!student) {
+            return res.status(400).json(new ApiError(400, "Student not found"));
+        }
 
 
-        // student.studentCourses.push(courseCode);
+        const checkCourse = await Course.findOne({ courseCode });
 
-        // checkCourse.studentEmail.push(studentEmail);
+        if(!checkCourse){
+            return res.status(400).json(new ApiError(400, "Course not found"));
+        }
 
+        checkCourse.studentEmail.push(...studentEmail);
 
-
+        console.log(checkCourse);
 
 
         const payment = await Payment.create({
-            // studentMail : studentEmail,
-            // courseCode,
+            studentMail : studentEmail,
+            courseCode,
             razorpay_order_id,
             razorpay_payment_id,
             transactionDate : Date.now(),
@@ -112,8 +123,8 @@ const verifyPaymentForCourse = asyncHandler(async (req, res) => {
 
        return res
            .status(200)
-           .redirect(`http://localhost:3000`)
-           .json({message : "Payment verified successfully", payment});
+           .redirect(`http://localhost:3000/course`)
+           
     } 
 
     catch (error) {

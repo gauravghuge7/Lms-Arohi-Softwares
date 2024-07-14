@@ -14,8 +14,14 @@ teacherRouter.route('/update').patch(
 );
 
 
-teacherRouter.route('/getProfile').get(
+teacherRouter.route('/getMyCourses').get(
     
+)
+
+
+
+teacherRouter.route('/getProfile').get(
+
 )
 
 

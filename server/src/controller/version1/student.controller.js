@@ -5,6 +5,7 @@ import {asyncHandler} from '../../utils/asyncHandler.js';
 import uploadOnCloudinary from '../../helpers/cloudinary.js';
 import bcrypt from "bcrypt"
 import { Lecture } from '../../models/lecture.model.js';
+import { Course } from '../../models/course.model.js';
 
 
 const cookieOptions = {
@@ -251,7 +252,12 @@ const getMyCourses = asyncHandler(async (req, res, next) => {
             .json(new ApiError(400, 'Invalid email or password'));
         }
         
-        const courses = await Course.find({studentEmail});
+        const courses = await Course.find({
+            studentEmail: studentEmail
+        
+        });
+
+        console.log(courses);
         
         return res
         .status(200)
@@ -261,6 +267,7 @@ const getMyCourses = asyncHandler(async (req, res, next) => {
     }   
     catch (error) {
         
+        console.log(error);
         return res
         .status(400)
         .json(new ApiError(400, error.message));
@@ -270,7 +277,7 @@ const getMyCourses = asyncHandler(async (req, res, next) => {
 
 const getLecturesByCourse = asyncHandler(async (req, res, next) => {    
     
-    const {courseCode} = req.body;
+    const {courseCode} = req.query;
     
     try {
         const lectures = await Lecture.find({courseCode});

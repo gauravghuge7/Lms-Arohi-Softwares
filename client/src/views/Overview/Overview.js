@@ -5,6 +5,7 @@ import "./Overview.css";
 import Companies from "../../components/Companies/Companies"
 import Faq from "../../components/Faq/Faq"
 import axios from "axios";
+import {useParams} from "react-router-dom";
 
 function Overview() {
   const [activeCourse, setActiveCourse] = useState(null);
@@ -80,12 +81,14 @@ function Overview() {
     },
   ];
 
+
+  const {courseCode} = useParams();
   
   
 
 
 
-  const checkoutHandler = async(amount) => {
+  const checkoutHandler = async(amount, courseCode) => {
 
     const {data: {key}} = await axios.get('/api/getkey')
 
@@ -107,7 +110,7 @@ function Overview() {
 
         image: "https://example.com/your_logo",
         order_id: order.id,
-        callback_url: `/api/payment/verifyPaymentForCourse`,
+        callback_url: `/api/payment/verifyPaymentForCourse/:${courseCode}`,
 
         prefill: {
             name: "Gaurav ghuge",
@@ -170,7 +173,7 @@ function Overview() {
                 </p>
 
                 <button 
-                  onClick={() => checkoutHandler()}
+                  onClick={() => checkoutHandler(2000, courseCode)}
                   className="mt-8 p-4 bg-cyan-500 rounded hover:bg-cyan-850 font-bold text-2xl mb-5">
                   Buy Now - Start Learning
                 </button>
