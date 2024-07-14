@@ -28,9 +28,9 @@ const CourseTable = () => {
   const CourseCard = ({ product }) => (
     <div className="border rounded shadow p-4 m-2 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 flex flex-col items-start min-h-[400px]">
       <img 
-        src="https://images.unsplash.com/photo-1516802273409-68526ee1bdd6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+        src={`${product.courseThumbnail.private_url}`} 
         alt="Course" 
-        className="w-full mb-4 h-40 object-cover" 
+        className="w-full mb-4 object-fill h-40 " 
       />
       {console.log(product)}
       <h3 className="text-xl font-semibold mb-2">{product.courseName}</h3>

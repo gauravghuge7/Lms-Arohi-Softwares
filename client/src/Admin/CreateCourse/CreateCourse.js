@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios"
-import moment from 'moment'
 
 
 // 
@@ -8,7 +7,7 @@ import moment from 'moment'
 
 function CreateCourse() {
 
-    const [teachers,setTeachers] = useState([])
+    const [teachers,setTeachers] = useState(null)
 
     const [courseData,setCourseData] =useState({
         courseName:"",
@@ -25,6 +24,8 @@ function CreateCourse() {
     useEffect(() => {
          axios.get('/api/admin/getTeachers').then(res => setTeachers(res.data.data))
     },[])
+
+
 
     const handleOnSubmit = async(e) => {
         e.preventDefault();
@@ -133,7 +134,7 @@ function CreateCourse() {
                     </div>
 
                     {/* Course Teacher */}
-                    <div className="mb-4">
+                    {teachers !== null  && <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-700" htmlFor="courseTeacher">Course Teacher</label>
                         <select 
                             className="w-full text-black px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
@@ -146,7 +147,7 @@ function CreateCourse() {
                             }):<option value={teachers[0].teacherFullName}>{teachers[0].teacherFullName}</option>}
                     
                         </select>
-                    </div>
+                    </div>}
 
                     {/* Course Thumbnail */}
                     <div className="mb-4">
