@@ -23,7 +23,9 @@ function MyCourses() {
 
   }]);
 
-  const {courseCode}=useParams()
+  const {courseCode}=useParams();
+
+  
   const fetchCourses = async () => {
     try {
       const response = await axios.get(`api/course/${courseCode}`);

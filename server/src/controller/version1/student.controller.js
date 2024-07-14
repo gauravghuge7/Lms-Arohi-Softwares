@@ -21,9 +21,6 @@ const studentRegister = asyncHandler(async (req, res, next) => {
 
     const {studentPassword,studentFullName, studentUserName, studentPhoneNumber, studentEmail,} = req.body;
 
-    if(!req.body) {
-        throw new ApiError(400, 'Student data is missing');
-    }
 
     if(!studentPassword || !studentUserName || !studentEmail) {
 
@@ -53,8 +50,6 @@ const studentRegister = asyncHandler(async (req, res, next) => {
 
         const savedStudent = await Student.create({
             
-            studentPhoneNumber,
-            studentFullName,
             studentPassword: encryptedPassword,
             studentEmail,
             studentUserName,
