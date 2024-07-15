@@ -66,8 +66,6 @@ const verifyPaymentForCourse = asyncHandler(async (req, res) => {
 
     
 
-    
-
     try {
 
 
@@ -86,6 +84,7 @@ const verifyPaymentForCourse = asyncHandler(async (req, res) => {
             return res.status(400).json(new ApiError(400, "Signature is not verified your session is expired"));
         }
 
+        const courseName = courseCode
 
 
         const student = await Student.findOne({ studentEmail });
@@ -95,7 +94,9 @@ const verifyPaymentForCourse = asyncHandler(async (req, res) => {
         }
 
 
-        const checkCourse = await Course.findOne({ courseCode });
+        const checkCourse = await Course.findOne({ courseCode: courseName });
+
+        console.log(checkCourse);
 
         if(!checkCourse){
             return res.status(400).json(new ApiError(400, "Course not found"));
