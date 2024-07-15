@@ -7,11 +7,8 @@ const isTeacherLogin = asyncHandler (async (req, res, next) => {
     const teacherToken = req.cookies.teacherToken;
 
      console.log("req.cookies => ", req.cookies);
-     console.log("req.files => ", req.files);
-     console.log("req.file => ", req.file);
 
      
-
     if(!teacherToken) {
         return res
         .status(401)
@@ -22,6 +19,12 @@ const isTeacherLogin = asyncHandler (async (req, res, next) => {
 
         const decoded = jwt.verify(teacherToken, process.env.JWT_SECRET);
 
+        if(!decoded) {
+            return res
+            .status(401)
+            .json(new ApiError(401, 'teacher is not logged in'));
+        }
+
         req.user = decoded;
 
         next();
@@ -30,6 +33,8 @@ const isTeacherLogin = asyncHandler (async (req, res, next) => {
     } 
     catch (error) {
         
+        console.log("error => ", error);
+
         return res
         .status(401)
         .json(new ApiError(401, 'Invalid token or teacher is not logged in'));

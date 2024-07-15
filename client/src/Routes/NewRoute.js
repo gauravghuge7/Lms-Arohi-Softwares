@@ -38,7 +38,8 @@ function NewRoute() {
 
         <Route element={<ProtectedRoutes/>} >
           <Route path="/students" element={<ViewLecture />} />
-          <Route path="/mycourses" element={<MyCourses/>} />
+          
+          
           <Route path="/" element={<AdminDashboard />} />
         </Route>
 

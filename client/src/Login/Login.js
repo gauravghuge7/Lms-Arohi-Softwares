@@ -41,23 +41,24 @@ function Login() {
       
       console.log(result);
 
+      console.log("result.data =>", result.data);
+
 
       /// if the login is successful, redirect the user to the home page
       if (result.success) {
 
-        dispatch(setUser(result.data));
-
-        if(user.payload.user.type === 'admin'){
+        if(result.data.teacherType){
+          dispatch(setUser(result.data.teacherType));
+          navigate("/");
+        }
+        else if(result.data.studentType){
+          dispatch(setUser(result.data.studentType));
+          navigate("/");
+        }
+        else if(result.data.adminType){
+          dispatch(setUser(result.data.adminType));
           navigate("/admin");
         }
-        else if(user.payload.user.type === 'teacher'){
-          navigate("/");
-        }
-        else if(user.payload.user.type === 'student'){
-          navigate("/");
-        }
-
-        
 
         
       } 
@@ -175,6 +176,8 @@ function Login() {
                 Login with Google
               </button>
             </div>
+
+
           </div>
         </div>
       </div>

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import UploadVideo from '../Teacher/UploadVideo/UploadVideo';
-import Mycourses from '../Teacher/Mycourses/Mycourses';
+
 import ViewLecture from '../Common/ViewLecture/ViewLecture';
+import TeacherMycourses from '../Teacher/TeacherMycourses/TeacherMycourses';
 function TeacherRoutes() {
   return (
     <div>
@@ -10,7 +11,7 @@ function TeacherRoutes() {
         <Route path="/uploadvideo" element={<UploadVideo/>} />
         <Route path={'/uploadvideo/:courseCode'} element={<UploadVideo/>} />
 
-        <Route path="/teacher/Mycourses" element={<Mycourses/>} />
+        <Route path="/teacher/Mycourses" element={<TeacherMycourses/>} />
         <Route path="/teacher/ViewLecture" element={<ViewLecture/>} />
         <Route path={`/teacher/ViewLecture/:courseCode`} element={<ViewLecture/>} />
 
