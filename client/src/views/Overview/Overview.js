@@ -110,7 +110,7 @@ function Overview() {
 
         image: "https://example.com/your_logo",
         order_id: order.id,
-        callback_url: `/api/payment/verifyPaymentForCourse/:${courseCode}`,
+        callback_url: `/api/payment/verifyPaymentForCourse/${courseCode}`,
 
         prefill: {
             name: "Gaurav ghuge",

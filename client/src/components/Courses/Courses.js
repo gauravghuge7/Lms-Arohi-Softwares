@@ -28,7 +28,7 @@ function Courses() {
 
     try {
     
-      const response = await axios.get(`/api/course/showAllCourses`) 
+      const response = await axios.get(`api/course/showAllCourses`) 
 
       console.log(" get all courses response  => ",response);
 
