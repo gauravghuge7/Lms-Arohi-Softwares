@@ -33,8 +33,8 @@ function AdminPanel() {
   };
 
   return (
-    <section className="flex w-screen">
-      <div className="bg-[#eff4f8] w-fit">
+    <section className="flex w-full">
+      <div className="bg-[#eff4f8] w-full">
         <Navbar toggleSidebar={toggleSidebar} />
 
         <div className="flex h-full">

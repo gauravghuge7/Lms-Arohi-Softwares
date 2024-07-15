@@ -9,6 +9,7 @@ import CreateCourse from '../Admin/CreateCourse/CreateCourse';
 import TeacherList from '../Admin/components/Customer/TeacherList';
 import CourseTable from '../Admin/components/CourseTable/CourseTable';
 import { FaTachometerAlt, FaBoxOpen, FaTags, FaUser, FaTimes } from 'react-icons/fa';
+import UpdateCourse from '../Admin/UpdateCourse/UpdateCourse';
 
 function AdminRoute() {
 
@@ -62,7 +63,7 @@ const linkClasses = 'flex items-center p-4 mt-2 text-gray-600 hover:bg-gray-100 
           
 
         <Route path="/createCourse" element={<CreateCourse />} />
-        <Route path="/admin/updateCourse" element={<CreateCourse />} />
+        <Route path="/admin/updateCourse" element={<UpdateCourse />} />
 
       </Routes>
     </div>
