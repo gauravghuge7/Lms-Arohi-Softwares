@@ -14,6 +14,7 @@ studentRouter.route('/register').post(
 );
 
 
+
 studentRouter.route('/login').post(
     upload.none(),
     studentLogin

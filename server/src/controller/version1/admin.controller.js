@@ -79,6 +79,20 @@ const createAdmin = asyncHandler(async (req, res) => {
 });
 
 
+const getTotalStudentsEnrolled = asyncHandler(async(req,res) => {
+    const {adminEmail} = req.user;
+    if(!adminEmail) return res.status(400).json(new ApiError(400, 'Not authorized to access'));
+    try {
+        const students = await Student.find();
+        return res.status(200).json(new ApiResponse(200,'Total students enrolled',students));
+    }
+    catch(err){
+        console.log(err);
+        return res.status(400).json(new ApiError(400,err.message));
+    }
+}) 
+
+
 const createTeacher = asyncHandler(async (req, res) => {
     try {
         const { studentEmail, studentPassword } = req.body;
@@ -246,6 +260,20 @@ const getTeachers = async (req, res) => {
     }
 };
 
+const getCourses = async (req, res) => {
+    const { adminEmail } = req.user;
+
+    try {
+        const courses = await Course.find({ adminEmail });
+
+        return res.status(200).json(new ApiResponse(200, 'Courses fetched successfully', courses));
+    } 
+    
+    catch (error) {
+        return res.status(400).json(new ApiError(400, error.message));
+    }
+};
+
 
 
 export {
@@ -254,5 +282,7 @@ export {
     updateAdmin,
     logoutAdmin,
     getTeachers,
-    showAllCourses
+    showAllCourses,
+    getTotalStudentsEnrolled,
+    getCourses
 };
