@@ -45,7 +45,6 @@ const createCourse = asyncHandler(async (req, res) => {
         const path = req.file.path;
         console.log("path -> ",path)
         const response = await thumbnailUploadOnCloudinary(path);
-        console.log("res -> ",response.secure_url)
 
         // if(!response) {
         //     return res
@@ -67,7 +66,7 @@ const createCourse = asyncHandler(async (req, res) => {
 
             courseThumbnail: {
                 public_id: response.public_id,
-                secure_url: "response.secure_url"
+                private_url: response.secure_url
             }
           
             

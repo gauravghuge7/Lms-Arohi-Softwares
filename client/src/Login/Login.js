@@ -4,11 +4,12 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { setUser, setLogin } from "../store/User/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../store/User/userSlice";
 
 function Login() {
   const dispatch = useDispatch();
+  const user = useSelector(setUser);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,19 +47,15 @@ function Login() {
 
         dispatch(setUser(result.data));
 
-        if(result.data.adminType === 'admin'){
-          dispatch(setLogin(result.data.adminType));
+        if(user.payload.user.type === 'admin'){
           navigate("/admin");
         }
-        else if(result.data.teacherType === 'teacher'){
-          dispatch(setLogin(result.data.teacherType));
+        else if(user.payload.user.type === 'teacher'){
           navigate("/");
         }
-        else if(result.data.studentType === 'student'){
-          dispatch(setLogin(result.data.studentType));
+        else if(user.payload.user.type === 'student'){
           navigate("/");
         }
-        navigate("/");
 
         
 

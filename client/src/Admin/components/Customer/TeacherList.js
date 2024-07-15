@@ -13,7 +13,7 @@ const TeacherList = () => {
     const res = axios.get('/api/admin/getTeachers').then(res => setTeachers(res.data.data));
   },[])
   return (
-    <div className="min-h-screen bg-zinc-100 p-4">
+    <div className="min-h-screen w-full bg-zinc-100 p-4">
       <div className="container mx-auto bg-white rounded-lg shadow-md p-6">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold text-gray-800">Teacher List</h1>

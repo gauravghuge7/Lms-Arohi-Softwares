@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios"
-import moment from 'moment'
 
 
 // 
@@ -8,7 +7,7 @@ import moment from 'moment'
 
 function CreateCourse() {
 
-    const [teachers,setTeachers] = useState([])
+    const [teachers,setTeachers] = useState(null)
 
     const [courseData,setCourseData] =useState({
         courseName:"",
@@ -26,6 +25,8 @@ function CreateCourse() {
          axios.get('/api/admin/getTeachers').then(res => setTeachers(res.data.data))
     },[])
 
+
+
     const handleOnSubmit = async(e) => {
         e.preventDefault();
         courseData.courseStartDate = new Date(courseData.courseStartDate).toDateString();
@@ -42,7 +43,7 @@ function CreateCourse() {
     
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex items-center w-full justify-center min-h-screen bg-gray-100">
             <div className="w-full max-w-2xl p-6 bg-white border border-black-300 rounded-md shadow-md">
                 <h2 className="text-2xl font-bold text-center mb-4">Create New Course</h2>
                 <p className="text-center mb-6">Kindly fill this form to create a new course</p>
@@ -133,7 +134,7 @@ function CreateCourse() {
                     </div>
 
                     {/* Course Teacher */}
-                    <div className="mb-4">
+                    {teachers !== null  && <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-700" htmlFor="courseTeacher">Course Teacher</label>
                         <select 
                             className="w-full text-black px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
@@ -146,7 +147,7 @@ function CreateCourse() {
                             }):<option value={teachers[0].teacherFullName}>{teachers[0].teacherFullName}</option>}
                     
                         </select>
-                    </div>
+                    </div>}
 
                     {/* Course Thumbnail */}
                     <div className="mb-4">
