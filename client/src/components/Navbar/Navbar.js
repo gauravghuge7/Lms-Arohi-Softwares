@@ -16,6 +16,8 @@ function Navbar() {
   const user = useSelector((state) => state.user.user);
   const isAdmin = user?.userType === "admin" ? true : false;
 
+  const student = user === "student" ? true : false;
+
 
   const navigation = [
     { name: "Dashboard", href: "/dashboard", current: true, isAuth: isAdmin },
@@ -32,6 +34,11 @@ function Navbar() {
     // console.log(res.data);
     dispatch(logout());
   };
+
+
+
+
+
   return (
     
     <Disclosure as="nav" className="bg-gray-800">
@@ -132,7 +139,7 @@ function Navbar() {
                       <Menu.Item>
                       {({ active }) => (
                           <Link
-                            to="/teacher/Mycourses"
+                            to={student ? "/student/mycourses" : "/teacher/mycourses"}
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
                           >
                             My Courses

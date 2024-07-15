@@ -9,6 +9,7 @@ import { Admin } from '../../models/admin.model.js';
 
 
 
+
 /// create a course
 
 const createCourse = asyncHandler(async (req, res) => {
@@ -266,10 +267,17 @@ const deleteCourse = asyncHandler(async (req, res) => {
 const uploadLectures = asyncHandler(async (req, res) => {
 
     const { courseCode } = req.query;
-
     const {teacherEmail } = req.user;
-
     const { lectureName,  lectureDescription } = req.body;
+
+    if(!lectureName || !lectureDescription || !courseCode || !teacherEmail) {
+        return res.status(400).json(new ApiError(405, 'Missing required fields'));
+    }
+
+    console.log("req.body => ", req.body);
+
+    console.log("req.query => ", req.query);
+    console.log("req.user => ", req.user);
 
 
     if(!courseCode) { 
@@ -281,10 +289,19 @@ const uploadLectures = asyncHandler(async (req, res) => {
         const course = await Course.findOne({ courseCode });
 
         if(!course) {
-
             return res.status(404).json(new ApiError(404, 'Course not found'));
-        
         }
+
+
+        // const authorisedTeacher = course.teacherEmail.filter((val) => val === teacherEmail);
+
+        // console.log("authorisedTeacher => ", authorisedTeacher);
+
+        // if(!authorisedTeacher) {
+        //     return res.status(404).json(new ApiError(404, 'Teacher not found'));
+        // }
+       
+
 
         console.log("req.files => ", req.files);
         console.log("req.file => ", req.file);
@@ -296,7 +313,7 @@ const uploadLectures = asyncHandler(async (req, res) => {
 
         const response = await lectureUploadOnCloudinary(path);
        
-
+        console.log(response);
 
 
 

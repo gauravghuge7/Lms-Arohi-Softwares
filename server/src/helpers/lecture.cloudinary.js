@@ -62,29 +62,29 @@ const lectureUploadOnCloudinary = async(path) => {
         const response = await cloudinary.uploader.upload(path, {
             
             path: '/uploads/lectures/',
-            resource_type: 'video',
-            upload_preset: 'default',
+            resource_type: 'auto',
+            upload_preset: 'default'
 
 
-            transformation: {
-                quality: 'auto',
-                fetch_format: 'auto',
-                crop: 'limit',
-                width: 1280,
-                height: 720,
-                aspect_ratio: '16:9',
-                gravity: 'auto',
-                radius: 0,
-                background: 'transparent',
+            // transformation: {
+            //     quality: 'auto',
+            //     fetch_format: 'auto',
+            //     crop: 'limit',
+            //     width: 1280,
+            //     height: 720,
+            //     aspect_ratio: '16:9',
+            //     gravity: 'auto',
+            //     radius: 0,
+            //     background: 'transparent',
      
-            }
+            // }
 
 
         })
 
         console.log(response);
 
-        fs.unlinkSync(path);
+        // fs.unlinkSync(path);
         return response;
 
 
@@ -93,7 +93,7 @@ const lectureUploadOnCloudinary = async(path) => {
     catch (error) {
         console.log(error);
         // fs.unlinkSync(path);
-        return error.message;
+        return error;
     }
 }
 

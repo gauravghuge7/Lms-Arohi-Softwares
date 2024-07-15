@@ -3,57 +3,9 @@ import {Link} from "react-router-dom"
 import axios from "axios"
 
 import {useState, useEffect} from "react"
-// const courses = [
-//   {
-//     id: 1,
-//     image:
-//       "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://d15cw65ipctsrr.cloudfront.net/41/4d3d7c05fb42729c9d90352e072ca3/1060x596_GCC-photos_Karrim.png?auto=format%2Ccompress%2C%20enhance&dpr=1&w=320&h=180&fit=crop&q=50&crop=faces", // Replace with actual image URLs
-//     title: "Full Stack development",
-//     description:
-//       "Ready to rule the digital world. Learn to build powerfull fullstack software easily",
-//     languges: "Html, css, javascript, react",
-//     auther: "Vivek Shejole",
-//     viewCoursesLink: "/viewLecture",
-//     viewcourses:"View Courses",
 
-//     uploadCoursesLink: "/uploadvideo",
-//     uploadcourses:"Upload Lecture ",
-//     link:"/overview",
-//   },
-//   {
-//     id: 2,
-//     image:
-//       "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://d15cw65ipctsrr.cloudfront.net/41/4d3d7c05fb42729c9d90352e072ca3/1060x596_GCC-photos_Karrim.png?auto=format%2Ccompress%2C%20enhance&dpr=1&w=320&h=180&fit=crop&q=50&crop=faces", // Replace with actual image URLs
-//     title: "Full Stack development",
-//     description:
-//       "Ready to rule the digital world. Learn to build powerfull fullstack software easily",
-//     languges: "Html css javascript react",
-//     auther: "Vivek Shejole",
-//     viewCoursesLink: "/viewLecture",
-//     viewcourses:"View Courses",
-//     uploadCoursesLink: "/uploadvideo",
-//     uploadcourses:"Upload Lecture "
-//   },
-//   {
-//     id: 3,
-//     image:
-//       "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://d15cw65ipctsrr.cloudfront.net/41/4d3d7c05fb42729c9d90352e072ca3/1060x596_GCC-photos_Karrim.png?auto=format%2Ccompress%2C%20enhance&dpr=1&w=320&h=180&fit=crop&q=50&crop=faces", // Replace with actual image URLs
-//     title: "Full Stack development",
-//     description:
-//       "Ready to rule the digital world. Learn to build powerfull fullstack software easily",
-//     languges: "Html css javascript react",
-//     auther: "Vivek Shejole",
-//     viewCoursesLink: "/viewLecture",
-//     viewcourses:"View Courses",
-
-//     uploadcourses:"Upload Lecture ",
-//     uploadCoursesLink: "/uploadvideo",
-//   },
-
-//   // Add more courses as needed
-// ];
-
-function Mycourses() {
+ 
+function TeacherMycourses() {
   
   const [courses , setcourses]= useState([{
     _id: "",
@@ -90,6 +42,7 @@ function Mycourses() {
   }
   useEffect(() => {
     fetchmycourses()
+
   }, [])
 
   return (
@@ -104,7 +57,7 @@ function Mycourses() {
             key={course._id}
             className="bg-black text-white rounded-lg shadow-lg overflow-hidden"
           >
-              <img src={'${course.courseThumbnail.private_url}'}
+              <img src={course.courseThumbnail}
               alt={course.title} className="w-full h-70 object-cover" />
 
             {/* <img
@@ -144,4 +97,4 @@ function Mycourses() {
   );
 }
 
-export default Mycourses;
+export default TeacherMycourses;

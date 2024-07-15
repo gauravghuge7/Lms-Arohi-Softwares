@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+
+
+import React, { useState } from 'react';
 import './UploadVideo.css';
 import Navbar from '../../components/Navbar/Navbar';
 import axios from "axios";
@@ -7,21 +9,20 @@ import { useParams } from "react-router-dom";
 const initialVideos = [];
 
 const UploadVideo = () => {
+
+  
   const [videos, setVideos] = useState(initialVideos);
   const [showForm, setShowForm] = useState(false);
+
   const [newVideo, setNewVideo] = useState({
-    title: '',
-    instructor: '',
-    tags: '',
-    category: '',
     video: '',
-    duration: '0s',
+    duration: '',
     lectureName: '',
     courseCode: '',
     lectureDescription: '',
     lectureImage: '',
     attachments: '',
-    rating: 0,
+    rating: '',
     teacherMail: '',
   });
 
@@ -36,6 +37,8 @@ const UploadVideo = () => {
 
   const handleVideoUpload = (e) => {
     const file = e.target.files[0];
+    if (!file) return;
+    
     const videoUrl = URL.createObjectURL(file);
     const video = document.createElement('video');
 
@@ -50,84 +53,38 @@ const UploadVideo = () => {
     video.src = videoUrl;
   };
 
-  const handleSubmit = async (e) => {
+  const uploadLecture = async (e) => {
+
     e.preventDefault();
     
-    const formData = new FormData();
-    formData.append('title', newVideo.title);
-    formData.append('instructor', newVideo.instructor);
-    formData.append('tags', newVideo.tags);
-    formData.append('category', newVideo.category);
-    formData.append('video', newVideo.video);
-    formData.append('duration', newVideo.duration);
-    formData.append('lectureName', newVideo.lectureName);
-    formData.append('courseCode', newVideo.courseCode);
-    formData.append('lectureDescription', newVideo.lectureDescription);
-    formData.append('lectureImage', newVideo.lectureImage);
-    formData.append('doubts', newVideo.doubts);
-    formData.append('attachments', newVideo.attachments);
-    formData.append('rating', newVideo.rating);
-    formData.append('teacherMail', newVideo.teacherMail);
+    const body = {
+   
+      video: newVideo.video,
+      lectureName: newVideo.lectureName,
+      lectureDescription: newVideo.lectureDescription,
 
+      lectureImage: newVideo.lectureImage,
+      attachments: newVideo.attachments,
+
+    };
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      withCredentials: true,
+    };
+    
     try {
-      const response = await axios.post('/api/course/uploadLecture', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        withCredentials: true,
-      });
-
-      console.log('Upload Response:', response.data);
-
-      setVideos([...videos, { ...newVideo, id: videos.length + 1 }]);
-      setShowForm(false);
-      setNewVideo({
-        title: '',
-        instructor: '',
-        tags: '',
-        category: '',
-        video: '',
-        duration: '0s',
-        lectureName: '',
-        courseCode: '',
-        lectureDescription: '',
-        lectureImage: '',
-        attachments: '',
-        rating: 0,
-        teacherMail: '',
-      });
-    } catch (error) {
-      console.error('Upload Error:', error);
+      const response = await axios.post(`/api/course/uploadLectures?courseCode=${courseCode}`, body, config);
+      console.log("response =>", response);
+    } 
+    catch (error) {
+      console.error("Error uploading lecture:", error);
     }
   };
 
-  const uploadLecture = async () => {
-    const body = {
-      title: newVideo.title,
-      instructor: newVideo.instructor,
-      tags: newVideo.tags,
-      category: newVideo.category,
-      video: newVideo.video,
-      duration: newVideo.duration,
-      lectureName: newVideo.lectureName,
-      courseCode: newVideo.courseCode,
-      lectureDescription: newVideo.lectureDescription,
-      lectureImage: newVideo.lectureImage,
-      attachments: newVideo.attachments,
-      rating: newVideo.rating,
-      teacherMail: newVideo.teacherMail,
-    };
-    const config = {
-      headers: {
-        "content": "multipart/form-data",
-      },
-      withCredentials: true,   // this is for reading the cookie from the server side
-    };
-    
-    const response = await axios.post(`/api/course/uploadLectures?courseCode=${courseCode}`, body, config);
 
-    console.log("response =>", response);
-  };
 
   const filterVideosByDuration = (duration) => {
     setFilterDuration(duration);
@@ -153,6 +110,7 @@ const UploadVideo = () => {
     return durationMatch && categoryMatch;
   });
 
+
   const handleVideoClick = (video) => {
     const videoElement = document.createElement('video');
     videoElement.src = video.video;
@@ -174,25 +132,12 @@ const UploadVideo = () => {
     };
   };
 
-  // Fetch videos when the component mounts or courseCode changes
-  useEffect(() => {
-    const fetchVideos = async () => {
-      try {
-        const response = await axios.get(`/api/course/uploadLectures?courseCode=${courseCode}`, {
-          withCredentials: true,
-        });
-        setVideos(response.data.videos);
-      } catch (error) {
-        console.error('Error fetching videos:', error);
-      }
-    };
-
-    fetchVideos();
-  }, [courseCode]);
+ 
 
   return (
     <div className="upload-video-container">
       <Navbar />
+
       <div className="controls-container">
         <div className="filters-container">
           <div className="filter-sort-group">
@@ -223,71 +168,61 @@ const UploadVideo = () => {
           <button onClick={() => setShowForm(true)} className="upload-btn">Upload Video</button>
         </div>
       </div>
+
+
       {showForm && (
         <div className="modal">
           <div className="modal-content">
             <span className="close-btn" onClick={() => setShowForm(false)}>&times;</span>
             <form className="upload-form" onSubmit={uploadLecture}>
+
               <h2>Upload Video</h2>
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Instructor *</label>
-                  <input type="text" name="instructor" value={newVideo.instructor} onChange={handleInputChange} placeholder="Instructor" required />
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Tags *</label>
-                  <input type="text" name="tags" value={newVideo.tags} onChange={handleInputChange} placeholder="Tags" required />
-                </div>
-                <div className="form-group">
-                  <label>Category *</label>
-                  <input type="text" name="category" value={newVideo.category} onChange={handleInputChange} placeholder="Category" required />
-                </div>
-              </div>
+              
               <div className="form-row">
                 <div className="form-group">
                   <label>Video *</label>
-                  <input type="file" name="video" onChange={handleVideoUpload} accept="video/*" required />
+                  <input type="file" name="lecture" onChange={handleVideoUpload} accept="video/*" required />
                 </div>
                 <div className="form-group">
                   <label>Lecture Name *</label>
                   <input type="text" name="lectureName" value={newVideo.lectureName} onChange={handleInputChange} placeholder="Lecture Name" required />
                 </div>
               </div>
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Course Code *</label>
-                  <input type="text" name="courseCode" value={newVideo.courseCode} onChange={handleInputChange} placeholder="Course Code" required />
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Lecture Image *</label>
-                  <input type="file" name="lectureImage" onChange={handleInputChange} accept="image/*" required />
-                </div>
-                <div className="form-group">
-                  <label>Attachments *</label>
-                  <input type="file" name="attachments" onChange={handleInputChange} accept=".pdf,.doc,.ppt,.zip" required />
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Teacher Mail *</label>
-                  <input type="email" name="teacherMail" value={newVideo.teacherMail} onChange={handleInputChange} placeholder="Teacher Mail" required />
-                </div>
-              </div>
+
+
               <div className="form-row">
                 <div className="form-group">
                   <label>Lecture Description *</label>
-                  <textarea  name="lectureDescription" value={newVideo.lectureDescription} onChange={handleInputChange} placeholder="Lecture Description" required></textarea>
+                  <textarea name="lectureDescription" value={newVideo.lectureDescription} onChange={handleInputChange} placeholder="Lecture Description" required></textarea>
                 </div>
               </div>
+
+              {/****
+              <div className="form-row">
+
+                <div className="form-group">
+                  <label>Lecture Image *</label>
+                  <input type="file" name="lectureImage" onChange={handleInputChange} accept="image/*" />
+                </div>
+
+
+                <div className="form-group">
+                  <label>Attachments *</label>
+                  <input type="file" name="attachments" onChange={handleInputChange} accept=".pdf,.doc,.ppt,.zip" />
+                </div>
+
+              </div>
+
+ */}
+              
               <button type="submit" className="submit-btn">Upload</button>
+
+              
             </form>
           </div>
         </div>
       )}
+
       <div className="video-list-container">
         {filteredVideos.map((video) => (
           <div key={video.id} className="video-item" onClick={() => handleVideoClick(video)}>

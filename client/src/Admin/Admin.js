@@ -32,6 +32,20 @@ function AdminPanel() {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const menu = [
+    { name: "Dashboard", path: "/admin", icon: <FaTachometerAlt /> },
+    { name: "Courses", path: "/admin/courses", icon: <FaBoxOpen /> },
+  
+    { name: "CreateCourse", path: "/createCourse", icon: <FaTags /> },
+  
+    { name: "update Course", path: "/admin/updateCourse", icon: <FaUser /> },
+    { name: "Teacher List", path: "/admin/teachers", icon: <FaUser /> },
+    
+  
+  
+  ];
+
+
   return (
     <section className="flex w-full">
       <div className="bg-[#eff4f8] w-full">
