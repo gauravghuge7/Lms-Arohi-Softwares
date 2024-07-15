@@ -66,7 +66,7 @@ courseRouter.route('/showAllCourses').get(
 
 
 
-courseRouter.route('/uploadLectures').post(
+courseRouter.route(`/uploadLectures`).post(
     
     isTeacherLogin,
     upload.single('lecture'),

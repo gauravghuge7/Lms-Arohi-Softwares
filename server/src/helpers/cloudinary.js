@@ -6,7 +6,7 @@ const uploadOnCloudinary = (filePath) => {
     const response = cloudinary.uploader.upload(filePath,{
 
         path: '/uploads/',
-        resource_type: auto,
+        resource_type: 'auto',
         upload_preset: 'default'
     });
 
