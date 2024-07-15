@@ -32,8 +32,57 @@ function AdminPanel() {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const menu = [
+    { name: "Dashboard", path: "/admin", icon: <FaTachometerAlt /> },
+    { name: "Courses", path: "/admin/courses", icon: <FaBoxOpen /> },
+  
+    { name: "CreateCourse", path: "/createCourse", icon: <FaTags /> },
+  
+    { name: "update Course", path: "/admin/updateCourse", icon: <FaUser /> },
+    { name: "Teacher List", path: "/admin/teachers", icon: <FaUser /> },
+    
+  
+  
+  ];
+
+
   return (
     <section className="flex w-screen">
+
+
+
+
+
+
+
+
+
+
+      {/*** 
+      <div className={sidebarClasses}>
+        <div className="p-4 flex justify-between items-center w-[280px]">
+          <h1 className="text-2xl font-bold text-red-500">Admin</h1>
+          <button className="text-gray-400 hover:text-green-500 lg:hidden" onClick={null}>
+            <FaTimes />
+          </button>
+        </div>
+        <nav className="mt-8 h-screen">
+        
+          {menu.map((item, index) => (
+            <Link to={item.path} key={index} className={linkClasses}>
+              {item.icon}
+              <span className="ml-3">{item.name}</span>
+            </Link>
+          ))}
+
+
+        </nav>
+      </div>
+
+      ***/}
+
+
+
       <div className="bg-[#eff4f8] w-fit">
         <Navbar toggleSidebar={toggleSidebar} />
 
