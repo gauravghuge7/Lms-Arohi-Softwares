@@ -1,6 +1,7 @@
 import express from 'express';
 import { upload } from '../middlewares/multer.middleware.js';
-import { teacherDelete, teacherUpdate } from '../controller/version1/teacher.controller.js';
+import { getTeacherCourses, teacherDelete, teacherUpdate } from '../controller/version1/teacher.controller.js';
+import isTeacherLogin from '../middlewares/teacher.auth.js';
 
 const teacherRouter = express.Router();
 
@@ -8,20 +9,22 @@ const teacherRouter = express.Router();
 
 
 teacherRouter.route('/update').patch(
-
+    isTeacherLogin,
     upload.none(),
     teacherUpdate
 );
 
 
 teacherRouter.route('/getMyCourses').get(
-    
+    isTeacherLogin,
+    getTeacherCourses
 )
 
 
 
 teacherRouter.route('/getProfile').get(
-
+    isTeacherLogin,
+    getTeacherProfile
 )
 
 
