@@ -4,7 +4,6 @@ import axios from "axios"
 
 import {useState, useEffect} from "react"
 
-
  
 function TeacherMycourses() {
   
@@ -43,6 +42,7 @@ function TeacherMycourses() {
   }
   useEffect(() => {
     fetchmycourses()
+
   }, [])
 
   return (
@@ -57,7 +57,7 @@ function TeacherMycourses() {
             key={course._id}
             className="bg-black text-white rounded-lg shadow-lg overflow-hidden"
           >
-              <img src={course.courseThumbnail.private_url}
+              <img src={course.courseThumbnail}
               alt={course.title} className="w-full h-70 object-cover" />
 
             {/* <img

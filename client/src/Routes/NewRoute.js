@@ -6,16 +6,15 @@ import Overview from '../views/Overview/Overview';
 import Signup from '../Signup/Signup';
 import Login from '../Login/Login';
 
-
-
 import AdminDashboard from '../Admin/components/Dashboard/Dashboard';
 import ViewLecture from '../Common/ViewLecture/ViewLecture';
 import ProtectedRoutes from '../Provider/ProtectedRoutes';
-import MyCourses from '../Student/MyCourses/MyCourses';
+
 
 function NewRoute() {
   return (
     <div>
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/courses" element={<Coursespage />} />
@@ -24,9 +23,6 @@ function NewRoute() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
 
-
-      
-       
      
         <Route path={`/viewLecture`} element={<ViewLecture/>} />
         <Route path={`/viewLecture/id`} element={<ViewLecture />} />
@@ -40,15 +36,10 @@ function NewRoute() {
           <Route path="/students" element={<ViewLecture />} />
           
           
-          <Route path="/" element={<AdminDashboard />} />
+           <Route path="/" element={<AdminDashboard />} />
         </Route>
 
-        {/****
-        <Route path="/products" element={<ProductsTable />} />
-        <Route path="/customers" element={<OrdersTable />} />
-        <Route path="/orders" element={<Customers />} />
-
- */}
+    
       </Routes>
     </div>
   );
