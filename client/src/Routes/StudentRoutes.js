@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import YourProfile from '../Student/YourProfile/YourProfile';
+// import YourProfile from '../Student/YourProfile/YourProfile';
 import MyCourses from '../Student/MyCourses/MyCourses';
 import ViewLecture from '../Common/ViewLecture/ViewLecture';
 
@@ -9,7 +9,7 @@ function StudentRoute() {
   return (
     <div>
       <Routes>
-        <Route path="/profile" element={<YourProfile />} />
+        {/* <Route path="/profile" element={<YourProfile />} /> */}
         <Route path="/student/mycourses" element={<MyCourses />} />
         <Route path={`/student/viewlecture/:courseCode`} element={<ViewLecture />} />
       </Routes>
