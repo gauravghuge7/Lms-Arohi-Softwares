@@ -102,7 +102,7 @@ const verifyPaymentForCourse = asyncHandler(async (req, res) => {
             return res.status(400).json(new ApiError(400, "Course not found"));
         }
 
-        checkCourse.studentEmail.push(...studentEmail);
+        checkCourse.studentEmail.push(studentEmail);
 
         console.log(checkCourse);
 
@@ -124,7 +124,7 @@ const verifyPaymentForCourse = asyncHandler(async (req, res) => {
 
        return res
            .status(200)
-           .redirect(`http://localhost:3000/course`)
+           .redirect(`http://localhost:3000`)
            
     } 
 
