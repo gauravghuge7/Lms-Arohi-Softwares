@@ -115,7 +115,7 @@ const YourProfile = () => {
               <h2>My Profile</h2>
             </div>
 
-
+    
             <form className="profile-form" onSubmit={handleSubmit}>
               <div className="form-row">
                 <div className="form-group">

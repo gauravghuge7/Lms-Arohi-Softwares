@@ -47,43 +47,8 @@ function AdminPanel() {
 
 
   return (
-    <section className="flex w-screen">
-
-
-
-
-
-
-
-
-
-
-      {/*** 
-      <div className={sidebarClasses}>
-        <div className="p-4 flex justify-between items-center w-[280px]">
-          <h1 className="text-2xl font-bold text-red-500">Admin</h1>
-          <button className="text-gray-400 hover:text-green-500 lg:hidden" onClick={null}>
-            <FaTimes />
-          </button>
-        </div>
-        <nav className="mt-8 h-screen">
-        
-          {menu.map((item, index) => (
-            <Link to={item.path} key={index} className={linkClasses}>
-              {item.icon}
-              <span className="ml-3">{item.name}</span>
-            </Link>
-          ))}
-
-
-        </nav>
-      </div>
-
-      ***/}
-
-
-
-      <div className="bg-[#eff4f8] w-fit">
+    <section className="flex w-full">
+      <div className="bg-[#eff4f8] w-full">
         <Navbar toggleSidebar={toggleSidebar} />
 
         <div className="flex h-full">

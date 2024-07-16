@@ -15,9 +15,9 @@ function Navbar() {
   const isAuth = useSelector((state) => state.user.isAuthenticated);
   const user = useSelector((state) => state.user.user);
   const isAdmin = user?.userType === "admin" ? true : false;
-
-  const student = user === "student" ? true : false;
-
+  const userType = user?.userType; 
+  const profilePath = userType ==="teacher" ? "/teacherProfile" : "/profile";
+  const student = userType === "student"; 
 
   const navigation = [
     { name: "Dashboard", href: "/dashboard", current: true, isAuth: isAdmin },
@@ -29,18 +29,14 @@ function Navbar() {
     { name: "Login", href: "/login", current: false, isAuth: !isAuth },
     { name: "Signup", href: "/signup", current: false, isAuth: !isAuth },
   ];
+
   const logouthandler = async () => {
     // const res = await axios.get('/api/student/logout')
     // console.log(res.data);
     dispatch(logout());
   };
 
-
-
-
-
   return (
-    
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
         <>
@@ -58,37 +54,27 @@ function Navbar() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-col items-center mr-48">
-                  {/* <img
-                    className="h-16 w-auto mb-1"
-                    src="https://media.licdn.com/dms/image/D560BAQFtWM46bCiJfQ/company-logo_200_200/0/1695197175289?e=2147483647&v=beta&t=46cYmda122C_egnedarsDunJhoZgjhMYaeUJixhrbXM"
-                    alt="Arohi Software"
-                  /> */}
-                  <p className="text-4xl font-bold text-white">
-                    Arohi Software
-                  </p>
+                  <p className="text-4xl font-bold text-white">Arohi Software</p>
                 </div>
-                <div className="hidden flex  sm:ml-6 sm:block">
+                <div className="hidden flex sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <>
-                        <Link
-                          key={item.name}
-                          to={item.href}
-                          className={classNames(
-                            item.current
-                              ? "bg-gray-900 text-white"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                            "rounded-md px-3 py-2 text-2xl font-medium ",
-                            item.isAuth ? "block" : "hidden"
-                          )}
-                          aria-current={item.current ? "page" : undefined}
-                        >
-                          {item.name}
-                        </Link>
-                      </>
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        className={classNames(
+                          item.current
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "rounded-md px-3 py-2 text-2xl font-medium ",
+                          item.isAuth ? "block" : "hidden"
+                        )}
+                        aria-current={item.current ? "page" : undefined}
+                      >
+                        {item.name}
+                      </Link>
                     ))}
                   </div>
-                  <div></div>
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -125,7 +111,7 @@ function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to="/profile"
+                            to="/teacherProfile"
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-lg text-gray-700"
@@ -135,19 +121,19 @@ function Navbar() {
                           </Link>
                         )}
                       </Menu.Item>
-
                       <Menu.Item>
-                      {({ active }) => (
+                        {({ active }) => (
                           <Link
                             to={student ? "/student/mycourses" : "/teacher/mycourses"}
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-lg text-gray-700"
+                            )}
                           >
                             My Courses
                           </Link>
                         )}
                       </Menu.Item>
-
-
                       <Menu.Item>
                         {({ active }) => (
                           <a

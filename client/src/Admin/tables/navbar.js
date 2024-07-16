@@ -7,8 +7,8 @@ const darkModeToggle = () => {
 
 const Navbar = ({ toggleSidebar }) => {
   return (
-    <div className='sticky top-0 z-50'>
-      <div className="flex items-center justify-between w-fit lg:w-screen p-4 bg-gradient-to-r bg-white  text-gray-600 shadow-lg rounded-sm">
+    <div className='sticky top-0 w-full z-50'>
+      <div className="flex items-center justify-between w-fit lg:w-full p-4 bg-gradient-to-r bg-white  text-gray-600 shadow-lg rounded-sm">
         
         <div className="flex items-center bg-white rounded-md border border-gray-500 hover:border-green-500 shadow-sm w-full max-w-md">
           <input type="text" placeholder="Search here..." className="flex-grow p-3 bg-transparent focus:outline-none" />

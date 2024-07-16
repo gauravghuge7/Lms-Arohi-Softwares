@@ -1,74 +1,66 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
-import "./YourProfile.css";
-
+import "./teacherProfile.css";
 import axios from "axios";
 import Navbar from "../../components/Navbar/Navbar";
 
-const YourProfile = () => {
-  const loginUser = "student";
+const TeacherProfile = () => {
+  const loginUser = "teacher";
 
   const [profile, setProfile] = useState({
-    studentFullName: "Anuruddh Singh",
-    studentEmail: "anuruddh7234@gmail.com",
-    studentMobileNo: "8795734013",
-    studentGender: "Male",
-    studentAge: "20",
-    studentAddress: "Lucknow, Uttar Pradesh",
-    studentProfilePicture: "path-to-profile-picture.jpg",
-
+    teacherFullName: "",
+    teacherEmail: "",
+    teacherPhone: "",
+    teacherAddress: "",
+    teacherAge: "",
+    teacherGender: "",
+    profilePicture: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setProfile((prevProfile) => ({
       ...prevProfile,
       [name]: value,
     }));
   };
 
-  const handleSubmit = async () => {
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const body = {
-      studentFullName: profile.studentFullName,
-      studentEmail: profile.studentEmail,
-      studentMobileNo: profile.studentMobileNo,
-      studentGender: profile.studentGender,
-      studentAge: profile.studentAge,
-      studentAddress: profile.studentAddress,
-      studentProfilePicture: profile.studentProfilePicture,
-    }
+      teacherFullName: profile.teacherFullName,
+      teacherEmail: profile.teacherEmail,
+      teacherPhone: profile.teacherPhone,
+      teacherGender: profile.teacherGender,
+      teacherAge: profile.teacherAge,
+      teacherAddress: profile.teacherAddress,
+      profilePicture: profile.profilePicture,
+    };
 
     const config = {
-
       headers: {
-        "content": "multipart/form-data",
-  
+        "Content-Type": "application/json",
       },
+      withCredentials: true,
+    };
 
-      withCredentials: true,   /// this is for reading the cookie from the server side
-    }
-
-    const response = await axios.post(`api/student/profile/${loginUser}`, body, config);
-
-    console.log("response =>", response);
-
-
-  };
-
-  const fetchProfile = async () => {
     try {
-      const response = await axios.get(`api/student/profile/${loginUser}`);
-      console.log("get all courses response=>", response);
-      console.log("response.data =>", response.data);
-      console.log("response.data.data =>", response.data.data);
-      setProfile(response.data.data);
+      const response = await axios.post(`/api/teacher/update/${loginUser}`, body, config);
+      console.log("response =>", response);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const fetchProfile = async () => {
+    try {
+      const response = await axios.get(`/api/teacher/getProfile/${loginUser}`);
+      console.log("get profile response =>", response);
+      setProfile(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
@@ -86,7 +78,6 @@ const YourProfile = () => {
 
   useEffect(() => {
     fetchProfile();
-
   }, []);
 
   return (
@@ -103,7 +94,6 @@ const YourProfile = () => {
                   className="avatar"
                   onClick={() => document.getElementById("avatarInput").click()}
                 />
-
                 <input
                   type="file"
                   id="avatarInput"
@@ -112,49 +102,45 @@ const YourProfile = () => {
                   onChange={handleAvatarChange}
                 />
               </div>
-              <h2>My Profile</h2>
+              <h2>Teacher Profile</h2>
             </div>
-
-
             <form className="profile-form" onSubmit={handleSubmit}>
               <div className="form-row">
                 <div className="form-group">
                   <label>Full Name *</label>
                   <input
                     type="text"
-                    name="fullName"
-                    value={profile.fullName}
+                    name="teacherFullName"
+                    value={profile.teacherFullName}
                     onChange={handleChange}
                   />
                 </div>
-
                 <div className="form-group">
                   <label>Email *</label>
                   <input
                     type="email"
-                    name="email"
-                    value={profile.email}
+                    name="teacherEmail"
+                    value={profile.teacherEmail}
                     onChange={handleChange}
                   />
                 </div>
               </div>
-
               <div className="form-row">
                 <div className="form-group">
                   <label>Mobile No *</label>
                   <input
                     type="tel"
-                    name="mobileNo"
-                    value={profile.mobileNo}
-                    disabled
+                    name="teacherPhone"
+                    value={profile.teacherPhone}
+                    onChange={handleChange}
+                    
                   />
                 </div>
-
                 <div className="form-group">
                   <label>Gender</label>
                   <select
-                    name="gender"
-                    value={profile.gender}
+                    name="teacherGender"
+                    value={profile.teacherGender}
                     onChange={handleChange}
                   >
                     <option value="Male">Male</option>
@@ -163,14 +149,13 @@ const YourProfile = () => {
                   </select>
                 </div>
               </div>
-
               <div className="form-row">
                 <div className="form-group">
                   <label>Age</label>
                   <input
                     type="number"
-                    name="age"
-                    value={profile.age}
+                    name="teacherAge"
+                    value={profile.teacherAge}
                     onChange={handleChange}
                   />
                 </div>
@@ -178,17 +163,15 @@ const YourProfile = () => {
                   <label>Address</label>
                   <input
                     type="text"
-                    name="address"
-                    value={profile.address}
+                    name="teacherAddress"
+                    value={profile.teacherAddress}
                     onChange={handleChange}
                   />
                 </div>
               </div>
-
               <button type="submit" className="save-changes">
                 Save changes
               </button>
-
             </form>
           </div>
         </main>
@@ -197,4 +180,4 @@ const YourProfile = () => {
   );
 };
 
-export default YourProfile;
+export default TeacherProfile;
