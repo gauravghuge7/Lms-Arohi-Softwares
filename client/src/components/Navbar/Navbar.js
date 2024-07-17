@@ -122,7 +122,7 @@ function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                          to={ "/teacherprofile" }
+                          to={student ? "/teacherprofile" : "/student/profile"}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-lg text-gray-700"
