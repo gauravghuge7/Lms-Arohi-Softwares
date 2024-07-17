@@ -45,7 +45,7 @@ const TeacherProfile = () => {
     };
 
     try {
-      const response = await axios.post(`/api/teacher/update/${loginUser}`, body, config);
+      const response = await axios.put(`/api/teacher/update`, body, config);
       console.log("response =>", response);
     } catch (error) {
       console.log(error);
@@ -54,7 +54,7 @@ const TeacherProfile = () => {
 
   const fetchProfile = async () => {
     try {
-      const response = await axios.get(`/api/teacher/getProfile/${loginUser}`);
+      const response = await axios.get(`/api/teacher/getProfile/`);
       console.log("get profile response =>", response);
       setProfile(response.data.data);
     } catch (error) {
