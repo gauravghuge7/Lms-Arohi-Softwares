@@ -16,7 +16,7 @@ function AdminRoute() {
 const linkClasses = 'flex items-center p-4 mt-2 text-gray-600 hover:bg-gray-100 hover:text-green-500 rounded-lg transition-colors duration-200';
 
   const menu = [
-    { name: "Dashboard", path: "/admin", icon: <FaTachometerAlt /> },
+    { name: "Dashboard", path: "/admin/dashboard", icon: <FaTachometerAlt /> },
     { name: "Courses", path: "/admin/courses", icon: <FaBoxOpen /> },
   
     { name: "CreateCourse", path: "/createCourse", icon: <FaTags /> },
@@ -29,8 +29,8 @@ const linkClasses = 'flex items-center p-4 mt-2 text-gray-600 hover:bg-gray-100 
   ];
 
   return (
-    <div className='flex'>
-      <div className={sidebarClasses}>
+    <div className='flex '>
+      {/* <div className={sidebarClasses}>
               <div className="p-4 flex justify-between items-center w-[280px]">
                 <h1 className="text-2xl font-bold text-red-500">Admin</h1>
                 <button className="text-gray-400 hover:text-green-500 lg:hidden" onClick={null}>
@@ -46,25 +46,8 @@ const linkClasses = 'flex items-center p-4 mt-2 text-gray-600 hover:bg-gray-100 
                   </Link>
                 ))}
               </nav>
-            </div>
-      <Routes>
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/teachers" element={<TeacherList />} />
-   
-
-        <Route path="/admin/courses" element={<CourseTable />} />
-
-
-        <Route path="/admin/viewLectures" element={<ViewLecture />} />
-
-
-          
-
-        <Route path="/createCourse" element={<CreateCourse />} />
-        <Route path="/admin/updateCourse" element={<CreateCourse />} />
-
-      </Routes>
+      </div> */}
+      
     </div>
   )
 
