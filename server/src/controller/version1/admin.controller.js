@@ -137,6 +137,7 @@ const createTeacher = asyncHandler(async (req, res) => {
         console.log(res);
         const teacher = await Teacher.create({
             teacherName: user.studentName,
+            teacherUserName: user.studentUserName,
             teacherFullName: user.studentFullName,
             teacherEmail: user.studentEmail,
             teacherPhoneNumber: user.studentPhoneNumber,

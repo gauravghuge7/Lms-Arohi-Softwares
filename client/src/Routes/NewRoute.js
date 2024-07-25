@@ -9,6 +9,7 @@ import Login from '../Login/Login';
 import AdminDashboard from '../Admin/components/Dashboard/Dashboard';
 import ViewLecture from '../Common/ViewLecture/ViewLecture';
 import ProtectedRoutes from '../Provider/ProtectedRoutes';
+import { ProtectedAdminRoute } from '../Provider/ProtectecAdminRoutes';
 
 
 function NewRoute() {
@@ -16,7 +17,6 @@ function NewRoute() {
     <div>
 
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/courses" element={<Coursespage />} />
         <Route path="/overview/:courseCode" element={<Overview />} />
 
@@ -36,8 +36,11 @@ function NewRoute() {
           <Route path="/students" element={<ViewLecture />} />
           
           
-           <Route path="/" element={<AdminDashboard />} />
         </Route>
+        <Route element={<ProtectedAdminRoute/>}>
+           <Route path="/" element={<AdminDashboard />} />
+
+        </Route >
 
     
       </Routes>

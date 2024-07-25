@@ -11,6 +11,7 @@ import CourseTable from '../Admin/components/CourseTable/CourseTable';
 import { FaTachometerAlt, FaBoxOpen, FaTags, FaUser, FaTimes } from 'react-icons/fa';
 import UpdateCourse from '../Admin/UpdateCourse/UpdateCourse';
 import AdminNavbar from '../Admin/Navigation/AdminNavbar';
+import { ProtectedAdminRoute } from '../Provider/ProtectecAdminRoutes';
 
 function AdminRoute() {
 
@@ -56,6 +57,7 @@ function AdminRoute() {
       <Routes>
 
 
+        <Route element={<ProtectedAdminRoute/>}>
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/teachers" element={<TeacherList />} />
@@ -66,7 +68,7 @@ function AdminRoute() {
 
 
         <Route path="/createCourse" element={<CreateCourse />} />
-        <Route path="/admin/updateCourse" element={<UpdateCourse />} />
+        <Route path="/admin/updateCourse" element={<UpdateCourse />} /></Route>
 
       </Routes>
     </div></>

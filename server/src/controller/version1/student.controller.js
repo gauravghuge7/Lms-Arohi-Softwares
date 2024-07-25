@@ -19,37 +19,32 @@ const cookieOptions = {
 
 const studentRegister = asyncHandler(async (req, res, next) => {
 
-    const {studentPassword,studentFullName, studentUserName, studentPhoneNumber, studentEmail,} = req.body;
+    const {studentPassword,studentFullName, studentUserName, studentPhoneNumber, studentEmail} = req.body;
 
 
-    if(!studentPassword || !studentUserName || !studentEmail) {
-
-
+    if(!studentPassword || !studentUserName || !studentEmail ) {
         return res
         .status(400)
         .json(new ApiError(400, 'Student data is missing'));
-        
     }
 
 
     try {
-
-        const user = await Student.findOne({ studentEmail, studentUserName })
+        
+        const user = await Student.findOne({ studentEmail, studentUserName });  
 
         if(user) {
 
             throw new ApiError(400, 'Student with this email or username already exists');
-    
+
             // res.status(400)
             // .json(new ApiError(400, 'Student with this email already exists'));
         }
 
-
         const encryptedPassword = await bcrypt.hash(studentPassword, 10);
 
-
         const savedStudent = await Student.create({
-            
+            studentFullName,
             studentPassword: encryptedPassword,
             studentEmail,
             studentUserName,
@@ -91,7 +86,6 @@ const studentLogin = asyncHandler(async (req, res, next) => {
 
 
         if(!user) {
-
             return res 
             .json(new ApiError(400, 'Student with this email is not found'));
         }
@@ -104,7 +98,6 @@ const studentLogin = asyncHandler(async (req, res, next) => {
         }
 
         const studentToken = user.generateStudentLogin();
-
 
         return res
         .status(200)

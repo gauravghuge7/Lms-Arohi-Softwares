@@ -95,10 +95,10 @@ function ViewLecture() {
 
 
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex  flex-col md:flex-row">
       {activeVideo && (
         <div className="w-full md:w-3/4 flex flex-col items-center bg-gray-900 p-5">
-          <div className="w-full h-56 md:h-96">
+          <div className="w-full w-full md:h-96">
             <ReactPlayer
               ref={(player) => {
                 activeVideo.ref = player;

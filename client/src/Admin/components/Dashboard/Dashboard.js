@@ -16,7 +16,6 @@ const Dashboard = () => {
 
   },[]) 
 
-  console.log(totalEntrolledStudents)
   return (
     <div className="min-h-screen w-full bg-gray-100 p-4">
       <div className="container mx-auto rounded-lg shadow-md p-6 bg-white">

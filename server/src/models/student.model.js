@@ -5,7 +5,6 @@ const StudentSchema = new mongoose.Schema({
  
     studentFullName: {
         type: String,
-   
     },
 
 
@@ -20,7 +19,6 @@ const StudentSchema = new mongoose.Schema({
 
         type: String,
         
-
     }],
 
         

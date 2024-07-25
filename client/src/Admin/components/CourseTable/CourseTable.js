@@ -26,13 +26,12 @@ const CourseTable = () => {
   },[])
   
   const CourseCard = ({ product }) => (
-    <div className="border rounded shadow p-4 m-2 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 flex flex-col items-start min-h-[400px]">
+    <div className="">
       <img 
         src={`${product.courseThumbnail.private_url}`} 
         alt="Course" 
-        className="w-full mb-4 object-fill h-40 " 
+        className="w-full mb-4 object-fill h-40" 
       />
-      {console.log(product)}
       <h3 className="text-xl font-semibold mb-2">{product.courseName}</h3>
       <p><strong>Course Code:</strong> {product.courseCode}</p>
       <p><strong>Price:</strong> {product.coursePrice}</p>

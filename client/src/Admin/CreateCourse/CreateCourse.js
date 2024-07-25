@@ -143,8 +143,8 @@ function CreateCourse() {
                         >
                             <option value="">Select Teacher</option>
                             {teachers.length > 1 ? teachers.map((teacher) => {
-                                return <option value={teacher.teacherFullName}>{teacher.teacherFullName}</option>
-                            }):<option value={teachers[0].teacherFullName}>{teachers[0].teacherFullName}</option>}
+                                return <option value={teacher.teacherEmail}>{teacher.teacherEmail.split("@")[0]}</option>
+                            }):<option value={teachers[0].teacherEmail}>{teachers[0].teacherEmail.split("@")[0]}</option>}
                     
                         </select>
                     </div>}
