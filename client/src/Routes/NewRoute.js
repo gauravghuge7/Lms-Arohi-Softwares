@@ -17,7 +17,6 @@ function NewRoute() {
     <div>
 
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/courses" element={<Coursespage />} />
         <Route path="/overview/:courseCode" element={<Overview />} />
 

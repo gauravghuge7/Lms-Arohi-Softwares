@@ -32,7 +32,6 @@ const CourseTable = () => {
         alt="Course" 
         className="w-full mb-4 object-fill h-40" 
       />
-      {console.log(product)}
       <h3 className="text-xl font-semibold mb-2">{product.courseName}</h3>
       <p><strong>Course Code:</strong> {product.courseCode}</p>
       <p><strong>Price:</strong> {product.coursePrice}</p>
